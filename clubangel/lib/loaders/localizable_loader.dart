@@ -5,24 +5,24 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
-class LocalizableParser {
+class LocalizableLoader {
   Locale locale;
   static Map<dynamic, dynamic> _localisedValues;
 
-  LocalizableParser(Locale locale) {
+  LocalizableLoader(Locale locale) {
     this.locale = locale;
   }
 
-  static LocalizableParser of(BuildContext context) {
-    return Localizations.of<LocalizableParser>(context, LocalizableParser);
+  static LocalizableLoader of(BuildContext context) {
+    return Localizations.of<LocalizableLoader>(context, LocalizableLoader);
   }
 
-  static Future<LocalizableParser> load(Locale locale) async {
-    LocalizableParser localizableParser = LocalizableParser(locale);
+  static Future<LocalizableLoader> load(Locale locale) async {
+    LocalizableLoader localizableLoader = LocalizableLoader(locale);
     String path = "assets/localizables/${locale.languageCode}.json";
     String jsonContent = await rootBundle.loadString(path);
     _localisedValues = json.decode(jsonContent);
-    return localizableParser;
+    return localizableLoader;
   }
 
   get currentLanguage => locale.languageCode;

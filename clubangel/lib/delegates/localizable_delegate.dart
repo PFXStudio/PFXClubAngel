@@ -1,10 +1,10 @@
 import 'dart:async';
 
-import 'package:clubangel/managers/application.dart';
-import 'package:clubangel/parsers/localizables/localizable_parser.dart';
+import 'package:clubangel/loaders/localizable_loader.dart';
+import 'package:clubangel/managers/localizable_manager.dart';
 import 'package:flutter/material.dart';
 
-class LocalizableDelegate extends LocalizationsDelegate<LocalizableParser> {
+class LocalizableDelegate extends LocalizationsDelegate<LocalizableLoader> {
   final Locale newLocale;
 
   const LocalizableDelegate({
@@ -13,16 +13,16 @@ class LocalizableDelegate extends LocalizationsDelegate<LocalizableParser> {
 
   @override
   bool isSupported(Locale locale) {
-    return application.supportedLanguagesCodes.contains(locale.languageCode);
+    return localizableManager.supportedLanguagesCodes.contains(locale.languageCode);
   }
 
   @override
-  Future<LocalizableParser> load(Locale locale) {
-    return LocalizableParser.load(newLocale ?? locale);
+  Future<LocalizableLoader> load(Locale locale) {
+    return LocalizableLoader.load(newLocale ?? locale);
   }
 
   @override
-  bool shouldReload(LocalizationsDelegate<LocalizableParser> old) {
+  bool shouldReload(LocalizationsDelegate<LocalizableLoader> old) {
     return true;
   }
 }

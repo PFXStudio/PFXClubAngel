@@ -1,14 +1,14 @@
 import 'dart:ui';
 
-class Application {
+class LocalizableManager {
 
-  static final Application _application = Application._internal();
+  static final LocalizableManager _localizableManager = LocalizableManager._internal();
 
-  factory Application() {
-    return _application;
+  factory LocalizableManager() {
+    return _localizableManager;
   }
 
-  Application._internal();
+  LocalizableManager._internal();
   
   final List<String> supportedLanguages = [
     "English",
@@ -28,5 +28,5 @@ class Application {
   LocaleChangeCallback onLocaleChanged;
 }
 
-Application application = Application();
+LocalizableManager localizableManager = LocalizableManager();
 typedef void LocaleChangeCallback(Locale locale);

@@ -1,7 +1,6 @@
 import 'dart:async';
-import 'package:clubangel/delegates/localizable_delegate.dart';
-import 'package:clubangel/managers/application.dart';
-import 'package:clubangel/parsers/localizables/localizable_parser.dart';
+import 'package:clubangel/loaders/localizable_loader.dart';
+import 'package:clubangel/managers/localizable_manager.dart';
 import 'package:flutter/material.dart';
 
 class SplashWidget extends StatefulWidget {
@@ -15,7 +14,7 @@ class _SplashWidgetState extends State<SplashWidget> {
     super.initState();
     Timer(Duration(seconds: 5), () {
       print("Done...");
-      application.onLocaleChanged(Locale(application.supportedLanguagesCodes[1]));
+      localizableManager.onLocaleChanged(Locale(localizableManager.supportedLanguagesCodes[1]));
     }
     );
   }
@@ -47,7 +46,7 @@ class _SplashWidgetState extends State<SplashWidget> {
                           padding: EdgeInsets.only(top:20.0),
                         ),
                         Text(
-                          LocalizableParser.of(context).text("app_title"), style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold)
+                          LocalizableLoader.of(context).text("app_title"), style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold)
                         )
                       ],
                     ),
@@ -61,7 +60,7 @@ class _SplashWidgetState extends State<SplashWidget> {
                     Padding(
                       padding: EdgeInsets.only(top: 20.0),
                     ),
-                    Text(LocalizableParser.of(context).text("splash_screen_loading"), style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),)
+                    Text(LocalizableLoader.of(context).text("splash_screen_loading"), style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),)
                   ],
                 ),)
               ],

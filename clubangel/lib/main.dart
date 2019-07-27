@@ -1,9 +1,10 @@
-import 'package:clubangel/managers/application.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:clubangel/delegates/localizable_delegate.dart';
 import 'package:clubangel/widgets/splash/splash_widget.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+import 'managers/localizable_manager.dart';
 
 void main() {
   runApp(MainApp());
@@ -21,7 +22,7 @@ class _MainAppState extends State<MainApp> {
   void initState() { 
     super.initState();
     _localizableDelegate = LocalizableDelegate(newLocale: null);
-    application.onLocaleChanged = onLocaleChange;
+    localizableManager.onLocaleChanged = onLocaleChange;
   }
 
     void onLocaleChange(Locale locale) {
@@ -76,7 +77,7 @@ class _MainAppState extends State<MainApp> {
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         ],
-      supportedLocales: application.supportedLocales(),
+      supportedLocales: localizableManager.supportedLocales(),
     );
   }
 }
