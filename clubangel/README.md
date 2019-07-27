@@ -1,6 +1,6 @@
 # clubangel
 
-PFXClubAngel
+A new Flutter project.
 
 ## Getting Started
 
