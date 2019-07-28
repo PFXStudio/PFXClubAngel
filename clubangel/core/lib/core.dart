@@ -6,9 +6,6 @@ export 'src/models/show.dart';
 export 'src/models/show_cache.dart';
 export 'src/models/theater.dart';
 
-export 'src/i18n/messages.dart';
-export 'src/i18n/inkino_messages_all.dart';
-
 export 'src/networking/finnkino_api.dart';
 
 export 'src/redux/_common/search.dart';

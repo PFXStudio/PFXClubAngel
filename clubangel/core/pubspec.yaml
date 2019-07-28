@@ -1,8 +1,8 @@
 name: core
-description: Common shared code for inKino mobile and web.
+description: Common shared code for club angel.
 version: 0.0.1
 #homepage: https://www.example.com
-#author: ironman <email@example.com>
+#author: succorer <email@example.com>
 
 environment:
   sdk: '>=2.0.0-dev.58.0 <3.0.0'

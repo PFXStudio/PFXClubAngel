@@ -1,3 +1,4 @@
+import 'package:clubangel/defines/define_images.dart';
 import 'package:clubangel/loaders/localizable_loader.dart';
 import 'package:clubangel/widgets/mains/main_bottom_bar_widget.dart';
 import 'package:clubangel/widgets/mains/main_top_bar_widget.dart';
@@ -54,10 +55,8 @@ class _MainWidgetState extends State<MainWidget>
 
   @override
   Widget build(BuildContext context) {
-    // final backgroundImage = Image.asset(
-    //   ImageAssets.backgroundImage,
-    //   fit: BoxFit.cover,
-    // );
+    final bgndImage =
+        Image.asset(DefineImages.bgnd_main_path, fit: BoxFit.cover);
 
     final content = Scaffold(
       appBar: PreferredSize(
@@ -78,7 +77,7 @@ class _MainWidgetState extends State<MainWidget>
     return Stack(
       fit: StackFit.expand,
       children: [
-        // backgroundImage,
+        bgndImage,
         content,
       ],
     );

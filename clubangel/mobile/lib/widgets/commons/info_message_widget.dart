@@ -1,5 +1,4 @@
 import 'package:clubangel/loaders/localizable_loader.dart';
-import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
@@ -32,7 +31,7 @@ class InfoMessageWidget extends StatelessWidget {
   final Key actionButtonKey;
   final VoidCallback onActionButtonTapped;
 
-  List<Widget> _buildContent(Messages messages) => [
+  List<Widget> _buildContent(BuildContext context) => [
         const CircleAvatar(
           child: Icon(
             Icons.info_outline,
@@ -44,12 +43,12 @@ class InfoMessageWidget extends StatelessWidget {
         ),
         const SizedBox(height: 16.0),
         Text(
-          title ?? messages.oops,
+          title ?? LocalizableLoader.of(context).text("try_again"),
           style: const TextStyle(fontSize: 24.0, color: Colors.white),
         ),
         const SizedBox(height: 8.0),
         Text(
-          description ?? messages.loadingMoviesError,
+          description ?? LocalizableLoader.of(context).text("try_again"),
           textAlign: TextAlign.center,
           style: const TextStyle(color: Colors.white70),
         ),
@@ -58,7 +57,7 @@ class InfoMessageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // final messages = MessageProvider.of(context);
-    // final content = _buildContent(messages);
+    // final content = _buildContent(context);
 
     if (onActionButtonTapped != null) {
       // content.add(_ActionButton(
