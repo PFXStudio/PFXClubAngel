@@ -1,0 +1,47 @@
+import 'package:clubangel/models/angel_widget_model.dart';
+import 'package:clubangel/widgets/angels/angel_date_widget.dart';
+import 'package:clubangel/widgets/angels/angel_list_widget.dart';
+import 'package:clubangel/widgets/commons/info_message_widget.dart';
+import 'package:clubangel/widgets/commons/loading_widget.dart';
+import 'package:clubangel/widgets/commons/platform_adaptive_progress_indicator.dart';
+import 'package:core/core.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+
+class AngelWidget extends StatelessWidget {
+  const AngelWidget();
+
+  @override
+  Widget build(BuildContext context) {
+    return StoreConnector<AppState, AngelWidgetModel>(
+      distinct: true,
+      onInit: (store) => store.dispatch(FetchShowsIfNotLoadedAction()),
+      converter: (store) => AngelWidgetModel.fromStore(store),
+      builder: (_, viewModel) => AngelWidgetContent(viewModel),
+    );
+  }
+}
+
+class AngelWidgetContent extends StatelessWidget {
+  AngelWidgetContent(this.viewModel);
+  final AngelWidgetModel viewModel;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        AngelDateWidget(viewModel),
+        Expanded(
+          child: LoadingWidget(
+            status: viewModel.status,
+            loadingContent: const PlatformAdaptiveProgressIndicator(),
+            errorContent: ErrorView(onRetry: viewModel.refreshShowtimes),
+            successContent: AngelListWidget(viewModel.status, viewModel.shows),
+          ),
+        ),
+      ],
+    );
+  }
+}

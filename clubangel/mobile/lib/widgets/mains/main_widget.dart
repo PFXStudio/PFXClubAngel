@@ -1,5 +1,7 @@
 import 'package:clubangel/defines/define_images.dart';
 import 'package:clubangel/loaders/localizable_loader.dart';
+import 'package:clubangel/widgets/accounts/addcount_widget.dart';
+import 'package:clubangel/widgets/angels/angel_widget.dart';
 import 'package:clubangel/widgets/mains/main_bottom_bar_widget.dart';
 import 'package:clubangel/widgets/mains/main_top_bar_widget.dart';
 import 'package:clubangel/widgets/real_times/real_time_widget.dart';
@@ -21,7 +23,7 @@ class _MainWidgetState extends State<MainWidget>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 4, vsync: this);
   }
 
   @override
@@ -31,19 +33,19 @@ class _MainWidgetState extends State<MainWidget>
   }
 
   Widget _buildTabContent() {
-    return Positioned.fill(
+    final fill = Positioned.fill(
       child: TabBarView(
         controller: _tabController,
         physics: const NeverScrollableScrollPhysics(),
         children: [
-          RealTimeWidget(EventListType.nowInTheaters),
-          RealTimeWidget(EventListType.nowInTheaters),
-          RealTimeWidget(EventListType.nowInTheaters),
-          // const ShowtimesPage(),
-          // EventsPage(EventListType.comingSoon),
+          RealTimeWidget(EventListType.nowInTheaters), // real time
+          const AngelWidget(), // angel
+          RealTimeWidget(EventListType.nowInTheaters), // club info
+          AccountWidget(),
         ],
       ),
     );
+    return fill;
   }
 
   void _tabSelected(int newIndex) {
@@ -105,17 +107,22 @@ class _BottomTabs extends StatelessWidget {
         items: [
           BottomNavigationBarItem(
             title: Text(LocalizableLoader.of(context).text("app_title")),
-            icon: const Icon(Icons.theaters),
+            icon: const Icon(Icons.settings_input_antenna),
             backgroundColor: Theme.of(context).primaryColor,
           ),
           BottomNavigationBarItem(
             title: Text(LocalizableLoader.of(context).text("app_title")),
-            icon: const Icon(Icons.schedule),
+            icon: const Icon(Icons.local_pizza),
             backgroundColor: Theme.of(context).primaryColor,
           ),
           BottomNavigationBarItem(
             title: Text(LocalizableLoader.of(context).text("app_title")),
-            icon: const Icon(Icons.whatshot),
+            icon: const Icon(Icons.queue_music),
+            backgroundColor: Theme.of(context).primaryColor,
+          ),
+          BottomNavigationBarItem(
+            title: Text(LocalizableLoader.of(context).text("app_title")),
+            icon: const Icon(Icons.person),
             backgroundColor: Theme.of(context).primaryColor,
           ),
         ],
