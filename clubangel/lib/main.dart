@@ -36,7 +36,7 @@ class _MainAppState extends State<MainApp> {
     return MaterialApp(
     theme:
       ThemeData(
-        primaryColor: Colors.red, 
+        primaryColor: Colors.lightBlue[800], // 툴바 색
         accentColor: Colors.lightBlue[800], // 인디케이터 색
         // primaryColorLight: Colors.black, //?
         primaryColorDark: Colors.lightBlue[900], // 객체 배경색
