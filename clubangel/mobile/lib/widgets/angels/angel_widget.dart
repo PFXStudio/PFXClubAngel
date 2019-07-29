@@ -1,4 +1,5 @@
 import 'package:clubangel/models/angel_widget_model.dart';
+import 'package:clubangel/themes/main_theme.dart';
 import 'package:clubangel/widgets/angels/angel_date_widget.dart';
 import 'package:clubangel/widgets/angels/angel_list_widget.dart';
 import 'package:clubangel/widgets/commons/info_message_widget.dart';
@@ -27,7 +28,8 @@ class AngelWidgetContent extends StatelessWidget {
   AngelWidgetContent(this.viewModel);
   final AngelWidgetModel viewModel;
 
-  @override
+  /*
+@override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -42,6 +44,41 @@ class AngelWidgetContent extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+*/
+  void _incrementCounter() {}
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          AngelDateWidget(viewModel),
+          Expanded(
+            child: LoadingWidget(
+              status: viewModel.status,
+              loadingContent: const PlatformAdaptiveProgressIndicator(),
+              errorContent: ErrorView(onRetry: viewModel.refreshShowtimes),
+              successContent:
+                  AngelListWidget(viewModel.status, viewModel.shows),
+            ),
+          ),
+        ],
+      ),
+      floatingActionButton: Container(
+        child: FloatingActionButton(
+          onPressed: _incrementCounter,
+          tooltip: 'Increment',
+          backgroundColor: MainTheme.defaultColor,
+          child: Icon(
+            Icons.add,
+            color: Colors.white,
+          ),
+        ),
+        padding: EdgeInsets.only(bottom: 70),
+      ),
     );
   }
 }

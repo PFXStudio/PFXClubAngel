@@ -21,6 +21,8 @@ dependencies:
     path: ../core
   flutter:
     sdk: flutter
+  firebase_core: ^0.2.5
+  firebase_analytics: ^1.0.4
   flutter_localizations:
     sdk: flutter
   xml: ^3.0.0

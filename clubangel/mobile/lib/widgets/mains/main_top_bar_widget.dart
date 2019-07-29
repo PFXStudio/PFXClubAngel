@@ -1,3 +1,4 @@
+import 'package:clubangel/themes/main_theme.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -119,7 +120,7 @@ class _MainTopBarWidgetState extends State<MainTopBarWidget>
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.deepOrange[300],
+      backgroundColor: MainTheme.defaultColor,
       automaticallyImplyLeading: false,
       centerTitle: false,
       leading: _isSearching ? const BackButton() : null,

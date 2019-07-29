@@ -1,4 +1,4 @@
-package com.example.clubangel;
+package com.pfxstudio.clubangel;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;

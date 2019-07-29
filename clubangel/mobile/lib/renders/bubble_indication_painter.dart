@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:clubangel/themes/main_theme.dart';
 import 'package:flutter/material.dart';
 
 class BubbleIndicationPainter extends CustomPainter {
@@ -19,7 +20,7 @@ class BubbleIndicationPainter extends CustomPainter {
       this.pageController})
       : super(repaint: pageController) {
     painter = new Paint()
-      ..color = Colors.deepOrange[300]
+      ..color = MainTheme.defaultColor
       ..style = PaintingStyle.fill;
   }
 

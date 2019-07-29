@@ -20,7 +20,7 @@ class AccountWidget extends StatelessWidget {
                 AccountTileWidget(
                   title: "Pawan Kumar",
                   subtitle: "Developer",
-                  textColor: Colors.black87,
+                  textColor: Colors.white,
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),

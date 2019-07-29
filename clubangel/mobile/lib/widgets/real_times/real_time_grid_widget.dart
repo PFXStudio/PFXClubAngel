@@ -1,4 +1,5 @@
 import 'package:clubangel/loaders/localizable_loader.dart';
+import 'package:clubangel/themes/main_theme.dart';
 import 'package:clubangel/widgets/commons/info_message_widget.dart';
 import 'package:clubangel/widgets/real_times/real_time_grid_item_widget.dart';
 import 'package:core/core.dart';
@@ -59,25 +60,41 @@ class _Content extends StatelessWidget {
     );
   }
 
+  void _incrementCounter() {}
   @override
   Widget build(BuildContext context) {
     final isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
     final crossAxisChildCount = isPortrait ? 2 : 4;
 
-    return Container(
-      key: RealTimeGridWidget.contentKey,
-      child: Scrollbar(
-        child: GridView.builder(
-          padding: const EdgeInsets.only(bottom: 50.0),
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: crossAxisChildCount,
-            childAspectRatio: 2 / 3,
-          ),
-          itemCount: events.size,
-          itemBuilder: _buildItem,
-        ),
-      ),
+    return Scaffold(
+      body: Container(
+          key: RealTimeGridWidget.contentKey,
+          child: Scaffold(
+            body: Scrollbar(
+              child: GridView.builder(
+                padding: const EdgeInsets.only(bottom: 50.0),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: crossAxisChildCount,
+                  childAspectRatio: 2 / 3,
+                ),
+                itemCount: events.size,
+                itemBuilder: _buildItem,
+              ),
+            ),
+            floatingActionButton: Container(
+              child: FloatingActionButton(
+                onPressed: _incrementCounter,
+                tooltip: 'Increment',
+                backgroundColor: MainTheme.defaultColor,
+                child: Icon(
+                  Icons.add,
+                  color: Colors.white,
+                ),
+              ),
+              padding: EdgeInsets.only(bottom: 70),
+            ),
+          )),
     );
   }
 }
