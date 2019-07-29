@@ -39,7 +39,7 @@ class AngelListTileWidget extends StatelessWidget {
 
     final ticketsButton = IconButton(
       key: ticketsButtonKey,
-      color: Theme.of(context).accentColor,
+      color: Colors.white,
       icon: const Icon(Icons.theaters),
       onPressed: () => launchTicketsUrl(show.url),
     );
@@ -61,7 +61,7 @@ class AngelListTileWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 1.0),
       child: Material(
-        color: const Color(0xE00D1736),
+        color: Colors.black12,
         child: InkWell(
           onTap: onTap,
           child: content,
@@ -83,18 +83,12 @@ class _ShowtimesInfo extends StatelessWidget {
       children: [
         Text(
           hoursAndMins.format(show.start),
-          style: const TextStyle(
-            fontSize: 18.0,
-            color: const Color(0xFFFEFEFE),
-          ),
+          style: const TextStyle(fontSize: 18.0, color: Colors.white),
         ),
         const SizedBox(height: 4.0),
         Text(
           hoursAndMins.format(show.end),
-          style: const TextStyle(
-            fontSize: 14.0,
-            color: const Color(0xFF717DAD),
-          ),
+          style: const TextStyle(fontSize: 14.0, color: Colors.white30),
         ),
       ],
     );
@@ -110,7 +104,7 @@ class _DetailedInfo extends StatelessWidget {
     final decoration = const BoxDecoration(
       border: Border(
         left: BorderSide(
-          color: Color(0xFF717DAD),
+          color: Colors.white,
         ),
       ),
     );
@@ -119,17 +113,12 @@ class _DetailedInfo extends StatelessWidget {
       Text(
         show.title,
         style: const TextStyle(
-          fontWeight: FontWeight.w500,
-          fontSize: 14.0,
-          color: const Color(0xFFFEFEFE),
-        ),
+            fontWeight: FontWeight.w500, fontSize: 14.0, color: Colors.white),
       ),
       const SizedBox(height: 4.0),
       Text(
         show.theaterAndAuditorium,
-        style: const TextStyle(
-          color: Color(0xFF717DAD),
-        ),
+        style: const TextStyle(color: Colors.white70),
       ),
       _PresentationMethodChip(show),
     ];
@@ -157,7 +146,7 @@ class _PresentationMethodChip extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: const Color(0xFF21316B),
+        color: Colors.redAccent,
         borderRadius: BorderRadius.circular(10.0),
       ),
       margin: const EdgeInsets.only(top: 4.0),
@@ -167,7 +156,7 @@ class _PresentationMethodChip extends StatelessWidget {
         style: const TextStyle(
           fontWeight: FontWeight.bold,
           fontSize: 12.0,
-          color: Color(0xFFFEFEFE),
+          color: Colors.white,
         ),
       ),
     );

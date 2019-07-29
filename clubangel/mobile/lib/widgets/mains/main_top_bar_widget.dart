@@ -66,7 +66,6 @@ class _MainTopBarWidgetState extends State<MainTopBarWidget>
     }
 
     return [
-      _TheaterIconButton(_theatersOpen, _toggleTheaters),
       IconButton(
         color: Colors.white70,
         icon: const Icon(Icons.search),
@@ -120,6 +119,7 @@ class _MainTopBarWidgetState extends State<MainTopBarWidget>
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      backgroundColor: Colors.deepOrange[300],
       automaticallyImplyLeading: false,
       centerTitle: false,
       leading: _isSearching ? const BackButton() : null,
@@ -165,34 +165,6 @@ class _Title extends StatelessWidget {
           // const SizedBox(width: 8.0),
           // title,
         ],
-      ),
-    );
-  }
-}
-
-class _TheaterIconButton extends StatelessWidget {
-  _TheaterIconButton(this.theatersOpen, this.toggleTheaters);
-  final bool theatersOpen;
-  final VoidCallback toggleTheaters;
-
-  @override
-  Widget build(BuildContext context) {
-    final backgroundColor =
-        theatersOpen ? const Color(0xFF152451) : Colors.transparent;
-
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 175),
-      color: backgroundColor,
-      child: GestureDetector(
-        child: const Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Icon(
-            Icons.place,
-            color: Colors.white70,
-            size: 24.0,
-          ),
-        ),
-        onTap: toggleTheaters,
       ),
     );
   }

@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'package:clubangel/defines/define_images.dart';
 import 'package:clubangel/loaders/localizable_loader.dart';
 import 'package:clubangel/managers/localizable_manager.dart';
-import 'package:clubangel/widgets/mains/main_widget.dart';
+import 'package:clubangel/themes/main_theme.dart';
+import 'package:clubangel/widgets/accounts/account_auth_widget.dart';
 import 'package:flutter/material.dart';
 
 class SplashWidget extends StatefulWidget {
@@ -23,8 +25,8 @@ class _SplashWidgetState extends State<SplashWidget> {
   onDoneLoading() async {
     localizableManager
         .onLocaleChanged(Locale(localizableManager.supportedLanguagesCodes[1]));
-    Navigator.of(context)
-        .pushReplacement(MaterialPageRoute(builder: (context) => MainWidget()));
+    Navigator.of(context, rootNavigator: true).pushReplacement(
+        MaterialPageRoute(builder: (context) => AccountAuthWidget()));
   }
 
   @override
@@ -34,7 +36,17 @@ class _SplashWidgetState extends State<SplashWidget> {
         fit: StackFit.expand,
         children: <Widget>[
           Container(
-            decoration: BoxDecoration(),
+            decoration: new BoxDecoration(
+              gradient: new LinearGradient(
+                  colors: [
+                    MainTheme.loginGradientStart,
+                    MainTheme.loginGradientEnd
+                  ],
+                  begin: const FractionalOffset(0.0, 0.0),
+                  end: const FractionalOffset(1.0, 1.0),
+                  stops: [0.0, 1.0],
+                  tileMode: TileMode.clamp),
+            ),
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -45,16 +57,22 @@ class _SplashWidgetState extends State<SplashWidget> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      CircleAvatar(
-                        radius: 50.0,
-                        child: Icon(Icons.access_alarm, size: 50.0),
+                      Padding(
+                        padding: EdgeInsets.only(top: 75.0),
+                        child: new Image(
+                            width: 200.0,
+                            height: 200.0,
+                            fit: BoxFit.fill,
+                            image: new AssetImage(DefineImages.icon_main_path)),
                       ),
                       Padding(
                         padding: EdgeInsets.only(top: 20.0),
                       ),
                       Text(LocalizableLoader.of(context).text("app_title"),
                           style: TextStyle(
-                              fontSize: 24.0, fontWeight: FontWeight.bold))
+                              color: Colors.white,
+                              fontSize: 24.0,
+                              fontWeight: FontWeight.bold))
                     ],
                   ),
                 ),
@@ -72,7 +90,9 @@ class _SplashWidgetState extends State<SplashWidget> {
                       LocalizableLoader.of(context)
                           .text("splash_screen_loading"),
                       style: TextStyle(
-                          fontSize: 18.0, fontWeight: FontWeight.bold),
+                          color: Colors.white,
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold),
                     )
                   ],
                 ),

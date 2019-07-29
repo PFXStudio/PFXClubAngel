@@ -1,4 +1,5 @@
 import 'package:clubangel/models/angel_widget_model.dart';
+import 'package:clubangel/themes/main_theme.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -11,7 +12,7 @@ class AngelDateWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-        color: Color(0xFF0F1633),
+        color: Color(0xffffab91),
         boxShadow: [
           BoxShadow(
             color: Colors.black45,
@@ -46,8 +47,7 @@ class _DateSelectorItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isSelected = date == viewModel.selectedDate;
-    final backgroundColor =
-        isSelected ? const Color(0xFFF9C243) : const Color(0xFF0F1633);
+    final backgroundColor = isSelected ? Colors.redAccent : Colors.transparent;
 
     return AnimatedContainer(
       duration: const Duration(milliseconds: 100),
@@ -76,9 +76,8 @@ class _ItemContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dayColor =
-        isSelected ? const Color(0xFF0F1633) : const Color(0xFF717DAD);
-    final dateColor = isSelected ? const Color(0xFF0F1633) : Colors.white;
+    final dayColor = isSelected ? Colors.white : Colors.black54;
+    final dateColor = isSelected ? Colors.white : Colors.black54;
     final dateWeight = isSelected ? FontWeight.w500 : FontWeight.w300;
 
     return Column(

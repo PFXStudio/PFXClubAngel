@@ -1,6 +1,7 @@
 import 'package:clubangel/defines/define_images.dart';
 import 'package:clubangel/loaders/localizable_loader.dart';
-import 'package:clubangel/widgets/accounts/addcount_widget.dart';
+import 'package:clubangel/themes/main_theme.dart';
+import 'package:clubangel/widgets/accounts/account_widget.dart';
 import 'package:clubangel/widgets/angels/angel_widget.dart';
 import 'package:clubangel/widgets/mains/main_bottom_bar_widget.dart';
 import 'package:clubangel/widgets/mains/main_top_bar_widget.dart';
@@ -55,6 +56,17 @@ class _MainWidgetState extends State<MainWidget>
     });
   }
 
+  void _incrementCounter() {
+    setState(() {
+      // This call to setState tells the Flutter framework that something has
+      // changed in this State, which causes it to rerun the build method below
+      // so that the display can reflect the updated values. If we changed
+      // _counter without calling setState(), then the build method would not be
+      // called again, and so nothing would appear to happen.
+      print("touched add");
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final bgndImage =
@@ -79,7 +91,19 @@ class _MainWidgetState extends State<MainWidget>
     return Stack(
       fit: StackFit.expand,
       children: [
-        bgndImage,
+        Container(
+          decoration: new BoxDecoration(
+            gradient: new LinearGradient(
+                colors: [
+                  MainTheme.loginGradientStart,
+                  MainTheme.loginGradientEnd
+                ],
+                begin: const FractionalOffset(0.0, 0.0),
+                end: const FractionalOffset(1.0, 1.0),
+                stops: [0.0, 1.0],
+                tileMode: TileMode.clamp),
+          ),
+        ),
         content,
       ],
     );

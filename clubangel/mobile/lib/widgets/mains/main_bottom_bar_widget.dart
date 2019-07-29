@@ -17,7 +17,7 @@ class MainBottomBarWidget extends StatelessWidget {
     /// Yes - I'm using CupertinoTabBar on both Android and iOS. It looks dope.
     /// I'm not a designer and only God can judge me. (╯°□°）╯︵ ┻━┻
     return CupertinoTabBar(
-      backgroundColor: Colors.black54,
+      backgroundColor: Colors.white30,
       inactiveColor: Colors.white54,
       activeColor: Colors.white,
       iconSize: 24.0,

@@ -1,771 +1,678 @@
 import 'package:clubangel/defines/define_images.dart';
+import 'package:clubangel/renders/bubble_indication_painter.dart';
+import 'package:clubangel/themes/main_theme.dart';
+import 'package:clubangel/widgets/mains/main_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class AccountAuthWidget extends StatefulWidget {
+  AccountAuthWidget({Key key}) : super(key: key);
+
   @override
   _AccountAuthWidgetState createState() => new _AccountAuthWidgetState();
 }
 
 class _AccountAuthWidgetState extends State<AccountAuthWidget>
-    with TickerProviderStateMixin {
-  @override
-  void initState() {
-    super.initState();
-  }
+    with SingleTickerProviderStateMixin {
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
-  Widget HomePage() {
-    return new Container(
-      height: MediaQuery.of(context).size.height,
-      decoration: BoxDecoration(
-        color: Colors.redAccent,
-        image: DecorationImage(
-          colorFilter: new ColorFilter.mode(
-              Colors.black.withOpacity(0.1), BlendMode.dstATop),
-          image: AssetImage(DefineImages.bgnd_main_path),
-          fit: BoxFit.cover,
-        ),
-      ),
-      child: new Column(
-        children: <Widget>[
-          Container(
-            padding: EdgeInsets.only(top: 100.0),
-            child: Center(
-              child: Icon(
-                Icons.headset_mic,
-                color: Colors.white,
-                size: 40.0,
-              ),
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.only(top: 20.0),
-            child: new Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  "Awesome",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20.0,
-                  ),
-                ),
-                Text(
-                  "App",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-          ),
-          new Container(
-            width: MediaQuery.of(context).size.width,
-            margin: const EdgeInsets.only(left: 30.0, right: 30.0, top: 150.0),
-            alignment: Alignment.center,
-            child: new Row(
-              children: <Widget>[
-                new Expanded(
-                  child: new OutlineButton(
-                    shape: new RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(30.0)),
-                    color: Colors.redAccent,
-                    highlightedBorderColor: Colors.white,
-                    onPressed: () => gotoSignup(),
-                    child: new Container(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 20.0,
-                        horizontal: 20.0,
-                      ),
-                      child: new Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          new Expanded(
-                            child: Text(
-                              "SIGN UP",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          new Container(
-            width: MediaQuery.of(context).size.width,
-            margin: const EdgeInsets.only(left: 30.0, right: 30.0, top: 30.0),
-            alignment: Alignment.center,
-            child: new Row(
-              children: <Widget>[
-                new Expanded(
-                  child: new FlatButton(
-                    shape: new RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(30.0)),
-                    color: Colors.white,
-                    onPressed: () => gotoLogin(),
-                    child: new Container(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 20.0,
-                        horizontal: 20.0,
-                      ),
-                      child: new Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          new Expanded(
-                            child: Text(
-                              "LOGIN",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: Colors.redAccent,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  final FocusNode myFocusNodeEmailLogin = FocusNode();
+  final FocusNode myFocusNodePasswordLogin = FocusNode();
 
-  Widget LoginPage() {
-    return new Container(
-      height: MediaQuery.of(context).size.height,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        image: DecorationImage(
-          colorFilter: new ColorFilter.mode(
-              Colors.black.withOpacity(0.05), BlendMode.dstATop),
-          image: AssetImage(DefineImages.bgnd_main_path),
-          fit: BoxFit.cover,
-        ),
-      ),
-      child: new Column(
-        children: <Widget>[
-          Container(
-            padding: EdgeInsets.only(top: 100.0),
-            child: Center(
-              child: Icon(
-                Icons.headset_mic,
-                color: Colors.redAccent,
-                size: 50.0,
-              ),
-            ),
-          ),
-          new Row(
-            children: <Widget>[
-              new Expanded(
-                child: new Padding(
-                  padding: const EdgeInsets.only(left: 40.0),
-                  child: new Text(
-                    "EMAIL",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.redAccent,
-                      fontSize: 15.0,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          new Container(
-            width: MediaQuery.of(context).size.width,
-            margin: const EdgeInsets.only(left: 40.0, right: 40.0, top: 10.0),
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              border: Border(
-                bottom: BorderSide(
-                    color: Colors.redAccent,
-                    width: 0.5,
-                    style: BorderStyle.solid),
-              ),
-            ),
-            padding: const EdgeInsets.only(left: 0.0, right: 10.0),
-            child: new Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                new Expanded(
-                  child: TextField(
-                    obscureText: true,
-                    textAlign: TextAlign.left,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'samarthagarwal@live.com',
-                      hintStyle: TextStyle(color: Colors.grey),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Divider(
-            height: 24.0,
-          ),
-          new Row(
-            children: <Widget>[
-              new Expanded(
-                child: new Padding(
-                  padding: const EdgeInsets.only(left: 40.0),
-                  child: new Text(
-                    "PASSWORD",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.redAccent,
-                      fontSize: 15.0,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          new Container(
-            width: MediaQuery.of(context).size.width,
-            margin: const EdgeInsets.only(left: 40.0, right: 40.0, top: 10.0),
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              border: Border(
-                bottom: BorderSide(
-                    color: Colors.redAccent,
-                    width: 0.5,
-                    style: BorderStyle.solid),
-              ),
-            ),
-            padding: const EdgeInsets.only(left: 0.0, right: 10.0),
-            child: new Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                new Expanded(
-                  child: TextField(
-                    obscureText: true,
-                    textAlign: TextAlign.left,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: '*********',
-                      hintStyle: TextStyle(color: Colors.grey),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Divider(
-            height: 24.0,
-          ),
-          new Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(right: 20.0),
-                child: new FlatButton(
-                  child: new Text(
-                    "Forgot Password?",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.redAccent,
-                      fontSize: 15.0,
-                    ),
-                    textAlign: TextAlign.end,
-                  ),
-                  onPressed: () => {},
-                ),
-              ),
-            ],
-          ),
-          new Container(
-            width: MediaQuery.of(context).size.width,
-            margin: const EdgeInsets.only(left: 30.0, right: 30.0, top: 20.0),
-            alignment: Alignment.center,
-            child: new Row(
-              children: <Widget>[
-                new Expanded(
-                  child: new FlatButton(
-                    shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(30.0),
-                    ),
-                    color: Colors.redAccent,
-                    onPressed: () => {},
-                    child: new Container(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 20.0,
-                        horizontal: 20.0,
-                      ),
-                      child: new Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          new Expanded(
-                            child: Text(
-                              "LOGIN",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          new Container(
-            width: MediaQuery.of(context).size.width,
-            margin: const EdgeInsets.only(left: 30.0, right: 30.0, top: 20.0),
-            alignment: Alignment.center,
-            child: Row(
-              children: <Widget>[
-                new Expanded(
-                  child: new Container(
-                    margin: EdgeInsets.all(8.0),
-                    decoration: BoxDecoration(border: Border.all(width: 0.25)),
-                  ),
-                ),
-                Text(
-                  "OR CONNECT WITH",
-                  style: TextStyle(
-                    color: Colors.grey,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                new Expanded(
-                  child: new Container(
-                    margin: EdgeInsets.all(8.0),
-                    decoration: BoxDecoration(border: Border.all(width: 0.25)),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          new Container(
-            width: MediaQuery.of(context).size.width,
-            margin: const EdgeInsets.only(left: 30.0, right: 30.0, top: 20.0),
-            child: new Row(
-              children: <Widget>[
-                new Expanded(
-                  child: new Container(
-                    margin: EdgeInsets.only(right: 8.0),
-                    alignment: Alignment.center,
-                    child: new Row(
-                      children: <Widget>[
-                        new Expanded(
-                          child: new FlatButton(
-                            shape: new RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(30.0),
-                            ),
-                            color: Color(0Xff3B5998),
-                            onPressed: () => {},
-                            child: new Container(
-                              child: new Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  new Expanded(
-                                    child: new FlatButton(
-                                      onPressed: () => {},
-                                      padding: EdgeInsets.only(
-                                        top: 20.0,
-                                        bottom: 20.0,
-                                      ),
-                                      child: new Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: <Widget>[
-                                          Icon(
-                                            const IconData(0xea90,
-                                                fontFamily: 'icomoon'),
-                                            color: Colors.white,
-                                            size: 15.0,
-                                          ),
-                                          Text(
-                                            "FACEBOOK",
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                new Expanded(
-                  child: new Container(
-                    margin: EdgeInsets.only(left: 8.0),
-                    alignment: Alignment.center,
-                    child: new Row(
-                      children: <Widget>[
-                        new Expanded(
-                          child: new FlatButton(
-                            shape: new RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(30.0),
-                            ),
-                            color: Color(0Xffdb3236),
-                            onPressed: () => {},
-                            child: new Container(
-                              child: new Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  new Expanded(
-                                    child: new FlatButton(
-                                      onPressed: () => {},
-                                      padding: EdgeInsets.only(
-                                        top: 20.0,
-                                        bottom: 20.0,
-                                      ),
-                                      child: new Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: <Widget>[
-                                          Icon(
-                                            const IconData(0xea88,
-                                                fontFamily: 'icomoon'),
-                                            color: Colors.white,
-                                            size: 15.0,
-                                          ),
-                                          Text(
-                                            "GOOGLE",
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          )
-        ],
-      ),
-    );
-  }
+  final FocusNode myFocusNodePassword = FocusNode();
+  final FocusNode myFocusNodeEmail = FocusNode();
+  final FocusNode myFocusNodeName = FocusNode();
 
-  Widget SignupPage() {
-    return new Container(
-      height: MediaQuery.of(context).size.height,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        image: DecorationImage(
-          colorFilter: new ColorFilter.mode(
-              Colors.black.withOpacity(0.05), BlendMode.dstATop),
-          image: AssetImage(DefineImages.bgnd_main_path),
-          fit: BoxFit.cover,
-        ),
-      ),
-      child: new Column(
-        children: <Widget>[
-          Container(
-            padding: EdgeInsets.only(top: 100.0),
-            child: Center(
-              child: Icon(
-                Icons.headset_mic,
-                color: Colors.redAccent,
-                size: 50.0,
-              ),
-            ),
-          ),
-          new Row(
-            children: <Widget>[
-              new Expanded(
-                child: new Padding(
-                  padding: const EdgeInsets.only(left: 40.0),
-                  child: new Text(
-                    "EMAIL",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.redAccent,
-                      fontSize: 15.0,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          new Container(
-            width: MediaQuery.of(context).size.width,
-            margin: const EdgeInsets.only(left: 40.0, right: 40.0, top: 10.0),
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              border: Border(
-                bottom: BorderSide(
-                    color: Colors.redAccent,
-                    width: 0.5,
-                    style: BorderStyle.solid),
-              ),
-            ),
-            padding: const EdgeInsets.only(left: 0.0, right: 10.0),
-            child: new Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                new Expanded(
-                  child: TextField(
-                    obscureText: true,
-                    textAlign: TextAlign.left,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'samarthagarwal@live.com',
-                      hintStyle: TextStyle(color: Colors.grey),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Divider(
-            height: 24.0,
-          ),
-          new Row(
-            children: <Widget>[
-              new Expanded(
-                child: new Padding(
-                  padding: const EdgeInsets.only(left: 40.0),
-                  child: new Text(
-                    "PASSWORD",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.redAccent,
-                      fontSize: 15.0,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          new Container(
-            width: MediaQuery.of(context).size.width,
-            margin: const EdgeInsets.only(left: 40.0, right: 40.0, top: 10.0),
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              border: Border(
-                bottom: BorderSide(
-                    color: Colors.redAccent,
-                    width: 0.5,
-                    style: BorderStyle.solid),
-              ),
-            ),
-            padding: const EdgeInsets.only(left: 0.0, right: 10.0),
-            child: new Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                new Expanded(
-                  child: TextField(
-                    obscureText: true,
-                    textAlign: TextAlign.left,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: '*********',
-                      hintStyle: TextStyle(color: Colors.grey),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Divider(
-            height: 24.0,
-          ),
-          new Row(
-            children: <Widget>[
-              new Expanded(
-                child: new Padding(
-                  padding: const EdgeInsets.only(left: 40.0),
-                  child: new Text(
-                    "CONFIRM PASSWORD",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.redAccent,
-                      fontSize: 15.0,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          new Container(
-            width: MediaQuery.of(context).size.width,
-            margin: const EdgeInsets.only(left: 40.0, right: 40.0, top: 10.0),
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              border: Border(
-                bottom: BorderSide(
-                    color: Colors.redAccent,
-                    width: 0.5,
-                    style: BorderStyle.solid),
-              ),
-            ),
-            padding: const EdgeInsets.only(left: 0.0, right: 10.0),
-            child: new Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                new Expanded(
-                  child: TextField(
-                    obscureText: true,
-                    textAlign: TextAlign.left,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: '*********',
-                      hintStyle: TextStyle(color: Colors.grey),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Divider(
-            height: 24.0,
-          ),
-          new Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(right: 20.0),
-                child: new FlatButton(
-                  child: new Text(
-                    "Already have an account?",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.redAccent,
-                      fontSize: 15.0,
-                    ),
-                    textAlign: TextAlign.end,
-                  ),
-                  onPressed: () => {},
-                ),
-              ),
-            ],
-          ),
-          new Container(
-            width: MediaQuery.of(context).size.width,
-            margin: const EdgeInsets.only(left: 30.0, right: 30.0, top: 50.0),
-            alignment: Alignment.center,
-            child: new Row(
-              children: <Widget>[
-                new Expanded(
-                  child: new FlatButton(
-                    shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(30.0),
-                    ),
-                    color: Colors.redAccent,
-                    onPressed: () => {},
-                    child: new Container(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 20.0,
-                        horizontal: 20.0,
-                      ),
-                      child: new Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          new Expanded(
-                            child: Text(
-                              "SIGN UP",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  TextEditingController loginEmailController = new TextEditingController();
+  TextEditingController loginPasswordController = new TextEditingController();
 
-  gotoLogin() {
-    //controller_0To1.forward(from: 0.0);
-    _controller.animateToPage(
-      0,
-      duration: Duration(milliseconds: 800),
-      curve: Curves.bounceOut,
-    );
-  }
+  bool _obscureTextLogin = true;
+  bool _obscureTextSignup = true;
+  bool _obscureTextSignupConfirm = true;
 
-  gotoSignup() {
-    //controller_minus1To0.reverse(from: 0.0);
-    _controller.animateToPage(
-      2,
-      duration: Duration(milliseconds: 800),
-      curve: Curves.bounceOut,
-    );
-  }
+  TextEditingController signupEmailController = new TextEditingController();
+  TextEditingController signupNameController = new TextEditingController();
+  TextEditingController signupPasswordController = new TextEditingController();
+  TextEditingController signupConfirmPasswordController =
+      new TextEditingController();
 
-  PageController _controller =
-      new PageController(initialPage: 1, viewportFraction: 1.0);
+  PageController _pageController;
+
+  Color left = Colors.white;
+  Color right = Colors.black38;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Colors.white,
-        body: Container(
-            height: MediaQuery.of(context).size.height,
-//      child: new GestureDetector(
-//        onHorizontalDragStart: _onHorizontalDragStart,
-//        onHorizontalDragUpdate: _onHorizontalDragUpdate,
-//        onHorizontalDragEnd: _onHorizontalDragEnd,
-//        behavior: HitTestBehavior.translucent,
-//        child: Stack(
-//          children: <Widget>[
-//            new FractionalTranslation(
-//              translation: Offset(-1 - (scrollPercent / (1 / numCards)), 0.0),
-//              child: SignupPage(),
-//            ),
-//            new FractionalTranslation(
-//              translation: Offset(0 - (scrollPercent / (1 / numCards)), 0.0),
-//              child: HomePage(),
-//            ),
-//            new FractionalTranslation(
-//              translation: Offset(1 - (scrollPercent / (1 / numCards)), 0.0),
-//              child: LoginPage(),
-//            ),
-//          ],
-//        ),
-//      ),
-            child: PageView(
-              controller: _controller,
-              physics: new AlwaysScrollableScrollPhysics(),
-              children: <Widget>[LoginPage(), HomePage(), SignupPage()],
-              scrollDirection: Axis.horizontal,
-            )));
+    return new Scaffold(
+      key: _scaffoldKey,
+      body: NotificationListener<OverscrollIndicatorNotification>(
+        onNotification: (overscroll) {
+          overscroll.disallowGlow();
+        },
+        child: SingleChildScrollView(
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height >= 775.0
+                ? MediaQuery.of(context).size.height
+                : 775.0,
+            decoration: new BoxDecoration(
+              gradient: new LinearGradient(
+                  colors: [
+                    MainTheme.loginGradientStart,
+                    MainTheme.loginGradientEnd
+                  ],
+                  begin: const FractionalOffset(0.0, 0.0),
+                  end: const FractionalOffset(1.0, 1.0),
+                  stops: [0.0, 1.0],
+                  tileMode: TileMode.clamp),
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.only(top: 75.0),
+                  child: new Image(
+                      width: 200.0,
+                      height: 200.0,
+                      fit: BoxFit.fill,
+                      image: new AssetImage(DefineImages.icon_main_path)),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 20.0),
+                  child: _buildMenuBar(context),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: PageView(
+                    controller: _pageController,
+                    onPageChanged: (i) {
+                      if (i == 0) {
+                        setState(() {
+                          right = Colors.black38;
+                          left = Colors.white;
+                        });
+                      } else if (i == 1) {
+                        setState(() {
+                          right = Colors.white;
+                          left = Colors.black38;
+                        });
+                      }
+                    },
+                    children: <Widget>[
+                      new ConstrainedBox(
+                        constraints: const BoxConstraints.expand(),
+                        child: _buildSignIn(context),
+                      ),
+                      new ConstrainedBox(
+                        constraints: const BoxConstraints.expand(),
+                        child: _buildSignUp(context),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    myFocusNodePassword.dispose();
+    myFocusNodeEmail.dispose();
+    myFocusNodeName.dispose();
+    _pageController?.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+
+    _pageController = PageController();
+  }
+
+  void showInSnackBar(String value) {
+    FocusScope.of(context).requestFocus(new FocusNode());
+    _scaffoldKey.currentState?.removeCurrentSnackBar();
+    _scaffoldKey.currentState.showSnackBar(new SnackBar(
+      content: new Text(
+        value,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+            color: Colors.white,
+            fontSize: 16.0,
+            fontFamily: "WorkSansSemiBold"),
+      ),
+      backgroundColor: Colors.blue,
+      duration: Duration(seconds: 3),
+    ));
+  }
+
+  Widget _buildMenuBar(BuildContext context) {
+    return Container(
+      width: 300.0,
+      height: 50.0,
+      decoration: BoxDecoration(
+        color: Color(0x552B2B2B),
+        borderRadius: BorderRadius.all(Radius.circular(25.0)),
+      ),
+      child: CustomPaint(
+        painter: BubbleIndicationPainter(pageController: _pageController),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            Expanded(
+              child: FlatButton(
+                splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                onPressed: _onSignInButtonPress,
+                child: Text(
+                  "Existing",
+                  style: TextStyle(
+                      color: left,
+                      fontSize: 16.0,
+                      fontFamily: "WorkSansSemiBold"),
+                ),
+              ),
+            ),
+            //Container(height: 33.0, width: 1.0, color: Colors.white),
+            Expanded(
+              child: FlatButton(
+                splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                onPressed: _onSignUpButtonPress,
+                child: Text(
+                  "New",
+                  style: TextStyle(
+                      color: right,
+                      fontSize: 16.0,
+                      fontFamily: "WorkSansSemiBold"),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSignIn(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(top: 23.0),
+      child: Column(
+        children: <Widget>[
+          Stack(
+            alignment: Alignment.topCenter,
+            overflow: Overflow.visible,
+            children: <Widget>[
+              Card(
+                elevation: 2.0,
+                color: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                child: Container(
+                  width: 300.0,
+                  height: 190.0,
+                  child: Column(
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.only(
+                            top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
+                        child: TextField(
+                          focusNode: myFocusNodeEmailLogin,
+                          controller: loginEmailController,
+                          keyboardType: TextInputType.emailAddress,
+                          style: TextStyle(
+                              fontFamily: "WorkSansSemiBold",
+                              fontSize: 16.0,
+                              color: Colors.black),
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            icon: Icon(
+                              FontAwesomeIcons.envelope,
+                              color: Colors.black,
+                              size: 22.0,
+                            ),
+                            hintText: "Email Address",
+                            hintStyle: TextStyle(
+                                fontFamily: "WorkSansSemiBold", fontSize: 17.0),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: 250.0,
+                        height: 1.0,
+                        color: Colors.grey[400],
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                            top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
+                        child: TextField(
+                          focusNode: myFocusNodePasswordLogin,
+                          controller: loginPasswordController,
+                          obscureText: _obscureTextLogin,
+                          style: TextStyle(
+                              fontFamily: "WorkSansSemiBold",
+                              fontSize: 16.0,
+                              color: Colors.black),
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            icon: Icon(
+                              FontAwesomeIcons.lock,
+                              size: 22.0,
+                              color: Colors.black,
+                            ),
+                            hintText: "Password",
+                            hintStyle: TextStyle(
+                                fontFamily: "WorkSansSemiBold", fontSize: 17.0),
+                            suffixIcon: GestureDetector(
+                              onTap: _toggleLogin,
+                              child: Icon(
+                                _obscureTextLogin
+                                    ? FontAwesomeIcons.eye
+                                    : FontAwesomeIcons.eyeSlash,
+                                size: 15.0,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 170.0),
+                decoration: new BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                  boxShadow: <BoxShadow>[
+                    BoxShadow(
+                      color: MainTheme.loginGradientStart,
+                      offset: Offset(1.0, 6.0),
+                      blurRadius: 20.0,
+                    ),
+                    BoxShadow(
+                      color: MainTheme.loginGradientEnd,
+                      offset: Offset(1.0, 6.0),
+                      blurRadius: 20.0,
+                    ),
+                  ],
+                  gradient: new LinearGradient(
+                      colors: [
+                        MainTheme.loginGradientEnd,
+                        MainTheme.loginGradientStart
+                      ],
+                      begin: const FractionalOffset(0.2, 0.2),
+                      end: const FractionalOffset(1.0, 1.0),
+                      stops: [0.0, 1.0],
+                      tileMode: TileMode.clamp),
+                ),
+                child: MaterialButton(
+                    highlightColor: Colors.transparent,
+                    splashColor: MainTheme.loginGradientEnd,
+                    //shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5.0))),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10.0, horizontal: 42.0),
+                      child: Text(
+                        "LOGIN",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 25.0,
+                            fontFamily: "WorkSansBold"),
+                      ),
+                    ),
+                    onPressed: () {
+                      showInSnackBar("Login button pressed");
+                      Navigator.of(context, rootNavigator: true)
+                          .pushReplacement(MaterialPageRoute(
+                              builder: (context) => MainWidget()));
+                    }),
+              ),
+            ],
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 10.0),
+            child: FlatButton(
+                onPressed: () {},
+                child: Text(
+                  "Forgot Password?",
+                  style: TextStyle(
+                      decoration: TextDecoration.underline,
+                      color: Colors.white,
+                      fontSize: 16.0,
+                      fontFamily: "WorkSansMedium"),
+                )),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 10.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  decoration: BoxDecoration(
+                    gradient: new LinearGradient(
+                        colors: [
+                          Colors.white10,
+                          Colors.white,
+                        ],
+                        begin: const FractionalOffset(0.0, 0.0),
+                        end: const FractionalOffset(1.0, 1.0),
+                        stops: [0.0, 1.0],
+                        tileMode: TileMode.clamp),
+                  ),
+                  width: 100.0,
+                  height: 1.0,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: 15.0, right: 15.0),
+                  child: Text(
+                    "Or",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16.0,
+                        fontFamily: "WorkSansMedium"),
+                  ),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    gradient: new LinearGradient(
+                        colors: [
+                          Colors.white,
+                          Colors.white10,
+                        ],
+                        begin: const FractionalOffset(0.0, 0.0),
+                        end: const FractionalOffset(1.0, 1.0),
+                        stops: [0.0, 1.0],
+                        tileMode: TileMode.clamp),
+                  ),
+                  width: 100.0,
+                  height: 1.0,
+                ),
+              ],
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.only(top: 10.0, right: 40.0),
+                child: GestureDetector(
+                  onTap: () => showInSnackBar("Facebook button pressed"),
+                  child: Container(
+                    padding: const EdgeInsets.all(15.0),
+                    decoration: new BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.white,
+                    ),
+                    child: new Icon(
+                      FontAwesomeIcons.facebookF,
+                      color: Color(0xFF0084ff),
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 10.0),
+                child: GestureDetector(
+                  onTap: () => showInSnackBar("Google button pressed"),
+                  child: Container(
+                    padding: const EdgeInsets.all(15.0),
+                    decoration: new BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.white,
+                    ),
+                    child: new Icon(
+                      FontAwesomeIcons.google,
+                      color: Color(0xFF0084ff),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSignUp(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(top: 23.0),
+      child: Column(
+        children: <Widget>[
+          Stack(
+            alignment: Alignment.topCenter,
+            overflow: Overflow.visible,
+            children: <Widget>[
+              Card(
+                elevation: 2.0,
+                color: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                child: Container(
+                  width: 300.0,
+                  height: 360.0,
+                  child: Column(
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.only(
+                            top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
+                        child: TextField(
+                          focusNode: myFocusNodeName,
+                          controller: signupNameController,
+                          keyboardType: TextInputType.text,
+                          textCapitalization: TextCapitalization.words,
+                          style: TextStyle(
+                              fontFamily: "WorkSansSemiBold",
+                              fontSize: 16.0,
+                              color: Colors.black),
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            icon: Icon(
+                              FontAwesomeIcons.user,
+                              color: Colors.black,
+                            ),
+                            hintText: "Name",
+                            hintStyle: TextStyle(
+                                fontFamily: "WorkSansSemiBold", fontSize: 16.0),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: 250.0,
+                        height: 1.0,
+                        color: Colors.grey[400],
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                            top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
+                        child: TextField(
+                          focusNode: myFocusNodeEmail,
+                          controller: signupEmailController,
+                          keyboardType: TextInputType.emailAddress,
+                          style: TextStyle(
+                              fontFamily: "WorkSansSemiBold",
+                              fontSize: 16.0,
+                              color: Colors.black),
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            icon: Icon(
+                              FontAwesomeIcons.envelope,
+                              color: Colors.black,
+                            ),
+                            hintText: "Email Address",
+                            hintStyle: TextStyle(
+                                fontFamily: "WorkSansSemiBold", fontSize: 16.0),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: 250.0,
+                        height: 1.0,
+                        color: Colors.grey[400],
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                            top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
+                        child: TextField(
+                          focusNode: myFocusNodePassword,
+                          controller: signupPasswordController,
+                          obscureText: _obscureTextSignup,
+                          style: TextStyle(
+                              fontFamily: "WorkSansSemiBold",
+                              fontSize: 16.0,
+                              color: Colors.black),
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            icon: Icon(
+                              FontAwesomeIcons.lock,
+                              color: Colors.black,
+                            ),
+                            hintText: "Password",
+                            hintStyle: TextStyle(
+                                fontFamily: "WorkSansSemiBold", fontSize: 16.0),
+                            suffixIcon: GestureDetector(
+                              onTap: _toggleSignup,
+                              child: Icon(
+                                _obscureTextSignup
+                                    ? FontAwesomeIcons.eye
+                                    : FontAwesomeIcons.eyeSlash,
+                                size: 15.0,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: 250.0,
+                        height: 1.0,
+                        color: Colors.grey[400],
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                            top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
+                        child: TextField(
+                          controller: signupConfirmPasswordController,
+                          obscureText: _obscureTextSignupConfirm,
+                          style: TextStyle(
+                              fontFamily: "WorkSansSemiBold",
+                              fontSize: 16.0,
+                              color: Colors.black),
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            icon: Icon(
+                              FontAwesomeIcons.lock,
+                              color: Colors.black,
+                            ),
+                            hintText: "Confirmation",
+                            hintStyle: TextStyle(
+                                fontFamily: "WorkSansSemiBold", fontSize: 16.0),
+                            suffixIcon: GestureDetector(
+                              onTap: _toggleSignupConfirm,
+                              child: Icon(
+                                _obscureTextSignupConfirm
+                                    ? FontAwesomeIcons.eye
+                                    : FontAwesomeIcons.eyeSlash,
+                                size: 15.0,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 340.0),
+                decoration: new BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                  boxShadow: <BoxShadow>[
+                    BoxShadow(
+                      color: MainTheme.loginGradientStart,
+                      offset: Offset(1.0, 6.0),
+                      blurRadius: 20.0,
+                    ),
+                    BoxShadow(
+                      color: MainTheme.loginGradientEnd,
+                      offset: Offset(1.0, 6.0),
+                      blurRadius: 20.0,
+                    ),
+                  ],
+                  gradient: new LinearGradient(
+                      colors: [
+                        MainTheme.loginGradientEnd,
+                        MainTheme.loginGradientStart
+                      ],
+                      begin: const FractionalOffset(0.2, 0.2),
+                      end: const FractionalOffset(1.0, 1.0),
+                      stops: [0.0, 1.0],
+                      tileMode: TileMode.clamp),
+                ),
+                child: MaterialButton(
+                    highlightColor: Colors.transparent,
+                    splashColor: MainTheme.loginGradientEnd,
+                    //shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5.0))),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10.0, horizontal: 42.0),
+                      child: Text(
+                        "SIGN UP",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 25.0,
+                            fontFamily: "WorkSansBold"),
+                      ),
+                    ),
+                    onPressed: () => showInSnackBar("SignUp button pressed")),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _onSignInButtonPress() {
+    _pageController.animateToPage(0,
+        duration: Duration(milliseconds: 500), curve: Curves.decelerate);
+  }
+
+  void _onSignUpButtonPress() {
+    _pageController?.animateToPage(1,
+        duration: Duration(milliseconds: 500), curve: Curves.decelerate);
+  }
+
+  void _toggleLogin() {
+    setState(() {
+      _obscureTextLogin = !_obscureTextLogin;
+    });
+  }
+
+  void _toggleSignup() {
+    setState(() {
+      _obscureTextSignup = !_obscureTextSignup;
+    });
+  }
+
+  void _toggleSignupConfirm() {
+    setState(() {
+      _obscureTextSignupConfirm = !_obscureTextSignupConfirm;
+    });
   }
 }
