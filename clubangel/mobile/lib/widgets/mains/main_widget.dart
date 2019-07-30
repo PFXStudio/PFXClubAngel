@@ -4,10 +4,11 @@ import 'package:clubangel/singletons/keyboard_singleton.dart';
 import 'package:clubangel/themes/main_theme.dart';
 import 'package:clubangel/widgets/accounts/account_widget.dart';
 import 'package:clubangel/widgets/angels/angel_widget.dart';
+import 'package:clubangel/widgets/boards/dash_board_widget.dart';
 import 'package:clubangel/widgets/mains/main_bottom_bar_widget.dart';
 import 'package:clubangel/widgets/mains/main_invisible_bottom_bar.dart';
 import 'package:clubangel/widgets/mains/main_top_bar_widget.dart';
-import 'package:clubangel/widgets/real_times/real_time_widget.dart';
+import 'package:clubangel/widgets/real_times/real_time_collection_widget.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 
@@ -41,9 +42,9 @@ class _MainWidgetState extends State<MainWidget>
         controller: _tabController,
         physics: const NeverScrollableScrollPhysics(),
         children: [
-          RealTimeWidget(EventListType.nowInTheaters), // real time
+          DashBoardWidget(EventListType.nowInTheaters), // real time
           AngelWidget(EventListType.nowInTheaters), // angel
-          RealTimeWidget(EventListType.nowInTheaters), // club info
+          RealTimeCollectionWidget(EventListType.nowInTheaters), // club info
           AccountWidget(),
         ],
       ),

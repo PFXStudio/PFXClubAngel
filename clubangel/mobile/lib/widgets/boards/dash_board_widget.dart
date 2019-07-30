@@ -1,5 +1,5 @@
 import 'package:clubangel/loaders/localizable_loader.dart';
-import 'package:clubangel/models/real_time_widget_model.dart';
+import 'package:clubangel/models/dash_board_widget_model.dart';
 import 'package:clubangel/widgets/commons/info_message_widget.dart';
 import 'package:clubangel/widgets/commons/loading_widget.dart';
 import 'package:clubangel/widgets/commons/platform_adaptive_progress_indicator.dart';
@@ -18,18 +18,18 @@ const protectionMsgs = [
   "2 year protection plan for Alienware Monitors with cheap fixings"
 ];
 
-class RealTimeWidget extends StatelessWidget {
-  RealTimeWidget(this.listType);
+class DashBoardWidget extends StatelessWidget {
+  DashBoardWidget(this.listType);
   final EventListType listType;
 
   @override
   Widget build(BuildContext context) {
-    return StoreConnector<AppState, RealTimeWidgetModel>(
+    return StoreConnector<AppState, DashBoardWidgetModel>(
       distinct: true,
       onInit: (store) =>
           store.dispatch(FetchComingSoonEventsIfNotLoadedAction()),
-      converter: (store) => RealTimeWidgetModel.fromStore(store, listType),
-      builder: (_, viewModel) => RealTimeWidgetContent(viewModel, listType),
+      converter: (store) => DashBoardWidgetModel.fromStore(store, listType),
+      builder: (_, viewModel) => DashBoardWidgetContent(viewModel, listType),
     );
   }
 }
@@ -143,9 +143,9 @@ class ProtectionSection extends StatelessWidget {
   }
 }
 
-class RealTimeWidgetContent extends StatelessWidget {
-  RealTimeWidgetContent(this.viewModel, this.listType);
-  final RealTimeWidgetModel viewModel;
+class DashBoardWidgetContent extends StatelessWidget {
+  DashBoardWidgetContent(this.viewModel, this.listType);
+  final DashBoardWidgetModel viewModel;
   final EventListType listType;
 
   @override
@@ -183,9 +183,6 @@ class RealTimeWidgetContent extends StatelessWidget {
                         title: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            SizedBox(
-                              height: 20.0,
-                            ),
                             ProtectionSection(),
                             SizedBox(
                               height: 30.0,
