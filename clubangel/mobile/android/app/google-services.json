@@ -1,41 +1,41 @@
 {
   "project_info": {
-    "project_number": "1063252023065",
-    "firebase_url": "https://angelclub-9b4df.firebaseio.com",
-    "project_id": "angelclub-9b4df",
-    "storage_bucket": "angelclub-9b4df.appspot.com"
+    "project_number": "185315855065",
+    "firebase_url": "https://clubangel-9a163.firebaseio.com",
+    "project_id": "clubangel-9a163",
+    "storage_bucket": "clubangel-9a163.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1063252023065:android:f8554c40823167fc",
+        "mobilesdk_app_id": "1:185315855065:android:f8554c40823167fc",
         "android_client_info": {
           "package_name": "com.pfxstudio.clubangel"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1063252023065-70h3beat9j4r43jf13h32p25j7ud4o05.apps.googleusercontent.com",
+          "client_id": "185315855065-peu1j8urisd731h3vgr7brp4jdv4mea5.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDsvp7nb_EzB1jfaZRgjj6NncLueeotYq8"
+          "current_key": "AIzaSyDhGnaFkOU46mJJ09_7qm6Ok3-wguLZixE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1063252023065-70h3beat9j4r43jf13h32p25j7ud4o05.apps.googleusercontent.com",
+              "client_id": "185315855065-peu1j8urisd731h3vgr7brp4jdv4mea5.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "1063252023065-iasvbls6qtj8jul03q81385odef9v85c.apps.googleusercontent.com",
+              "client_id": "185315855065-3bcv2rd0rta2e4jj08qm53vgrfl5hjb0.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.pfxstudio.AngelClub"
+                "bundle_id": "com.pfxstudio.clubangel"
               }
             }
           ]

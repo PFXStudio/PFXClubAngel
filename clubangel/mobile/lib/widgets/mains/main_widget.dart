@@ -1,9 +1,11 @@
 import 'package:clubangel/defines/define_images.dart';
 import 'package:clubangel/loaders/localizable_loader.dart';
+import 'package:clubangel/singletons/keyboard_singleton.dart';
 import 'package:clubangel/themes/main_theme.dart';
 import 'package:clubangel/widgets/accounts/account_widget.dart';
 import 'package:clubangel/widgets/angels/angel_widget.dart';
 import 'package:clubangel/widgets/mains/main_bottom_bar_widget.dart';
+import 'package:clubangel/widgets/mains/main_invisible_bottom_bar.dart';
 import 'package:clubangel/widgets/mains/main_top_bar_widget.dart';
 import 'package:clubangel/widgets/real_times/real_time_widget.dart';
 import 'package:core/core.dart';
@@ -40,7 +42,7 @@ class _MainWidgetState extends State<MainWidget>
         physics: const NeverScrollableScrollPhysics(),
         children: [
           RealTimeWidget(EventListType.nowInTheaters), // real time
-          const AngelWidget(), // angel
+          AngelWidget(EventListType.nowInTheaters), // angel
           RealTimeWidget(EventListType.nowInTheaters), // club info
           AccountWidget(),
         ],
@@ -125,32 +127,34 @@ class _BottomTabs extends StatelessWidget {
 
     return Align(
       alignment: Alignment.bottomCenter,
-      child: MainBottomBarWidget(
-        currentIndex: selectedTab,
-        onTap: onTap,
-        items: [
-          BottomNavigationBarItem(
-            title: Text(LocalizableLoader.of(context).text("app_title")),
-            icon: const Icon(Icons.settings_input_antenna),
-            backgroundColor: Theme.of(context).primaryColor,
-          ),
-          BottomNavigationBarItem(
-            title: Text(LocalizableLoader.of(context).text("app_title")),
-            icon: const Icon(Icons.local_pizza),
-            backgroundColor: Theme.of(context).primaryColor,
-          ),
-          BottomNavigationBarItem(
-            title: Text(LocalizableLoader.of(context).text("app_title")),
-            icon: const Icon(Icons.queue_music),
-            backgroundColor: Theme.of(context).primaryColor,
-          ),
-          BottomNavigationBarItem(
-            title: Text(LocalizableLoader.of(context).text("app_title")),
-            icon: const Icon(Icons.person),
-            backgroundColor: Theme.of(context).primaryColor,
-          ),
-        ],
-      ),
+      child: KeyboardSingleton().isKeyboardVisible()
+          ? MainInvisibleBottomBar()
+          : MainBottomBarWidget(
+              currentIndex: selectedTab,
+              onTap: onTap,
+              items: [
+                BottomNavigationBarItem(
+                  title: Text(LocalizableLoader.of(context).text("app_title")),
+                  icon: const Icon(Icons.settings_input_antenna),
+                  backgroundColor: Theme.of(context).primaryColor,
+                ),
+                BottomNavigationBarItem(
+                  title: Text(LocalizableLoader.of(context).text("app_title")),
+                  icon: const Icon(Icons.local_pizza),
+                  backgroundColor: Theme.of(context).primaryColor,
+                ),
+                BottomNavigationBarItem(
+                  title: Text(LocalizableLoader.of(context).text("app_title")),
+                  icon: const Icon(Icons.queue_music),
+                  backgroundColor: Theme.of(context).primaryColor,
+                ),
+                BottomNavigationBarItem(
+                  title: Text(LocalizableLoader.of(context).text("app_title")),
+                  icon: const Icon(Icons.person),
+                  backgroundColor: Theme.of(context).primaryColor,
+                ),
+              ],
+            ),
     );
   }
 }

@@ -8,7 +8,10 @@
     didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
   [GeneratedPluginRegistrant registerWithRegistry:self];
   // Override point for customization after application launch.
-  [FIRApp configure];
+    if ([FIRApp defaultApp] == nil) {
+        [FIRApp configure];
+    }
+
   return [super application:application didFinishLaunchingWithOptions:launchOptions];
 }
 

@@ -1,4 +1,5 @@
 import 'package:clubangel/models/angel_widget_model.dart';
+import 'package:clubangel/singletons/keyboard_singleton.dart';
 import 'package:clubangel/themes/main_theme.dart';
 import 'package:clubangel/widgets/angels/angel_date_widget.dart';
 import 'package:clubangel/widgets/angels/angel_list_widget.dart';
@@ -11,7 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
 class AngelWidget extends StatelessWidget {
-  const AngelWidget();
+  AngelWidget(this.listType);
+  final EventListType listType;
 
   @override
   Widget build(BuildContext context) {
@@ -28,25 +30,6 @@ class AngelWidgetContent extends StatelessWidget {
   AngelWidgetContent(this.viewModel);
   final AngelWidgetModel viewModel;
 
-  /*
-@override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        AngelDateWidget(viewModel),
-        Expanded(
-          child: LoadingWidget(
-            status: viewModel.status,
-            loadingContent: const PlatformAdaptiveProgressIndicator(),
-            errorContent: ErrorView(onRetry: viewModel.refreshShowtimes),
-            successContent: AngelListWidget(viewModel.status, viewModel.shows),
-          ),
-        ),
-      ],
-    );
-  }
-*/
   void _incrementCounter() {}
 
   @override
@@ -67,18 +50,20 @@ class AngelWidgetContent extends StatelessWidget {
           ),
         ],
       ),
-      floatingActionButton: Container(
-        child: FloatingActionButton(
-          onPressed: _incrementCounter,
-          tooltip: 'Increment',
-          backgroundColor: MainTheme.defaultColor,
-          child: Icon(
-            Icons.add,
-            color: Colors.white,
-          ),
-        ),
-        padding: EdgeInsets.only(bottom: 70),
-      ),
+      floatingActionButton: KeyboardSingleton().isKeyboardVisible()
+          ? Container()
+          : Container(
+              child: FloatingActionButton(
+                onPressed: _incrementCounter,
+                tooltip: 'Add',
+                backgroundColor: MainTheme.defaultColor,
+                child: Icon(
+                  Icons.add,
+                  color: Colors.white,
+                ),
+              ),
+              padding: EdgeInsets.only(bottom: 70),
+            ),
     );
   }
 }

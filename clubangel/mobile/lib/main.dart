@@ -1,3 +1,4 @@
+import 'package:clubangel/singletons/keyboard_singleton.dart';
 import 'package:core/core.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:clubangel/delegates/localizable_delegate.dart';
@@ -36,6 +37,7 @@ class _MainAppState extends State<MainApp> {
     widget.store.dispatch(InitAction());
     _localizableDelegate = LocalizableDelegate(newLocale: null);
     localizableManager.onLocaleChanged = onLocaleChange;
+    KeyboardSingleton().initialize();
   }
 
   @override

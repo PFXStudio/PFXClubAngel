@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>1063252023065-iasvbls6qtj8jul03q81385odef9v85c.apps.googleusercontent.com</string>
+	<string>185315855065-3bcv2rd0rta2e4jj08qm53vgrfl5hjb0.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.1063252023065-iasvbls6qtj8jul03q81385odef9v85c</string>
+	<string>com.googleusercontent.apps.185315855065-3bcv2rd0rta2e4jj08qm53vgrfl5hjb0</string>
 	<key>API_KEY</key>
-	<string>AIzaSyDdw1mhpxNV6CxY1He0JCOXm0oJVp04jjs</string>
+	<string>AIzaSyCPv5dKxwYfsC0Mhi3zBSMLEIPulrjRug8</string>
 	<key>GCM_SENDER_ID</key>
-	<string>1063252023065</string>
+	<string>185315855065</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.pfxstudio.AngelClub</string>
+	<string>com.pfxstudio.clubangel</string>
 	<key>PROJECT_ID</key>
-	<string>angelclub-9b4df</string>
+	<string>clubangel-9a163</string>
 	<key>STORAGE_BUCKET</key>
-	<string>angelclub-9b4df.appspot.com</string>
+	<string>clubangel-9a163.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,8 +29,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:1063252023065:ios:7b12c9d404bc595e</string>
+	<string>1:185315855065:ios:f8554c40823167fc</string>
 	<key>DATABASE_URL</key>
-	<string>https://angelclub-9b4df.firebaseio.com</string>
+	<string>https://clubangel-9a163.firebaseio.com</string>
 </dict>
 </plist>

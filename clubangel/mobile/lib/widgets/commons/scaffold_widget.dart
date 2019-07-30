@@ -107,22 +107,6 @@ class ScaffoldWidget extends StatelessWidget {
       ),
       drawer: showDrawer ? Container() : null,
       body: bodyData,
-      // floatingActionButton: showFAB
-      //     ? CustomFloat(
-      //         builder: centerDocked
-      //             ? Text(
-      //                 "5",
-      //                 style: TextStyle(color: Colors.white, fontSize: 10.0),
-      //               )
-      //             : null,
-      //         icon: floatingIcon,
-      //         qrCallback: () {},
-      //       )
-      //     : null,
-      // floatingActionButtonLocation: centerDocked
-      //     ? FloatingActionButtonLocation.centerDocked
-      //     : FloatingActionButtonLocation.endFloat,
-      // bottomNavigationBar: showBottomNav ? myBottomBar() : null,
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:clubangel/loaders/localizable_loader.dart';
+import 'package:clubangel/singletons/keyboard_singleton.dart';
 import 'package:clubangel/themes/main_theme.dart';
 import 'package:clubangel/widgets/commons/info_message_widget.dart';
 import 'package:clubangel/widgets/real_times/real_time_grid_item_widget.dart';
@@ -82,10 +83,13 @@ class _Content extends StatelessWidget {
                 itemBuilder: _buildItem,
               ),
             ),
-            floatingActionButton: Container(
+          )),
+      floatingActionButton: KeyboardSingleton().isKeyboardVisible()
+          ? Container()
+          : Container(
               child: FloatingActionButton(
                 onPressed: _incrementCounter,
-                tooltip: 'Increment',
+                tooltip: 'Add',
                 backgroundColor: MainTheme.defaultColor,
                 child: Icon(
                   Icons.add,
@@ -94,7 +98,6 @@ class _Content extends StatelessWidget {
               ),
               padding: EdgeInsets.only(bottom: 70),
             ),
-          )),
     );
   }
 }

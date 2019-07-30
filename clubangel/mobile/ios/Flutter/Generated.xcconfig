@@ -1,7 +1,7 @@
 // This is a generated file; do not edit or check into version control.
 FLUTTER_ROOT=/Users/succorer/Thirds/flutter
-FLUTTER_APPLICATION_PATH=/Users/succorer/Sourcetree/PFXStudio.github/PFXClubAngel.github/clubangel/mobile
-FLUTTER_TARGET=/Users/succorer/Sourcetree/PFXStudio.github/PFXClubAngel.github/clubangel/mobile/lib/main.dart
+FLUTTER_APPLICATION_PATH=/Users/succorer/Documents/PFXStudio.github/PFXClubAngel.github/clubangel/mobile
+FLUTTER_TARGET=/Users/succorer/Documents/PFXStudio.github/PFXClubAngel.github/clubangel/mobile/lib/main.dart
 FLUTTER_BUILD_DIR=build
 SYMROOT=${SOURCE_ROOT}/../build/ios
 FLUTTER_FRAMEWORK_DIR=/Users/succorer/Thirds/flutter/bin/cache/artifacts/engine/ios
