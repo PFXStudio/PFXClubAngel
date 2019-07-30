@@ -1,5 +1,5 @@
 import 'package:clubangel/loaders/localizable_loader.dart';
-import 'package:clubangel/models/dash_board_widget_model.dart';
+import 'package:clubangel/models/board_widget_model.dart';
 import 'package:clubangel/widgets/commons/info_message_widget.dart';
 import 'package:clubangel/widgets/commons/loading_widget.dart';
 import 'package:clubangel/widgets/commons/platform_adaptive_progress_indicator.dart';
@@ -20,15 +20,15 @@ const protectionMsgs = [
 
 class DashBoardWidget extends StatelessWidget {
   DashBoardWidget(this.listType);
-  final EventListType listType;
+  final BoardListType listType;
 
   @override
   Widget build(BuildContext context) {
-    return StoreConnector<AppState, DashBoardWidgetModel>(
+    return StoreConnector<AppState, BoardWidgetModel>(
       distinct: true,
       onInit: (store) =>
           store.dispatch(FetchComingSoonEventsIfNotLoadedAction()),
-      converter: (store) => DashBoardWidgetModel.fromStore(store, listType),
+      converter: (store) => BoardWidgetModel.fromStore(store, listType),
       builder: (_, viewModel) => DashBoardWidgetContent(viewModel, listType),
     );
   }
@@ -145,8 +145,8 @@ class ProtectionSection extends StatelessWidget {
 
 class DashBoardWidgetContent extends StatelessWidget {
   DashBoardWidgetContent(this.viewModel, this.listType);
-  final DashBoardWidgetModel viewModel;
-  final EventListType listType;
+  final BoardWidgetModel viewModel;
+  final BoardListType listType;
 
   @override
   Widget build(BuildContext context) {

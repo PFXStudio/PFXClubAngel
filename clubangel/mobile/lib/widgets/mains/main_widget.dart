@@ -42,7 +42,7 @@ class _MainWidgetState extends State<MainWidget>
         controller: _tabController,
         physics: const NeverScrollableScrollPhysics(),
         children: [
-          DashBoardWidget(EventListType.nowInTheaters), // real time
+          DashBoardWidget(BoardListType.realTime), // real time
           AngelWidget(EventListType.nowInTheaters), // angel
           RealTimeCollectionWidget(EventListType.nowInTheaters), // club info
           AccountWidget(),

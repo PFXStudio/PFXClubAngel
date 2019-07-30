@@ -3,40 +3,40 @@ import 'package:kt_dart/collection.dart';
 import 'package:meta/meta.dart';
 import 'package:redux/redux.dart';
 
-class DashBoardWidgetModel {
-  DashBoardWidgetModel({
+class BoardWidgetModel {
+  BoardWidgetModel({
     @required this.status,
-    @required this.events,
+    @required this.boards,
     @required this.refreshEvents,
   });
 
   final LoadingStatus status;
-  final KtList<Event> events;
+  final KtList<Board> boards;
   final Function refreshEvents;
 
-  static DashBoardWidgetModel fromStore(
+  static BoardWidgetModel fromStore(
     Store<AppState> store,
-    EventListType type,
+    BoardListType type,
   ) {
-    return DashBoardWidgetModel(
-      status: type == EventListType.nowInTheaters
+    return BoardWidgetModel(
+      status: type == BoardListType.realTime
           ? store.state.eventState.nowInTheatersStatus
           : store.state.eventState.comingSoonStatus,
-      events: type == EventListType.nowInTheaters
+      boards: type == BoardListType.gallery
           ? nowInTheatersSelector(store.state)
           : comingSoonSelector(store.state),
-      refreshEvents: () => store.dispatch(RefreshEventsAction(type)),
+      refreshEvents: () => store.dispatch(RefreshBoardsAction(type)),
     );
   }
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is DashBoardWidgetModel &&
+      other is BoardWidgetModel &&
           runtimeType == other.runtimeType &&
           status == other.status &&
-          events == other.events;
+          boards == other.boards;
 
   @override
-  int get hashCode => status.hashCode ^ events.hashCode;
+  int get hashCode => status.hashCode ^ boards.hashCode;
 }
