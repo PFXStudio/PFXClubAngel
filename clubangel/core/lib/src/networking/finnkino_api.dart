@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:core/src/models/event.dart';
+import 'package:core/src/models/board.dart';
 import 'package:core/src/models/show.dart';
 import 'package:core/src/models/theater.dart';
-import 'package:core/src/parsers/event_parser.dart';
+import 'package:core/src/parsers/board_parser.dart';
 import 'package:core/src/parsers/show_parser.dart';
 import 'package:http/http.dart';
 import 'package:intl/intl.dart';
@@ -42,7 +42,7 @@ class FinnkinoApi {
     return ShowParser.parse(utf8.decode(response.bodyBytes));
   }
 
-  Future<KtList<Event>> getNowInTheatersEvents(Theater theater) async {
+  Future<KtList<Board>> getNowInTheatersEvents(Theater theater) async {
     final response = await client.get(
       kEventsBaseUrl.replace(queryParameters: {
         'area': theater.id,
@@ -51,10 +51,10 @@ class FinnkinoApi {
       }),
     );
 
-    return EventParser.parse(utf8.decode(response.bodyBytes));
+    return BoardParser.parse(utf8.decode(response.bodyBytes));
   }
 
-  Future<KtList<Event>> getUpcomingEvents() async {
+  Future<KtList<Board>> getUpcomingEvents() async {
     final response = await client.get(
       kEventsBaseUrl.replace(queryParameters: {
         'listType': 'ComingSoon',
@@ -62,6 +62,6 @@ class FinnkinoApi {
       }),
     );
 
-    return EventParser.parse(utf8.decode(response.bodyBytes));
+    return BoardParser.parse(utf8.decode(response.bodyBytes));
   }
 }

@@ -5,13 +5,13 @@ import 'actor.dart';
 import 'content_descriptor.dart';
 import 'gallery_image.dart';
 
-enum EventListType {
-  nowInTheaters,
-  comingSoon,
+enum BoardListType {
+  realTime,
+  clubInfo,
 }
 
-class Event {
-  Event({
+class Board {
+  Board({
     this.id,
     this.title,
     this.originalTitle,
@@ -41,7 +41,7 @@ class Event {
   final String lengthInMinutes;
   final String shortSynopsis;
   final String synopsis;
-  final EventImageData images;
+  final BoardImageData images;
   final KtList<ContentDescriptor> contentDescriptors;
   final KtList<String> youtubeTrailers;
   final KtList<GalleryImage> galleryImages;
@@ -58,7 +58,7 @@ class Event {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is Event &&
+      other is Board &&
           runtimeType == other.runtimeType &&
           id == other.id &&
           title == other.title &&
@@ -95,8 +95,8 @@ class Event {
       actors.hashCode;
 }
 
-class EventImageData {
-  EventImageData({
+class BoardImageData {
+  BoardImageData({
     @required this.portraitSmall,
     @required this.portraitMedium,
     @required this.portraitLarge,
@@ -121,7 +121,7 @@ class EventImageData {
       landscapeSmall ??
       landscapeBig;
 
-  EventImageData.empty()
+  BoardImageData.empty()
       : portraitSmall = null,
         portraitMedium = null,
         portraitLarge = null,
@@ -133,7 +133,7 @@ class EventImageData {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is EventImageData &&
+      other is BoardImageData &&
           runtimeType == other.runtimeType &&
           portraitSmall == other.portraitSmall &&
           portraitMedium == other.portraitMedium &&

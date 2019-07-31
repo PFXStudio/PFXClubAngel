@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:core/src/models/actor.dart';
-import 'package:core/src/models/event.dart';
+import 'package:core/src/models/board.dart';
 import 'package:core/src/tmdb_config.dart';
 import 'package:http/http.dart';
 import 'package:kt_dart/collection.dart';
@@ -18,8 +18,8 @@ class TMDBApi {
   static final String baseUrl = 'api.themoviedb.org';
 
   Future<KtList<Actor>> findAvatarsForActors(
-      Event event, KtList<Actor> actors) async {
-    int movieId = await _findMovieId(event.originalTitle);
+      Board board, KtList<Actor> actors) async {
+    int movieId = await _findMovieId(board.originalTitle);
 
     if (movieId != null) {
       return _getActorAvatars(movieId);

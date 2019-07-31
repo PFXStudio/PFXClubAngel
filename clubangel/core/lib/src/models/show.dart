@@ -1,7 +1,7 @@
 import 'package:kt_dart/collection.dart';
 
 import 'content_descriptor.dart';
-import 'event.dart';
+import 'board.dart';
 
 class Show {
   Show({
@@ -31,7 +31,7 @@ class Show {
   final String theaterAndAuditorium;
   final DateTime start;
   final DateTime end;
-  final EventImageData images;
+  final BoardImageData images;
   final KtList<ContentDescriptor> contentDescriptors;
 
   @override

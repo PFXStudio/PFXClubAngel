@@ -1,6 +1,6 @@
 import 'package:core/core.dart';
 import 'package:core/src/models/actor.dart';
-import 'package:core/src/models/event.dart';
+import 'package:core/src/models/board.dart';
 import 'package:core/src/models/theater.dart';
 import 'package:kt_dart/collection.dart';
 
@@ -24,8 +24,8 @@ class ChangeCurrentTheaterAction {
 }
 
 class UpdateActorsForEventAction {
-  UpdateActorsForEventAction(this.event, this.actors);
+  UpdateActorsForEventAction(this.board, this.actors);
 
-  final Event event;
+  final Board board;
   final KtList<Actor> actors;
 }

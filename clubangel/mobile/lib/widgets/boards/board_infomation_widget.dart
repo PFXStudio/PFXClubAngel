@@ -3,10 +3,10 @@ import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class RealTimeInfomationWidget extends StatelessWidget {
+class BoardInfomationWidget extends StatelessWidget {
   static final _releaseDateFormat = DateFormat('dd.MM.yyyy');
 
-  RealTimeInfomationWidget(this.board);
+  BoardInfomationWidget(this.board);
   final Board board;
 
   @override

@@ -11,21 +11,21 @@ class BoardWidgetModel {
   });
 
   final LoadingStatus status;
-  final KtList<Event> boards;
+  final KtList<Board> boards;
   final Function refreshBoards;
 
   static BoardWidgetModel fromStore(
     Store<AppState> store,
-    EventListType type,
+    BoardListType type,
   ) {
     return BoardWidgetModel(
-      status: type == EventListType.nowInTheaters
-          ? store.state.eventState.nowInTheatersStatus
-          : store.state.eventState.comingSoonStatus,
-      boards: type == EventListType.comingSoon
+      status: type == BoardListType.realTime
+          ? store.state.boardState.nowInTheatersStatus
+          : store.state.boardState.comingSoonStatus,
+      boards: type == BoardListType.clubInfo
           ? nowInTheatersSelector(store.state)
           : comingSoonSelector(store.state),
-      refreshBoards: () => store.dispatch(RefreshEventsAction(type)),
+      refreshBoards: () => store.dispatch(BoardEventsAction(type)),
     );
   }
 

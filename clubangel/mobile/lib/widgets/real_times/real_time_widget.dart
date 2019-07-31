@@ -20,7 +20,7 @@ const protectionMsgs = [
 
 class RealTimeWidget extends StatelessWidget {
   RealTimeWidget(this.listType);
-  final EventListType listType;
+  final BoardListType listType;
 
   @override
   Widget build(BuildContext context) {
@@ -146,7 +146,7 @@ class ProtectionSection extends StatelessWidget {
 class RealTimeWidgetContent extends StatelessWidget {
   RealTimeWidgetContent(this.viewModel, this.listType);
   final RealTimeWidgetModel viewModel;
-  final EventListType listType;
+  final BoardListType listType;
 
   @override
   Widget build(BuildContext context) {

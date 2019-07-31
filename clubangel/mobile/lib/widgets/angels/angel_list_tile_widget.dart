@@ -22,7 +22,7 @@ class AngelListTileWidget extends StatelessWidget {
 
   void _navigateToEventDetails(BuildContext context) {
     // final store = StoreProvider.of<AppState>(context);
-    // final event = eventForShowSelector(store.state, show);
+    // final board = eventForShowSelector(store.state, show);
 
     // Navigator.push<Null>(
     //   context,

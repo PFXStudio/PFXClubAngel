@@ -1,24 +1,24 @@
-import 'package:core/src/models/event.dart';
+import 'package:core/src/models/board.dart';
 import 'package:core/src/models/loading_status.dart';
 import 'package:core/src/redux/_common/common_actions.dart';
-import 'package:core/src/redux/event/event_actions.dart';
-import 'package:core/src/redux/event/event_state.dart';
+import 'package:core/src/redux/board/board_actions.dart';
+import 'package:core/src/redux/board/board_state.dart';
 import 'package:kt_dart/collection.dart';
 
-EventState eventReducer(EventState state, dynamic action) {
-  if (action is RequestingEventsAction) {
+BoardState boardReducer(BoardState state, dynamic action) {
+  if (action is RequestingBoardsAction) {
     return _requestingEvents(state, action.type);
   } else if (action is ReceivedInTheatersEventsAction) {
     return state.copyWith(
       nowInTheatersStatus: LoadingStatus.success,
-      nowInTheatersEvents: action.events,
+      nowInTheatersEvents: action.boards,
     );
   } else if (action is ReceivedComingSoonEventsAction) {
     return state.copyWith(
       comingSoonStatus: LoadingStatus.success,
-      comingSoonEvents: action.events,
+      comingSoonEvents: action.boards,
     );
-  } else if (action is ErrorLoadingEventsAction) {
+  } else if (action is ErrorLoadingBoardsAction) {
     return _errorLoadingEvents(state, action.type);
   } else if (action is UpdateActorsForEventAction) {
     return _updateActorsForEvent(state, action);
@@ -27,40 +27,40 @@ EventState eventReducer(EventState state, dynamic action) {
   return state;
 }
 
-EventState _requestingEvents(EventState state, EventListType type) {
+BoardState _requestingEvents(BoardState state, BoardListType type) {
   final status = LoadingStatus.loading;
 
-  if (type == EventListType.nowInTheaters) {
+  if (type == BoardListType.realTime) {
     return state.copyWith(nowInTheatersStatus: status);
   }
 
   return state.copyWith(comingSoonStatus: status);
 }
 
-EventState _errorLoadingEvents(EventState state, EventListType type) {
+BoardState _errorLoadingEvents(BoardState state, BoardListType type) {
   final status = LoadingStatus.error;
 
-  if (type == EventListType.nowInTheaters) {
+  if (type == BoardListType.realTime) {
     return state.copyWith(nowInTheatersStatus: status);
   }
 
   return state.copyWith(comingSoonStatus: status);
 }
 
-EventState _updateActorsForEvent(
-    EventState state, UpdateActorsForEventAction action) {
-  final event = action.event;
-  event.actors = action.actors;
+BoardState _updateActorsForEvent(
+    BoardState state, UpdateActorsForEventAction action) {
+  final board = action.board;
+  board.actors = action.actors;
 
   return state.copyWith(
     nowInTheatersEvents:
-        _addActorImagesToEvent(state.nowInTheatersEvents, event),
-    comingSoonEvents: _addActorImagesToEvent(state.comingSoonEvents, event),
+        _addActorImagesToEvent(state.nowInTheatersEvents, board),
+    comingSoonEvents: _addActorImagesToEvent(state.comingSoonEvents, board),
   );
 }
 
-KtList<Event> _addActorImagesToEvent(
-    KtList<Event> originalEvents, Event replacement) {
+KtList<Board> _addActorImagesToEvent(
+    KtList<Board> originalEvents, Board replacement) {
   final positionToReplace = originalEvents
       .indexOfFirst((candidate) => candidate.id == replacement.id);
 

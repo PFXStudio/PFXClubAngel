@@ -4,6 +4,7 @@ import 'package:clubangel/singletons/keyboard_singleton.dart';
 import 'package:clubangel/themes/main_theme.dart';
 import 'package:clubangel/widgets/accounts/account_widget.dart';
 import 'package:clubangel/widgets/angels/angel_widget.dart';
+import 'package:clubangel/widgets/boards/board_collection_widget.dart';
 import 'package:clubangel/widgets/boards/dash_board_widget.dart';
 import 'package:clubangel/widgets/mains/main_bottom_bar_widget.dart';
 import 'package:clubangel/widgets/mains/main_invisible_bottom_bar.dart';
@@ -42,9 +43,9 @@ class _MainWidgetState extends State<MainWidget>
         controller: _tabController,
         physics: const NeverScrollableScrollPhysics(),
         children: [
-          DashBoardWidget(EventListType.nowInTheaters), // club info
-          AngelWidget(EventListType.nowInTheaters), // angel
-          RealTimeCollectionWidget(EventListType.comingSoon), // club info
+          BoardCollectionWidget(BoardListType.realTime),
+          AngelWidget(BoardListType.realTime), // angel
+          RealTimeCollectionWidget(BoardListType.clubInfo), // club info
           AccountWidget(),
         ],
       ),

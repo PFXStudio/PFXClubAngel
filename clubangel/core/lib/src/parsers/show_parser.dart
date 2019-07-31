@@ -1,7 +1,7 @@
 import 'package:core/src/models/show.dart';
 import 'package:core/src/networking/image_url_rewriter.dart';
 import 'package:core/src/parsers/content_descriptor_parser.dart';
-import 'package:core/src/parsers/event_parser.dart';
+import 'package:core/src/parsers/board_parser.dart';
 import 'package:core/src/utils/event_name_cleaner.dart';
 import 'package:core/src/utils/xml_utils.dart';
 import 'package:kt_dart/collection.dart';

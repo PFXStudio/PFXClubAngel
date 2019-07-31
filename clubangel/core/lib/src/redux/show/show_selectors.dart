@@ -1,4 +1,4 @@
-import 'package:core/src/models/event.dart';
+import 'package:core/src/models/board.dart';
 import 'package:core/src/models/show.dart';
 import 'package:core/src/models/show_cache.dart';
 import 'package:core/src/redux/app/app_state.dart';
@@ -32,8 +32,8 @@ final showsSelector = createSelector3<AppState, DateTheaterPair,
 );
 
 final showsForEventSelector =
-    memo2<KtList<Show>, Event, KtList<Show>>((shows, event) {
-  return shows.filter((show) => show.originalTitle == event.originalTitle);
+    memo2<KtList<Show>, Board, KtList<Show>>((shows, board) {
+  return shows.filter((show) => show.originalTitle == board.originalTitle);
 });
 
 KtList<Show> _showsWithSearchQuery(KtList<Show> shows, String searchQuery) {

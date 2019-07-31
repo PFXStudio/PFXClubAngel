@@ -1,11 +1,11 @@
-import 'package:core/src/models/event.dart';
+import 'package:core/src/models/board.dart';
 import 'package:core/src/models/loading_status.dart';
 import 'package:kt_dart/collection.dart';
 import 'package:meta/meta.dart';
 
 @immutable
-class EventState {
-  EventState({
+class BoardState {
+  BoardState({
     @required this.nowInTheatersStatus,
     @required this.nowInTheatersEvents,
     @required this.comingSoonStatus,
@@ -13,12 +13,12 @@ class EventState {
   });
 
   final LoadingStatus nowInTheatersStatus;
-  final KtList<Event> nowInTheatersEvents;
+  final KtList<Board> nowInTheatersEvents;
   final LoadingStatus comingSoonStatus;
-  final KtList<Event> comingSoonEvents;
+  final KtList<Board> comingSoonEvents;
 
-  factory EventState.initial() {
-    return EventState(
+  factory BoardState.initial() {
+    return BoardState(
       nowInTheatersStatus: LoadingStatus.idle,
       nowInTheatersEvents: emptyList(),
       comingSoonStatus: LoadingStatus.idle,
@@ -26,13 +26,13 @@ class EventState {
     );
   }
 
-  EventState copyWith({
+  BoardState copyWith({
     LoadingStatus nowInTheatersStatus,
-    KtList<Event> nowInTheatersEvents,
+    KtList<Board> nowInTheatersEvents,
     LoadingStatus comingSoonStatus,
-    KtList<Event> comingSoonEvents,
+    KtList<Board> comingSoonEvents,
   }) {
-    return EventState(
+    return BoardState(
       nowInTheatersStatus: nowInTheatersStatus ?? this.nowInTheatersStatus,
       comingSoonStatus: comingSoonStatus ?? this.comingSoonStatus,
       nowInTheatersEvents: nowInTheatersEvents ?? this.nowInTheatersEvents,
@@ -43,7 +43,7 @@ class EventState {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is EventState &&
+      other is BoardState &&
           runtimeType == other.runtimeType &&
           nowInTheatersStatus == other.nowInTheatersStatus &&
           comingSoonStatus == other.comingSoonStatus &&

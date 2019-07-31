@@ -3,8 +3,8 @@ import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
-class RealTimeGridItemWidget extends StatelessWidget {
-  RealTimeGridItemWidget({
+class BoardGridItemWidget extends StatelessWidget {
+  BoardGridItemWidget({
     @required this.board,
     @required this.onTapped,
     @required this.showReleaseDateInformation,
@@ -21,7 +21,7 @@ class RealTimeGridItemWidget extends StatelessWidget {
       child: Stack(
         fit: StackFit.expand,
         children: [
-          // EventPoster(board: board),
+          // EventPoster(event: event),
           _TextualInfo(board),
           Positioned(
             top: 10.0,

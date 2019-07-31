@@ -1,5 +1,5 @@
 import 'package:core/src/models/actor.dart';
-import 'package:core/src/models/event.dart';
+import 'package:core/src/models/board.dart';
 import 'package:core/src/networking/image_url_rewriter.dart';
 import 'package:core/src/parsers/content_descriptor_parser.dart';
 import 'package:core/src/parsers/gallery_parser.dart';
@@ -8,16 +8,16 @@ import 'package:core/src/utils/xml_utils.dart';
 import 'package:kt_dart/collection.dart';
 import 'package:xml/xml.dart' as xml;
 
-class EventParser {
-  static KtList<Event> parse(String xmlString) {
+class BoardParser {
+  static KtList<Board> parse(String xmlString) {
     final document = xml.parse(xmlString);
-    final events = document.findAllElements('Event');
+    final boards = document.findAllElements('Event');
 
-    return listFrom(events).map((node) {
+    return listFrom(boards).map((node) {
       final title = tagContents(node, 'Title');
       final originalTitle = tagContents(node, 'OriginalTitle');
 
-      return Event(
+      return Board(
         id: tagContents(node, 'ID'),
         title: EventNameCleaner.cleanup(title),
         originalTitle: EventNameCleaner.cleanup(originalTitle),
@@ -75,16 +75,16 @@ class EventParser {
 }
 
 class EventImageDataParser {
-  static EventImageData parse(Iterable<xml.XmlElement> roots) {
+  static BoardImageData parse(Iterable<xml.XmlElement> roots) {
     if (roots == null || roots.isEmpty) {
-      return EventImageData.empty();
+      return BoardImageData.empty();
     }
 
     final root = roots.first;
     final landscapeBig =
         rewriteImageUrl(tagContentsOrNull(root, 'EventLargeImageLandscape'));
 
-    return EventImageData(
+    return BoardImageData(
       portraitSmall:
           rewriteImageUrl(tagContentsOrNull(root, 'EventSmallImagePortrait')),
       portraitMedium:

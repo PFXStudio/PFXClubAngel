@@ -20,7 +20,7 @@ const protectionMsgs = [
 
 class DashBoardWidget extends StatelessWidget {
   DashBoardWidget(this.listType);
-  final EventListType listType;
+  final BoardListType listType;
 
   @override
   Widget build(BuildContext context) {
@@ -146,7 +146,7 @@ class ProtectionSection extends StatelessWidget {
 class DashBoardWidgetContent extends StatelessWidget {
   DashBoardWidgetContent(this.viewModel, this.listType);
   final BoardWidgetModel viewModel;
-  final EventListType listType;
+  final BoardListType listType;
 
   @override
   Widget build(BuildContext context) {

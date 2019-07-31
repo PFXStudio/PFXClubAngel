@@ -6,26 +6,26 @@ import 'package:redux/redux.dart';
 class RealTimeWidgetModel {
   RealTimeWidgetModel({
     @required this.status,
-    @required this.events,
+    @required this.boards,
     @required this.refreshEvents,
   });
 
   final LoadingStatus status;
-  final KtList<Event> events;
+  final KtList<Board> boards;
   final Function refreshEvents;
 
   static RealTimeWidgetModel fromStore(
     Store<AppState> store,
-    EventListType type,
+    BoardListType type,
   ) {
     return RealTimeWidgetModel(
-      status: type == EventListType.nowInTheaters
-          ? store.state.eventState.nowInTheatersStatus
-          : store.state.eventState.comingSoonStatus,
-      events: type == EventListType.nowInTheaters
+      status: type == BoardListType.realTime
+          ? store.state.boardState.nowInTheatersStatus
+          : store.state.boardState.comingSoonStatus,
+      boards: type == BoardListType.realTime
           ? nowInTheatersSelector(store.state)
           : comingSoonSelector(store.state),
-      refreshEvents: () => store.dispatch(RefreshEventsAction(type)),
+      refreshEvents: () => store.dispatch(BoardEventsAction(type)),
     );
   }
 
@@ -35,8 +35,8 @@ class RealTimeWidgetModel {
       other is RealTimeWidgetModel &&
           runtimeType == other.runtimeType &&
           status == other.status &&
-          events == other.events;
+          boards == other.boards;
 
   @override
-  int get hashCode => status.hashCode ^ events.hashCode;
+  int get hashCode => status.hashCode ^ boards.hashCode;
 }

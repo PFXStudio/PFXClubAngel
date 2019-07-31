@@ -1,5 +1,5 @@
 import 'package:core/src/models/actor.dart';
-import 'package:core/src/redux/event/event_state.dart';
+import 'package:core/src/redux/board/board_state.dart';
 import 'package:core/src/redux/show/show_state.dart';
 import 'package:core/src/redux/theater/theater_state.dart';
 import 'package:kt_dart/collection.dart';
@@ -12,14 +12,14 @@ class AppState {
     @required this.actorsByName,
     @required this.theaterState,
     @required this.showState,
-    @required this.eventState,
+    @required this.boardState,
   });
 
   final String searchQuery;
   final KtMap<String, Actor> actorsByName;
   final TheaterState theaterState;
   final ShowState showState;
-  final EventState eventState;
+  final BoardState boardState;
 
   factory AppState.initial() {
     return AppState(
@@ -27,7 +27,7 @@ class AppState {
       actorsByName: emptyMap(),
       theaterState: TheaterState.initial(),
       showState: ShowState.initial(),
-      eventState: EventState.initial(),
+      boardState: BoardState.initial(),
     );
   }
 
@@ -36,14 +36,14 @@ class AppState {
     KtMap<String, Actor> actorsByName,
     TheaterState theaterState,
     ShowState showState,
-    EventState eventState,
+    BoardState boardState,
   }) {
     return AppState(
       searchQuery: searchQuery ?? this.searchQuery,
       actorsByName: actorsByName ?? this.actorsByName,
       theaterState: theaterState ?? this.theaterState,
       showState: showState ?? this.showState,
-      eventState: eventState ?? this.eventState,
+      boardState: boardState ?? this.boardState,
     );
   }
 
@@ -56,7 +56,7 @@ class AppState {
           actorsByName == other.actorsByName &&
           theaterState == other.theaterState &&
           showState == other.showState &&
-          eventState == other.eventState;
+          boardState == other.boardState;
 
   @override
   int get hashCode =>
@@ -64,5 +64,5 @@ class AppState {
       actorsByName.hashCode ^
       theaterState.hashCode ^
       showState.hashCode ^
-      eventState.hashCode;
+      boardState.hashCode;
 }

@@ -1,5 +1,5 @@
 import 'package:clubangel/loaders/localizable_loader.dart';
-import 'package:clubangel/models/real_time_collection_widget_model.dart';
+import 'package:clubangel/models/board_collection_widget_model.dart';
 import 'package:clubangel/widgets/commons/info_message_widget.dart';
 import 'package:clubangel/widgets/commons/loading_widget.dart';
 import 'package:clubangel/widgets/commons/platform_adaptive_progress_indicator.dart';
@@ -9,27 +9,27 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
-class RealTimeCollectionWidget extends StatelessWidget {
-  RealTimeCollectionWidget(this.listType);
+class BoardCollectionWidget extends StatelessWidget {
+  BoardCollectionWidget(this.listType);
   final BoardListType listType;
 
   @override
   Widget build(BuildContext context) {
-    return StoreConnector<AppState, RealTimeCollectionWidgetModel>(
+    return StoreConnector<AppState, BoardCollectionWidgetModel>(
       distinct: true,
       onInit: (store) =>
           store.dispatch(FetchComingSoonEventsIfNotLoadedAction()),
       converter: (store) =>
-          RealTimeCollectionWidgetModel.fromStore(store, listType),
+          BoardCollectionWidgetModel.fromStore(store, listType),
       builder: (_, viewModel) =>
-          RealTimeCollectionWidgetContent(viewModel, listType),
+          BoardCollectionWidgetContent(viewModel, listType),
     );
   }
 }
 
-class RealTimeCollectionWidgetContent extends StatelessWidget {
-  RealTimeCollectionWidgetContent(this.viewModel, this.listType);
-  final RealTimeCollectionWidgetModel viewModel;
+class BoardCollectionWidgetContent extends StatelessWidget {
+  BoardCollectionWidgetContent(this.viewModel, this.listType);
+  final BoardCollectionWidgetModel viewModel;
   final BoardListType listType;
 
   @override

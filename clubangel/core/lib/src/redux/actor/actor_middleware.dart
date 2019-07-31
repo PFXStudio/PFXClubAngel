@@ -16,18 +16,18 @@ class ActorMiddleware extends MiddlewareClass<AppState> {
     next(action);
 
     if (action is FetchActorAvatarsAction) {
-      next(ActorsUpdatedAction(action.event.actors));
+      next(ActorsUpdatedAction(action.board.actors));
 
       try {
         final actorsWithAvatars = await tmdbApi.findAvatarsForActors(
-          action.event,
-          action.event.actors,
+          action.board,
+          action.board.actors,
         );
 
         // TMDB API might have a more comprehensive list of actors than the
         // Finnkino API, so we update the event with the actors we get from
         // the TMDB API.
-        next(UpdateActorsForEventAction(action.event, actorsWithAvatars));
+        next(UpdateActorsForEventAction(action.board, actorsWithAvatars));
         next(ReceivedActorAvatarsAction(actorsWithAvatars));
       } catch (e) {
         // We don't need to handle this. If fetching actor avatars

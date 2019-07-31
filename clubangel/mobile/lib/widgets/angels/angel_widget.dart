@@ -13,7 +13,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 
 class AngelWidget extends StatelessWidget {
   AngelWidget(this.listType);
-  final EventListType listType;
+  final BoardListType listType;
 
   @override
   Widget build(BuildContext context) {

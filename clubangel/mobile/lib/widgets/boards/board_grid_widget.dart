@@ -8,11 +8,11 @@ import 'package:flutter/material.dart';
 import 'package:kt_dart/collection.dart';
 import 'package:meta/meta.dart';
 
-class RealTimeGridWidget extends StatelessWidget {
+class BoardGridWidget extends StatelessWidget {
   static const emptyViewKey = const Key('emptyView');
   static const contentKey = const Key('content');
 
-  RealTimeGridWidget({
+  BoardGridWidget({
     @required this.listType,
     @required this.boards,
     @required this.onReloadCallback,
@@ -46,7 +46,7 @@ class _Content extends StatelessWidget {
     // Navigator.push(
     //   context,
     //   MaterialPageRoute(
-    //     builder: (_) => EventDetailsPage(board),
+    //     builder: (_) => EventDetailsPage(event),
     //   ),
     // );
   }
@@ -70,7 +70,7 @@ class _Content extends StatelessWidget {
 
     return Scaffold(
       body: Container(
-          key: RealTimeGridWidget.contentKey,
+          key: BoardGridWidget.contentKey,
           child: Scaffold(
             body: Scrollbar(
               child: GridView.builder(

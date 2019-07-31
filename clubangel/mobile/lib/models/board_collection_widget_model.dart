@@ -1,14 +1,10 @@
-import 'package:core/src/models/board.dart';
-import 'package:core/src/models/loading_status.dart';
-import 'package:core/src/redux/app/app_state.dart';
-import 'package:core/src/redux/board/board_actions.dart';
-import 'package:core/src/redux/board/board_selectors.dart';
+import 'package:core/core.dart';
 import 'package:kt_dart/collection.dart';
 import 'package:meta/meta.dart';
 import 'package:redux/redux.dart';
 
-class EventsPageViewModel {
-  EventsPageViewModel({
+class BoardCollectionWidgetModel {
+  BoardCollectionWidgetModel({
     @required this.status,
     @required this.boards,
     @required this.refreshEvents,
@@ -18,11 +14,11 @@ class EventsPageViewModel {
   final KtList<Board> boards;
   final Function refreshEvents;
 
-  static EventsPageViewModel fromStore(
+  static BoardCollectionWidgetModel fromStore(
     Store<AppState> store,
     BoardListType type,
   ) {
-    return EventsPageViewModel(
+    return BoardCollectionWidgetModel(
       status: type == BoardListType.realTime
           ? store.state.boardState.nowInTheatersStatus
           : store.state.boardState.comingSoonStatus,
@@ -36,7 +32,7 @@ class EventsPageViewModel {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is EventsPageViewModel &&
+      other is BoardCollectionWidgetModel &&
           runtimeType == other.runtimeType &&
           status == other.status &&
           boards == other.boards;
