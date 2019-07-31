@@ -1,6 +1,8 @@
 import 'package:clubangel/loaders/localizable_loader.dart';
 import 'package:clubangel/models/board_widget_model.dart';
 import 'package:clubangel/widgets/board_details/board_details_widget.dart';
+import 'package:clubangel/widgets/boards/board_collection_widget.dart';
+import 'package:clubangel/widgets/boards/board_list_widget.dart';
 import 'package:clubangel/widgets/commons/info_message_widget.dart';
 import 'package:clubangel/widgets/commons/loading_widget.dart';
 import 'package:clubangel/widgets/commons/platform_adaptive_progress_indicator.dart';
@@ -89,8 +91,7 @@ class ProtectionSection extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (_) => BoardDetailsWidget(board),
-      ),
+          builder: (_) => BoardCollectionWidget(BoardListType.realTime)),
     );
   }
 }

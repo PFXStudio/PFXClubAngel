@@ -9,6 +9,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
+import 'board_top_bar_widget.dart';
+
 class BoardCollectionWidget extends StatelessWidget {
   BoardCollectionWidget(this.listType);
   final BoardListType listType;
@@ -35,18 +37,23 @@ class BoardCollectionWidgetContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // final messages = MessageProvider.of(context);
-    return LoadingWidget(
-      status: viewModel.status,
-      loadingContent: const PlatformAdaptiveProgressIndicator(),
-      errorContent: ErrorView(
-        description: LocalizableLoader.of(context).text("error_load"),
-        onRetry: viewModel.refreshEvents,
-      ),
-      successContent: BoardGridWidget(
-        listType: listType,
-        boards: viewModel.boards,
-        onReloadCallback: viewModel.refreshEvents,
-      ),
-    );
+    return Scaffold(
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(kToolbarHeight),
+          child: BoardTopBarWidget(),
+        ),
+        body: LoadingWidget(
+          status: viewModel.status,
+          loadingContent: const PlatformAdaptiveProgressIndicator(),
+          errorContent: ErrorView(
+            description: LocalizableLoader.of(context).text("error_load"),
+            onRetry: viewModel.refreshEvents,
+          ),
+          successContent: BoardGridWidget(
+            listType: listType,
+            boards: viewModel.boards,
+            onReloadCallback: viewModel.refreshEvents,
+          ),
+        ));
   }
 }
