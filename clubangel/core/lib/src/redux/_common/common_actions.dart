@@ -1,3 +1,4 @@
+import 'package:core/core.dart';
 import 'package:core/src/models/actor.dart';
 import 'package:core/src/models/event.dart';
 import 'package:core/src/models/theater.dart';

@@ -7,25 +7,25 @@ class BoardWidgetModel {
   BoardWidgetModel({
     @required this.status,
     @required this.boards,
-    @required this.refreshEvents,
+    @required this.refreshBoards,
   });
 
   final LoadingStatus status;
-  final KtList<Board> boards;
-  final Function refreshEvents;
+  final KtList<Event> boards;
+  final Function refreshBoards;
 
   static BoardWidgetModel fromStore(
     Store<AppState> store,
-    BoardListType type,
+    EventListType type,
   ) {
     return BoardWidgetModel(
-      status: type == BoardListType.realTime
+      status: type == EventListType.nowInTheaters
           ? store.state.eventState.nowInTheatersStatus
           : store.state.eventState.comingSoonStatus,
-      boards: type == BoardListType.gallery
+      boards: type == EventListType.comingSoon
           ? nowInTheatersSelector(store.state)
           : comingSoonSelector(store.state),
-      refreshEvents: () => store.dispatch(RefreshBoardsAction(type)),
+      refreshBoards: () => store.dispatch(RefreshEventsAction(type)),
     );
   }
 

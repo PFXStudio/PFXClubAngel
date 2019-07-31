@@ -20,7 +20,7 @@ const protectionMsgs = [
 
 class DashBoardWidget extends StatelessWidget {
   DashBoardWidget(this.listType);
-  final BoardListType listType;
+  final EventListType listType;
 
   @override
   Widget build(BuildContext context) {
@@ -146,7 +146,7 @@ class ProtectionSection extends StatelessWidget {
 class DashBoardWidgetContent extends StatelessWidget {
   DashBoardWidgetContent(this.viewModel, this.listType);
   final BoardWidgetModel viewModel;
-  final BoardListType listType;
+  final EventListType listType;
 
   @override
   Widget build(BuildContext context) {
@@ -157,7 +157,7 @@ class DashBoardWidgetContent extends StatelessWidget {
         loadingContent: const PlatformAdaptiveProgressIndicator(),
         errorContent: ErrorView(
           description: LocalizableLoader.of(context).text("error_load"),
-          onRetry: viewModel.refreshEvents,
+          onRetry: viewModel.refreshBoards,
         ),
         successContent: Scrollbar(
             child: ListView.builder(
@@ -190,49 +190,5 @@ class DashBoardWidgetContent extends StatelessWidget {
                           ],
                         ),
                       ))));
-
-    /*
-        Container(
-          margin: EdgeInsets.only(left: 20.0, right: 20.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              SizedBox(
-                height: 30.0,
-              ),
-              WhiteText(
-                text: "Real Time",
-                size: 24.0,
-              ),
-              SizedBox(
-                height: 20.0,
-              ),
-              ProtectionSection(),
-              SizedBox(
-                height: 30.0,
-              ),
-              WhiteText(
-                text: "Protection Plans",
-                size: 24.0,
-              ),
-              SizedBox(
-                height: 20.0,
-              ),
-              ProtectionSection(),
-              SizedBox(
-                height: 30.0,
-              ),
-              WhiteText(
-                text: "Gallery",
-                size: 24.0,
-              ),
-              SizedBox(
-                height: 20.0,
-              ),
-              ProtectionSection(),
-            ],
-          ),
-        ));
-        */
   }
 }
