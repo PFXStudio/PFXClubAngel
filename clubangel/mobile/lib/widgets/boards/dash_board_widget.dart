@@ -8,6 +8,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
+import 'package:kt_dart/collection.dart';
+
+import 'board_list_item_widget.dart';
+
 const linearColor = LinearGradient(
     colors: [Colors.white24, Colors.transparent],
     begin: Alignment.topLeft,
@@ -125,21 +129,30 @@ class PlanCardGrey extends StatelessWidget {
 }
 
 class ProtectionSection extends StatelessWidget {
-  const ProtectionSection({Key key}) : super(key: key);
+  ProtectionSection({
+    @required this.listType,
+    @required this.boards,
+    @required this.onReloadCallback,
+  });
+
+  final BoardListType listType;
+  final KtList<Board> boards;
+  final VoidCallback onReloadCallback;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 180.0,
-      child: ListView(
-        scrollDirection: Axis.horizontal,
-        children: <Widget>[
-          PlanCard(),
-          PlanCardGrey(),
-          PlanCardGrey(),
-        ],
-      ),
-    );
+        height: 180.0,
+        child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: boards.count(),
+            itemBuilder: (context, index) {
+              return BoardListItemWidget(
+                board: boards[index],
+                onTapped: () {},
+                showReleaseDateInformation: listType == BoardListType.clubInfo,
+              );
+            }));
   }
 }
 
@@ -152,6 +165,17 @@ class DashBoardWidgetContent extends StatelessWidget {
   Widget build(BuildContext context) {
     // final messages = MessageProvider.of(context);
     var headers = ["Real Time", "Free", "Gallery"];
+    /*
+BoardGridWidget(
+        listType: listType,
+        boards: viewModel.boards,
+        onReloadCallback: viewModel.refreshEvents,
+      ),
+    );
+  }
+}
+
+    */
     return LoadingWidget(
         status: viewModel.status,
         loadingContent: const PlatformAdaptiveProgressIndicator(),
@@ -183,12 +207,25 @@ class DashBoardWidgetContent extends StatelessWidget {
                         title: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            ProtectionSection(),
+                            ProtectionSection(
+                              boards: viewModel.boards,
+                              listType: listType,
+                              onReloadCallback: () {},
+                            ),
                             SizedBox(
                               height: 30.0,
                             ),
                           ],
                         ),
                       ))));
+  }
+
+  void _openEventDetails(BuildContext context, Board board) {
+    // Navigator.push(
+    //   context,
+    //   MaterialPageRoute(
+    //     builder: (_) => EventDetailsPage(event),
+    //   ),
+    // );
   }
 }

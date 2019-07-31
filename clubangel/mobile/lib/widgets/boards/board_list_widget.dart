@@ -1,6 +1,4 @@
 import 'package:clubangel/loaders/localizable_loader.dart';
-import 'package:clubangel/singletons/keyboard_singleton.dart';
-import 'package:clubangel/themes/main_theme.dart';
 import 'package:clubangel/widgets/commons/info_message_widget.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
@@ -9,11 +7,11 @@ import 'package:meta/meta.dart';
 
 import 'board_grid_item_widget.dart';
 
-class BoardGridWidget extends StatelessWidget {
+class BoardListWidget extends StatelessWidget {
   static const emptyViewKey = const Key('emptyView');
   static const contentKey = const Key('content');
 
-  BoardGridWidget({
+  BoardListWidget({
     @required this.listType,
     @required this.boards,
     @required this.onReloadCallback,
@@ -71,7 +69,7 @@ class _Content extends StatelessWidget {
 
     return Scaffold(
       body: Container(
-          key: BoardGridWidget.contentKey,
+          key: BoardListWidget.contentKey,
           child: Scaffold(
             body: Scrollbar(
               child: GridView.builder(
@@ -85,20 +83,6 @@ class _Content extends StatelessWidget {
               ),
             ),
           )),
-      floatingActionButton: KeyboardSingleton().isKeyboardVisible()
-          ? Container()
-          : Container(
-              child: FloatingActionButton(
-                onPressed: _incrementCounter,
-                tooltip: 'Add',
-                backgroundColor: MainTheme.defaultColor,
-                child: Icon(
-                  Icons.add,
-                  color: Colors.white,
-                ),
-              ),
-              padding: EdgeInsets.only(bottom: 70),
-            ),
     );
   }
 }
