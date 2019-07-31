@@ -1,5 +1,6 @@
 import 'package:clubangel/loaders/localizable_loader.dart';
 import 'package:clubangel/models/board_widget_model.dart';
+import 'package:clubangel/widgets/board_details/board_details_widget.dart';
 import 'package:clubangel/widgets/commons/info_message_widget.dart';
 import 'package:clubangel/widgets/commons/loading_widget.dart';
 import 'package:clubangel/widgets/commons/platform_adaptive_progress_indicator.dart';
@@ -9,8 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
 import 'package:kt_dart/collection.dart';
-
-import 'board_list_item_widget.dart';
+import 'dash_board_list_item_widget.dart';
 
 const linearColor = LinearGradient(
     colors: [Colors.white24, Colors.transparent],
@@ -55,79 +55,6 @@ class WhiteText extends StatelessWidget {
   }
 }
 
-class PlanCard extends StatelessWidget {
-  const PlanCard({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(right: 10.0),
-      padding: EdgeInsets.all(12.0),
-      width: 140.0,
-      decoration: BoxDecoration(
-          gradient: linearColor, borderRadius: BorderRadius.circular(10.0)),
-      child: Column(
-        children: <Widget>[
-          Align(
-            alignment: Alignment.topLeft,
-            child: Text(
-              protectionMsgs[0],
-              style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.w200),
-            ),
-          ),
-          Spacer(),
-          Align(
-              alignment: Alignment.bottomRight,
-              child: Text(
-                "\$99.99",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w200,
-                    fontSize: 16.0),
-                textAlign: TextAlign.left,
-              )),
-        ],
-      ),
-    );
-  }
-}
-
-class PlanCardGrey extends StatelessWidget {
-  const PlanCardGrey({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(right: 10.0),
-      padding: EdgeInsets.all(12.0),
-      width: 140.0,
-      decoration: BoxDecoration(
-          gradient: linearColor, borderRadius: BorderRadius.circular(10.0)),
-      child: Column(
-        children: <Widget>[
-          Align(
-            alignment: Alignment.topLeft,
-            child: Text(
-              protectionMsgs[1],
-              style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.w200),
-            ),
-          ),
-          Spacer(),
-          Align(
-              alignment: Alignment.bottomRight,
-              child: Text("Add".toUpperCase(),
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w200,
-                      fontSize: 16.0))),
-        ],
-      ),
-    );
-  }
-}
-
 class ProtectionSection extends StatelessWidget {
   ProtectionSection({
     @required this.listType,
@@ -142,17 +69,29 @@ class ProtectionSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 180.0,
+        margin: EdgeInsets.symmetric(vertical: 20.0),
+        height: 330.0,
         child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: boards.count(),
             itemBuilder: (context, index) {
-              return BoardListItemWidget(
+              return DashBoardListItemWidget(
                 board: boards[index],
-                onTapped: () {},
+                onTapped: () => _openBoardDetails(context, boards[index]),
                 showReleaseDateInformation: listType == BoardListType.clubInfo,
               );
             }));
+  }
+
+  void _openBoardDetails(BuildContext context, Board board) {
+    print("tab!!" + board.title);
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => BoardDetailsWidget(board),
+      ),
+    );
   }
 }
 
@@ -163,19 +102,7 @@ class DashBoardWidgetContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final messages = MessageProvider.of(context);
     var headers = ["Real Time", "Free", "Gallery"];
-    /*
-BoardGridWidget(
-        listType: listType,
-        boards: viewModel.boards,
-        onReloadCallback: viewModel.refreshEvents,
-      ),
-    );
-  }
-}
-
-    */
     return LoadingWidget(
         status: viewModel.status,
         loadingContent: const PlatformAdaptiveProgressIndicator(),
@@ -188,20 +115,21 @@ BoardGridWidget(
                 itemCount: headers.length * 2,
                 itemBuilder: (context, index) => index % 2 == 0
                     ? Container(
-                        color: Colors.transparent,
+                        color: Colors.black38,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           mainAxisSize: MainAxisSize.max,
                           children: <Widget>[
                             Text(headers[(index ~/ 2).toInt()],
                                 style: TextStyle(
-                                  color: Colors.black54,
-                                  fontSize: 20.0,
+                                  color: Colors.white70,
+                                  fontSize: 14.0,
                                   fontWeight: FontWeight.bold,
                                 )),
                           ],
                         ),
-                        padding: EdgeInsets.all(10.0),
+                        padding: EdgeInsets.only(
+                            top: 10.0, left: 10.0, bottom: 10.0),
                       )
                     : ListTile(
                         title: Column(
@@ -213,19 +141,10 @@ BoardGridWidget(
                               onReloadCallback: () {},
                             ),
                             SizedBox(
-                              height: 30.0,
+                              height: 10.0,
                             ),
                           ],
                         ),
                       ))));
-  }
-
-  void _openEventDetails(BuildContext context, Board board) {
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (_) => EventDetailsPage(event),
-    //   ),
-    // );
   }
 }

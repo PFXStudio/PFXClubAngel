@@ -44,7 +44,7 @@ class AccountWidget extends StatelessWidget {
                         child: CircleAvatar(
                           backgroundColor: Colors.transparent,
                           backgroundImage: NetworkImage(
-                              "https://avatars0.githubusercontent.com/u/12619420?s=460&v=4"),
+                              "https://avatars1.githubusercontent.com/u/13096942?s=460&v=4"),
                           foregroundColor: Colors.white,
                           radius: 30.0,
                         ),

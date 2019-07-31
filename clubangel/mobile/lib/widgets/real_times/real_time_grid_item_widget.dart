@@ -1,3 +1,4 @@
+import 'package:clubangel/widgets/boards/board_poster.dart';
 import 'package:clubangel/widgets/real_times/real_time_infomation_widget.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ class RealTimeGridItemWidget extends StatelessWidget {
       child: Stack(
         fit: StackFit.expand,
         children: [
-          // EventPoster(board: board),
+          BoardPoster(event: board),
           _TextualInfo(board),
           Positioned(
             top: 10.0,
@@ -54,7 +55,7 @@ class _TextualInfo extends StatelessWidget {
         end: Alignment.topCenter,
         stops: [0.0, 0.7, 0.7],
         colors: [
-          Colors.black12,
+          Colors.black,
           Colors.transparent,
           Colors.transparent,
         ],

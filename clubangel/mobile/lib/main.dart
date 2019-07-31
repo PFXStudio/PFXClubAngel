@@ -1,5 +1,6 @@
 import 'package:clubangel/singletons/keyboard_singleton.dart';
 import 'package:core/core.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:clubangel/delegates/localizable_delegate.dart';
 import 'package:clubangel/widgets/splash/splash_widget.dart';
@@ -16,6 +17,7 @@ void main() async {
   final prefs = await SharedPreferences.getInstance();
   final keyValueStore = FlutterKeyValueStore(prefs);
   final store = createStore(Client(), keyValueStore);
+  // debugPaintSizeEnabled = true;
 
   runApp(MainApp(store));
 }

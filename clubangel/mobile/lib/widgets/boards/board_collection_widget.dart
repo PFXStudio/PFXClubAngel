@@ -4,7 +4,6 @@ import 'package:clubangel/widgets/boards/board_grid_widget.dart';
 import 'package:clubangel/widgets/commons/info_message_widget.dart';
 import 'package:clubangel/widgets/commons/loading_widget.dart';
 import 'package:clubangel/widgets/commons/platform_adaptive_progress_indicator.dart';
-import 'package:clubangel/widgets/real_times/real_time_grid_widget.dart';
 import 'package:core/core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
