@@ -92,13 +92,13 @@ class _Content extends StatelessWidget {
               child: FloatingActionButton(
                 onPressed: () => _registBoard(context),
                 tooltip: 'Add',
-                backgroundColor: MainTheme.enabledColor,
+                backgroundColor: MainTheme.enabledButtonColor,
                 child: Icon(
                   Icons.add,
                   color: Colors.white,
                 ),
               ),
-              padding: EdgeInsets.only(bottom: 50),
+              padding: EdgeInsets.only(bottom: 30),
             ),
     );
   }

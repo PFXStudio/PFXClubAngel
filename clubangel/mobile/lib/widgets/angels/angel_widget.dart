@@ -35,20 +35,25 @@ class AngelWidgetContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          AngelDateWidget(viewModel),
-          Expanded(
-            child: LoadingWidget(
-              status: viewModel.status,
-              loadingContent: const PlatformAdaptiveProgressIndicator(),
-              errorContent: ErrorView(onRetry: viewModel.refreshShowtimes),
-              successContent:
-                  AngelListWidget(viewModel.status, viewModel.shows),
+      body: Container(
+        decoration: new BoxDecoration(
+          gradient: MainTheme.primaryLinearGradient,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            AngelDateWidget(viewModel),
+            Expanded(
+              child: LoadingWidget(
+                status: viewModel.status,
+                loadingContent: const PlatformAdaptiveProgressIndicator(),
+                errorContent: ErrorView(onRetry: viewModel.refreshShowtimes),
+                successContent:
+                    AngelListWidget(viewModel.status, viewModel.shows),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
       floatingActionButton: KeyboardSingleton().isKeyboardVisible()
           ? Container()

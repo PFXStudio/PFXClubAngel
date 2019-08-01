@@ -1,14 +1,13 @@
-import 'package:clubangel/defines/define_images.dart';
 import 'package:clubangel/loaders/localizable_loader.dart';
 import 'package:clubangel/singletons/keyboard_singleton.dart';
 import 'package:clubangel/themes/main_theme.dart';
 import 'package:clubangel/widgets/accounts/account_widget.dart';
 import 'package:clubangel/widgets/angels/angel_widget.dart';
 import 'package:clubangel/widgets/boards/dash_board_widget.dart';
+import 'package:clubangel/widgets/infos/info_collection_widget.dart';
 import 'package:clubangel/widgets/mains/main_bottom_bar_widget.dart';
 import 'package:clubangel/widgets/mains/main_invisible_bottom_bar.dart';
 import 'package:clubangel/widgets/mains/main_top_bar_widget.dart';
-import 'package:clubangel/widgets/real_times/real_time_collection_widget.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 
@@ -44,7 +43,7 @@ class _MainWidgetState extends State<MainWidget>
         children: [
           DashBoardWidget(BoardListType.realTime),
           AngelWidget(BoardListType.realTime), // angel
-          RealTimeCollectionWidget(BoardListType.clubInfo), // club info
+          InfoCollectionWidget(BoardListType.clubInfo), // club info
           AccountWidget(),
         ],
       ),
@@ -73,20 +72,24 @@ class _MainWidgetState extends State<MainWidget>
   @override
   Widget build(BuildContext context) {
     final content = Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(kToolbarHeight),
-        child: MainTopBarWidget(),
-      ),
-      body: Stack(
-        children: [
-          _buildTabContent(),
-          _BottomTabs(
-            selectedTab: _selectedTab,
-            onTap: _tabSelected,
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(kToolbarHeight),
+          child: MainTopBarWidget(),
+        ),
+        body: Container(
+          decoration: new BoxDecoration(
+            gradient: MainTheme.primaryLinearGradient,
           ),
-        ],
-      ),
-    );
+          child: Stack(
+            children: [
+              _buildTabContent(),
+              _BottomTabs(
+                selectedTab: _selectedTab,
+                onTap: _tabSelected,
+              ),
+            ],
+          ),
+        ));
 
     return Stack(
       fit: StackFit.expand,

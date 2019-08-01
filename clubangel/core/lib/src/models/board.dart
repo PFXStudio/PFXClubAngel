@@ -1,3 +1,4 @@
+import 'package:core/src/models/comment.dart';
 import 'package:kt_dart/collection.dart';
 import 'package:meta/meta.dart';
 
@@ -31,6 +32,7 @@ class Board {
     this.contentDescriptors,
     this.youtubeTrailers,
     this.galleryImages,
+    this.comments,
   });
 
   final String id;
@@ -48,6 +50,7 @@ class Board {
   final KtList<ContentDescriptor> contentDescriptors;
   final KtList<String> youtubeTrailers;
   final KtList<GalleryImage> galleryImages;
+  final KtList<Comment> comments;
 
   String get director => directors.firstOrNull((e) => e != null);
   KtList<Actor> actors;

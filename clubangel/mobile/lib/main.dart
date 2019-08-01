@@ -1,4 +1,5 @@
 import 'package:clubangel/singletons/keyboard_singleton.dart';
+import 'package:clubangel/themes/main_theme.dart';
 import 'package:core/core.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -48,9 +49,7 @@ class _MainAppState extends State<MainApp> {
         store: widget.store,
         child: MaterialApp(
           theme: ThemeData(
-            primaryColor: Colors.blue[900],
-            accentColor: const Color(0xFFFFAD32),
-            scaffoldBackgroundColor: Colors.transparent,
+            primaryColor: MainTheme.bgndColor,
             // primaryColorLight: Colors.black, // ?
             // primaryColorDark: Colors.lightBlue[900], // 객체 배경색
             // canvasColor: Colors.white, // 배경색

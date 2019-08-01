@@ -1,3 +1,5 @@
+import 'package:clubangel/loaders/localizable_loader.dart';
+import 'package:clubangel/themes/main_theme.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'comment_bubble_widget.dart';
@@ -119,9 +121,10 @@ class _CommentWidgetState extends State<CommentWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: MainTheme.appBarColor,
         leading: IconButton(
           icon: Icon(
-            Icons.keyboard_backspace,
+            Icons.arrow_back_ios,
           ),
           onPressed: () => Navigator.pop(context),
         ),
@@ -164,14 +167,14 @@ class _CommentWidgetState extends State<CommentWidget> {
           ),
           onTap: () {},
         ),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              Icons.more_horiz,
-            ),
-            onPressed: () {},
-          ),
-        ],
+        // actions: <Widget>[
+        //   IconButton(
+        //     icon: Icon(
+        //       Icons.more_horiz,
+        //     ),
+        //     onPressed: () {},
+        //   ),
+        // ],
       ),
       body: Container(
         height: MediaQuery.of(context).size.height,
@@ -206,10 +209,10 @@ class _CommentWidgetState extends State<CommentWidget> {
               child: Container(
 //                height: 140,
                 decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor,
+                  color: Colors.white,
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.grey[500],
+                      color: Colors.grey[900],
                       offset: Offset(0.0, 1.5),
                       blurRadius: 4.0,
                     ),
@@ -225,8 +228,8 @@ class _CommentWidgetState extends State<CommentWidget> {
                       child: ListTile(
                         leading: IconButton(
                           icon: Icon(
-                            Icons.add,
-                            color: Theme.of(context).accentColor,
+                            Icons.photo,
+                            color: MainTheme.enabledButtonColor,
                           ),
                           onPressed: () {},
                         ),
@@ -237,31 +240,19 @@ class _CommentWidgetState extends State<CommentWidget> {
                             color: Theme.of(context).textTheme.title.color,
                           ),
                           decoration: InputDecoration(
+                            focusColor: Colors.black,
+                            fillColor: Colors.black,
+                            hoverColor: Colors.black,
                             contentPadding: EdgeInsets.all(10.0),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5.0),
-                              borderSide: BorderSide(
-                                color: Theme.of(context).primaryColor,
-                              ),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Theme.of(context).primaryColor,
-                              ),
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
-                            hintText: "Write your message...",
-                            hintStyle: TextStyle(
-                              fontSize: 15.0,
-                              color: Theme.of(context).textTheme.title.color,
-                            ),
+                            hintText: LocalizableLoader.of(context)
+                                .text("comment_hint_text"),
                           ),
                           maxLines: null,
                         ),
                         trailing: IconButton(
                           icon: Icon(
-                            Icons.mic,
-                            color: Theme.of(context).accentColor,
+                            Icons.send,
+                            color: MainTheme.enabledButtonColor,
                           ),
                           onPressed: () {},
                         ),

@@ -1,6 +1,8 @@
 import 'package:clubangel/defines/define_images.dart';
+import 'package:clubangel/themes/main_theme.dart';
 import 'package:clubangel/widgets/angels/angel_list_tile_widget.dart';
 import 'package:clubangel/widgets/boards/board_poster.dart';
+import 'package:clubangel/widgets/comments/comment_widget.dart';
 import 'package:clubangel/widgets/commons/widget_utils.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
@@ -49,23 +51,6 @@ class _BoardDetailsWidgetState extends State<BoardDetailsWidget> {
     });
   }
 
-  Widget _buildShowtimeInformation() {
-    if (widget.show != null) {
-      return Container(
-        color: Colors.white,
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: AngelListTileWidget(
-            widget.show,
-            opensEventDetails: false,
-          ),
-        ),
-      );
-    }
-
-    return null;
-  }
-
   Widget _buildSynopsis() {
     if (widget.event.hasSynopsis) {
       return Container(
@@ -80,10 +65,6 @@ class _BoardDetailsWidgetState extends State<BoardDetailsWidget> {
 
     return null;
   }
-
-  Widget _buildActorScroller() => widget.event.actors.isNotEmpty()
-      ? BoardDetailsMemberScrollerWidget(widget.event)
-      : null;
 
   Widget _buildGallery() => widget.event.galleryImages.isNotEmpty()
       ? BoardDetailsGalleryGridWidget(widget.event)
@@ -114,9 +95,7 @@ class _BoardDetailsWidgetState extends State<BoardDetailsWidget> {
       _Header(widget.event),
     ];
 
-    addIfNonNull(_buildShowtimeInformation(), content);
     addIfNonNull(_buildSynopsis(), content);
-    addIfNonNull(_buildActorScroller(), content);
     addIfNonNull(_buildGallery(), content);
 
     // Some padding for the bottom.
@@ -193,6 +172,23 @@ class _Header extends StatelessWidget {
           left: 156.0,
           right: 16.0,
           child: _EventInfo(event),
+        ),
+        Positioned(
+          top: 225.0,
+          right: 5.0,
+          child: IconButton(
+            icon: Icon(Icons.chat),
+            iconSize: 30,
+            color: MainTheme.enabledButtonColor,
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => CommentWidget(),
+                ),
+              );
+            },
+          ),
         ),
       ],
     );

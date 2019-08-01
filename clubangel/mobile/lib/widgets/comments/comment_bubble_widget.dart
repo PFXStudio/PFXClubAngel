@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:math';
+import 'package:clubangel/themes/main_theme.dart';
 import 'package:flutter/material.dart';
 
 class CommentBubbleWidget extends StatefulWidget {
@@ -28,7 +29,7 @@ class _CommentBubbleWidgetState extends State<CommentBubbleWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final bg = widget.isMe ? Theme.of(context).accentColor : Colors.grey[200];
+    final bg = widget.isMe ? MainTheme.bgndColor : Colors.grey[200];
     final align =
         widget.isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start;
     final radius = widget.isMe

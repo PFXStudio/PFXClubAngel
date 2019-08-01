@@ -76,7 +76,7 @@ class _Title extends StatelessWidget {
   Widget build(BuildContext context) {
     final content = <Widget>[
       Text(
-        "test",
+        "내용",
         style: const TextStyle(
           fontSize: 16.0,
           fontWeight: FontWeight.w700,
@@ -87,11 +87,12 @@ class _Title extends StatelessWidget {
     if (expandable) {
       content.add(Padding(
         padding: const EdgeInsets.only(left: 4.0),
-        child: _buildExpandCollapsePrompt("contents"),
+        child: _buildExpandCollapsePrompt("더 보기"),
       ));
     }
 
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.baseline,
       textBaseline: TextBaseline.alphabetic,
       children: content,

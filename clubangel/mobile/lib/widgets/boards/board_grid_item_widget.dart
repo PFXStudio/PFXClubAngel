@@ -1,8 +1,8 @@
-import 'package:clubangel/widgets/real_times/real_time_infomation_widget.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
+import 'board_infomation_widget.dart';
 import 'board_poster.dart';
 
 class BoardGridItemWidget extends StatelessWidget {
@@ -29,7 +29,7 @@ class BoardGridItemWidget extends StatelessWidget {
             top: 10.0,
             child: Visibility(
               visible: showReleaseDateInformation,
-              child: RealTimeInfomationWidget(board),
+              child: BoardInfomationWidget(board),
             ),
           ),
           Material(

@@ -1,3 +1,4 @@
+import 'package:clubangel/loaders/localizable_loader.dart';
 import 'package:clubangel/themes/main_theme.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
@@ -23,16 +24,17 @@ class _BoardTopBarWidgetState extends State<BoardTopBarWidget>
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: MainTheme.bgndColor,
+      backgroundColor: MainTheme.appBarColor,
       automaticallyImplyLeading: false,
       centerTitle: false,
       leading: IconButton(
-        icon: Icon(Icons.arrow_back),
+        icon: Icon(Icons.arrow_back_ios),
         onPressed: () {
           Navigator.pop(context);
         },
       ),
-      title: Text('Real Time'),
+      title: Text(
+          LocalizableLoader.of(context).text("dash_board_section_header_01")),
     );
   }
 }

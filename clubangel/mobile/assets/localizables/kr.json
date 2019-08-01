@@ -3,5 +3,6 @@
   "splash_screen_loading": "불러오는 중...",
   "dash_board_section_header_01": "실시간 게시판",
   "dash_board_section_header_02": "갤러리 게시판",
-  "dash_board_section_header_03": "자유 게시판"
+  "dash_board_section_header_03": "자유 게시판",
+  "comment_hint_text": "입력 해 주세요..."
 }
