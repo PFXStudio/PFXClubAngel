@@ -33,9 +33,8 @@ class ScaffoldWidget extends StatelessWidget {
         child: Ink(
           height: 50.0,
           decoration: new BoxDecoration(
-              gradient: new LinearGradient(
-            colors: [MainTheme.loginGradientStart, MainTheme.loginGradientEnd],
-          )),
+            gradient: MainTheme.primaryLinearGradient,
+          ),
           child: new Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.center,

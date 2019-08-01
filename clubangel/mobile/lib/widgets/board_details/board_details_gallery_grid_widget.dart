@@ -84,7 +84,7 @@ class _GalleryImage extends StatelessWidget {
       margin: const EdgeInsets.all(8.0),
       decoration: decoration,
       child: FadeInImage.assetNetwork(
-        placeholder: DefineImages.icon_main_path,
+        placeholder: DefineImages.icon_fake_8_path,
         image: url,
         fit: BoxFit.cover,
       ),

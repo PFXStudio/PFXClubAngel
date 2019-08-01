@@ -1,19 +1,20 @@
 import 'package:clubangel/defines/define_images.dart';
-import 'package:clubangel/renders/bubble_indication_painter.dart';
 import 'package:clubangel/themes/main_theme.dart';
-import 'package:clubangel/widgets/mains/main_widget.dart';
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class AccountAuthWidget extends StatefulWidget {
-  AccountAuthWidget({Key key}) : super(key: key);
+import 'board_regist_top_bar_widget.dart';
+
+class BoardRegistWidget extends StatefulWidget {
+  BoardRegistWidget({Key key}) : super(key: key);
 
   @override
   _AccountAuthWidgetState createState() => new _AccountAuthWidgetState();
 }
 
-class _AccountAuthWidgetState extends State<AccountAuthWidget>
+class _AccountAuthWidgetState extends State<BoardRegistWidget>
     with SingleTickerProviderStateMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
@@ -45,6 +46,10 @@ class _AccountAuthWidgetState extends State<AccountAuthWidget>
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(kToolbarHeight),
+        child: BoardRegistTopBarWidget(),
+      ),
       key: _scaffoldKey,
       body: NotificationListener<OverscrollIndicatorNotification>(
         onNotification: (overscroll) {
@@ -69,10 +74,6 @@ class _AccountAuthWidgetState extends State<AccountAuthWidget>
                       height: 200.0,
                       fit: BoxFit.fill,
                       image: new AssetImage(DefineImages.icon_main_256_path)),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 20.0),
-                  child: _buildMenuBar(context),
                 ),
                 Expanded(
                   flex: 2,
@@ -147,54 +148,6 @@ class _AccountAuthWidgetState extends State<AccountAuthWidget>
       backgroundColor: Colors.blue,
       duration: Duration(seconds: 3),
     ));
-  }
-
-  Widget _buildMenuBar(BuildContext context) {
-    return Container(
-      width: 300.0,
-      height: 50.0,
-      decoration: BoxDecoration(
-        color: MainTheme.disabledColor,
-        borderRadius: BorderRadius.all(Radius.circular(25.0)),
-      ),
-      child: CustomPaint(
-        painter: BubbleIndicationPainter(pageController: _pageController),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            Expanded(
-              child: FlatButton(
-                splashColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                onPressed: _onSignInButtonPress,
-                child: Text(
-                  "Existing",
-                  style: TextStyle(
-                      color: left,
-                      fontSize: 16.0,
-                      fontFamily: "WorkSansSemiBold"),
-                ),
-              ),
-            ),
-            //Container(height: 33.0, width: 1.0, color: Colors.white),
-            Expanded(
-              child: FlatButton(
-                splashColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                onPressed: _onSignUpButtonPress,
-                child: Text(
-                  "New",
-                  style: TextStyle(
-                      color: right,
-                      fontSize: 16.0,
-                      fontFamily: "WorkSansSemiBold"),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
   }
 
   Widget _buildSignIn(BuildContext context) {
@@ -319,9 +272,7 @@ class _AccountAuthWidgetState extends State<AccountAuthWidget>
                     ),
                     onPressed: () {
                       showInSnackBar("Login button pressed");
-                      Navigator.of(context, rootNavigator: true)
-                          .pushReplacement(MaterialPageRoute(
-                              builder: (context) => MainWidget()));
+                      _requestRegist(context);
                     }),
               ),
             ],
@@ -429,6 +380,10 @@ class _AccountAuthWidgetState extends State<AccountAuthWidget>
         ],
       ),
     );
+  }
+
+  void _requestRegist(BuildContext context) {
+    print("tab!!");
   }
 
   Widget _buildSignUp(BuildContext context) {

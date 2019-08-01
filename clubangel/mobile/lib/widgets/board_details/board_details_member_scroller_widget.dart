@@ -127,7 +127,7 @@ class _ActorAvatar extends StatelessWidget {
     if (actor.avatarUrl != null) {
       content.add(ClipOval(
         child: FadeInImage.assetNetwork(
-          placeholder: DefineImages.icon_main_path,
+          placeholder: DefineImages.icon_main_256_path,
           image: actor.avatarUrl,
           fit: BoxFit.cover,
           fadeInDuration: const Duration(milliseconds: 250),

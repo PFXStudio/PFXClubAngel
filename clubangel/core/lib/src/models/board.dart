@@ -7,7 +7,10 @@ import 'gallery_image.dart';
 
 enum BoardListType {
   realTime,
+  gallery,
+  free,
   clubInfo,
+  angel,
 }
 
 class Board {

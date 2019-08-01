@@ -90,7 +90,7 @@ class _Content extends StatelessWidget {
               child: FloatingActionButton(
                 onPressed: _incrementCounter,
                 tooltip: 'Add',
-                backgroundColor: MainTheme.defaultColor,
+                backgroundColor: MainTheme.bgndColor,
                 child: Icon(
                   Icons.add,
                   color: Colors.white,

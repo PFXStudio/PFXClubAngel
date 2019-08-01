@@ -1,4 +1,7 @@
 {
-    "app_title" : "클럽엔젤",
-    "splash_screen_loading" : "불러오는 중..."
+  "app_title": "클럽엔젤",
+  "splash_screen_loading": "불러오는 중...",
+  "dash_board_section_header_01": "실시간 게시판",
+  "dash_board_section_header_02": "갤러리 게시판",
+  "dash_board_section_header_03": "자유 게시판"
 }

@@ -120,7 +120,7 @@ class _MainTopBarWidgetState extends State<MainTopBarWidget>
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: MainTheme.defaultColor,
+      backgroundColor: MainTheme.appBarColor,
       automaticallyImplyLeading: false,
       centerTitle: false,
       leading: _isSearching ? const BackButton() : null,

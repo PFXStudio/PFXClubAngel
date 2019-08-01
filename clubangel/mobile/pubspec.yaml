@@ -31,6 +31,8 @@ dependencies:
   url_launcher: ^3.0.0
   path_provider: ^0.4.0
   key_value_store_flutter: ^1.0.0
+  pull_to_refresh: ^1.5.2
+  fancy_on_boarding: ^1.2.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -58,8 +60,26 @@ flutter:
   assets:
     - assets/localizables/en.json
     - assets/localizables/kr.json
-    - assets/images/bgnd_main.jpg
+    - assets/images/bgnd_main.png
+    - assets/images/bgnd_main_220x330.png
+    - assets/images/bgnd_main_512x910.png
     - assets/images/icon_main.png
+    - assets/images/icon_main_44x44.png
+    - assets/images/icon_main_128x128.png
+    - assets/images/icon_main_256x256.png
+    - assets/images/icon_fake_8x8.png
+
+    #test
+    - assets/images/cm1.jpeg
+    - assets/images/cm2.jpeg
+    - assets/images/cm3.jpeg
+    - assets/images/cm4.jpeg
+    - assets/images/cm5.jpeg
+    - assets/images/cm6.jpeg
+    - assets/images/cm7.jpeg
+    - assets/images/cm8.jpeg
+    - assets/images/cm9.jpeg
+    - assets/images/cm0.jpeg
   #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see

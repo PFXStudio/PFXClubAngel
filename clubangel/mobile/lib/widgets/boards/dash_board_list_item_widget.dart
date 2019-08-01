@@ -19,7 +19,7 @@ class DashBoardListItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: 225,
+        width: 215,
         padding: EdgeInsets.all(5),
         child: DefaultTextStyle(
           style: const TextStyle(color: Colors.white),

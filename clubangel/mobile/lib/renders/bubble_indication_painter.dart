@@ -20,7 +20,7 @@ class BubbleIndicationPainter extends CustomPainter {
       this.pageController})
       : super(repaint: pageController) {
     painter = new Paint()
-      ..color = MainTheme.defaultColor
+      ..color = MainTheme.enabledColor
       ..style = PaintingStyle.fill;
   }
 

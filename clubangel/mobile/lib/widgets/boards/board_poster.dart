@@ -32,7 +32,7 @@ class BoardPoster extends StatelessWidget {
 
   Widget _buildPosterImage() => event.images.portraitMedium != null
       ? FadeInImage.assetNetwork(
-          placeholder: DefineImages.bgnd_main_path,
+          placeholder: DefineImages.bgnd_main_220_path,
           image: event.images.portraitMedium,
           width: size?.width,
           height: size?.height,
@@ -45,9 +45,9 @@ class BoardPoster extends StatelessWidget {
   Widget build(BuildContext context) {
     final content = <Widget>[
       const Icon(
-        Icons.local_movies,
+        Icons.image,
         color: Colors.white24,
-        size: 72.0,
+        size: 44.0,
       ),
     ];
 

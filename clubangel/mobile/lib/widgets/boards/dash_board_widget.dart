@@ -1,8 +1,7 @@
 import 'package:clubangel/loaders/localizable_loader.dart';
 import 'package:clubangel/models/board_widget_model.dart';
-import 'package:clubangel/widgets/board_details/board_details_widget.dart';
+import 'package:clubangel/themes/main_theme.dart';
 import 'package:clubangel/widgets/boards/board_collection_widget.dart';
-import 'package:clubangel/widgets/boards/board_list_widget.dart';
 import 'package:clubangel/widgets/commons/info_message_widget.dart';
 import 'package:clubangel/widgets/commons/loading_widget.dart';
 import 'package:clubangel/widgets/commons/platform_adaptive_progress_indicator.dart';
@@ -13,11 +12,6 @@ import 'package:flutter_redux/flutter_redux.dart';
 
 import 'package:kt_dart/collection.dart';
 import 'dash_board_list_item_widget.dart';
-
-const linearColor = LinearGradient(
-    colors: [Colors.white24, Colors.transparent],
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight);
 
 const protectionMsgs = [
   "3 year protection plan for custom PC Build with super fast services",
@@ -72,10 +66,10 @@ class ProtectionSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         margin: EdgeInsets.symmetric(vertical: 20.0),
-        height: 330.0,
+        height: 315.0,
         child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: boards.count(),
+            itemCount: boards.count() > 5 ? 5 : boards.count(),
             itemBuilder: (context, index) {
               return DashBoardListItemWidget(
                 board: boards[index],
@@ -103,7 +97,11 @@ class DashBoardWidgetContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var headers = ["Real Time", "Free", "Gallery"];
+    var headers = [
+      LocalizableLoader.of(context).text("dash_board_section_header_01"),
+      LocalizableLoader.of(context).text("dash_board_section_header_02"),
+      LocalizableLoader.of(context).text("dash_board_section_header_03"),
+    ];
     return LoadingWidget(
         status: viewModel.status,
         loadingContent: const PlatformAdaptiveProgressIndicator(),
@@ -116,7 +114,7 @@ class DashBoardWidgetContent extends StatelessWidget {
                 itemCount: headers.length * 2,
                 itemBuilder: (context, index) => index % 2 == 0
                     ? Container(
-                        color: Colors.black38,
+                        color: MainTheme.disabledColor,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           mainAxisSize: MainAxisSize.max,

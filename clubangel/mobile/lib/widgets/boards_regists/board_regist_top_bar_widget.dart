@@ -3,12 +3,12 @@ import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
-class BoardTopBarWidget extends StatefulWidget {
+class BoardRegistTopBarWidget extends StatefulWidget {
   @override
   _BoardTopBarWidgetState createState() => _BoardTopBarWidgetState();
 }
 
-class _BoardTopBarWidgetState extends State<BoardTopBarWidget>
+class _BoardTopBarWidgetState extends State<BoardRegistTopBarWidget>
     with SingleTickerProviderStateMixin {
   @override
   void initState() {
@@ -20,19 +20,31 @@ class _BoardTopBarWidgetState extends State<BoardTopBarWidget>
     super.dispose();
   }
 
+  void _touchedCloseButton() {
+    Navigator.pop(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: MainTheme.bgndColor,
-      automaticallyImplyLeading: false,
-      centerTitle: false,
-      leading: IconButton(
-        icon: Icon(Icons.arrow_back),
-        onPressed: () {
-          Navigator.pop(context);
-        },
-      ),
-      title: Text('Real Time'),
+      backgroundColor: MainTheme.appBarColor,
+      actions: <Widget>[
+        Positioned(
+          top: MediaQuery.of(context).padding.top,
+          left: 4.0,
+          child: IgnorePointer(
+            ignoring: true,
+            child: Material(
+              type: MaterialType.circle,
+              color: Colors.transparent,
+              child: BackButton(
+                color: Colors.white.withOpacity(1),
+              ),
+            ),
+          ),
+        ),
+      ],
+      title: Text('Regist Board'),
     );
   }
 }

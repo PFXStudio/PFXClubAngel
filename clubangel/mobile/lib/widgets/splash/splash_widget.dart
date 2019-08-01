@@ -19,12 +19,12 @@ class _SplashWidgetState extends State<SplashWidget> {
   }
 
   Future<Timer> loadData() async {
-    return new Timer(Duration(seconds: 3), onDoneLoading);
+    return new Timer(Duration(seconds: 1), onDoneLoading);
   }
 
   onDoneLoading() async {
-    localizableManager
-        .onLocaleChanged(Locale(localizableManager.supportedLanguagesCodes[1]));
+    // localizableManager
+    //     .onLocaleChanged(Locale(localizableManager.supportedLanguagesCodes[1]));
     Navigator.of(context, rootNavigator: true).pushReplacement(
         MaterialPageRoute(builder: (context) => AccountAuthWidget()));
   }
@@ -37,15 +37,7 @@ class _SplashWidgetState extends State<SplashWidget> {
         children: <Widget>[
           Container(
             decoration: new BoxDecoration(
-              gradient: new LinearGradient(
-                  colors: [
-                    MainTheme.loginGradientStart,
-                    MainTheme.loginGradientEnd
-                  ],
-                  begin: const FractionalOffset(0.0, 0.0),
-                  end: const FractionalOffset(1.0, 1.0),
-                  stops: [0.0, 1.0],
-                  tileMode: TileMode.clamp),
+              gradient: MainTheme.primaryLinearGradient,
             ),
           ),
           Column(
@@ -63,7 +55,8 @@ class _SplashWidgetState extends State<SplashWidget> {
                             width: 200.0,
                             height: 200.0,
                             fit: BoxFit.fill,
-                            image: new AssetImage(DefineImages.icon_main_path)),
+                            image: new AssetImage(
+                                DefineImages.icon_main_256_path)),
                       ),
                       Padding(
                         padding: EdgeInsets.only(top: 20.0),

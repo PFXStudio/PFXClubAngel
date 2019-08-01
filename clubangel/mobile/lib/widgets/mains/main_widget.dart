@@ -4,7 +4,6 @@ import 'package:clubangel/singletons/keyboard_singleton.dart';
 import 'package:clubangel/themes/main_theme.dart';
 import 'package:clubangel/widgets/accounts/account_widget.dart';
 import 'package:clubangel/widgets/angels/angel_widget.dart';
-import 'package:clubangel/widgets/boards/board_collection_widget.dart';
 import 'package:clubangel/widgets/boards/dash_board_widget.dart';
 import 'package:clubangel/widgets/mains/main_bottom_bar_widget.dart';
 import 'package:clubangel/widgets/mains/main_invisible_bottom_bar.dart';
@@ -73,9 +72,6 @@ class _MainWidgetState extends State<MainWidget>
 
   @override
   Widget build(BuildContext context) {
-    final bgndImage =
-        Image.asset(DefineImages.bgnd_main_path, fit: BoxFit.cover);
-
     final content = Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight),
@@ -97,15 +93,7 @@ class _MainWidgetState extends State<MainWidget>
       children: [
         Container(
           decoration: new BoxDecoration(
-            gradient: new LinearGradient(
-                colors: [
-                  MainTheme.loginGradientStart,
-                  MainTheme.loginGradientEnd
-                ],
-                begin: const FractionalOffset(0.0, 0.0),
-                end: const FractionalOffset(1.0, 1.0),
-                stops: [0.0, 1.0],
-                tileMode: TileMode.clamp),
+            gradient: MainTheme.primaryLinearGradient,
           ),
         ),
         content,

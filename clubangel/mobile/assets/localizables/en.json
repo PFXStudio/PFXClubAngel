@@ -1,4 +1,7 @@
 {
-    "app_title" : "ClubAngel",
-    "splash_screen_loading" : "Loading..."
+  "app_title": "ClubAngel",
+  "splash_screen_loading": "Loading...",
+  "dash_board_section_header_01": "Real Time",
+  "dash_board_section_header_02": "Gallery",
+  "dash_board_section_header_03": "Free"
 }
