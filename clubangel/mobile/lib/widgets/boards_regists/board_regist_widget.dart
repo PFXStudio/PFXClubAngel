@@ -1,5 +1,6 @@
 import 'package:clubangel/loaders/localizable_loader.dart';
 import 'package:clubangel/themes/main_theme.dart';
+import 'package:clubangel/utils/asset_thumb_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -28,7 +29,9 @@ class _BoardRegistState extends State<BoardRegistWidget>
   TextEditingController titleController = new TextEditingController();
   TextEditingController contentsController = new TextEditingController();
 
-  double contentsHeight = 800;
+  List<Asset> images = List<Asset>();
+  String _error;
+  double contentsHeight = 1800;
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +58,16 @@ class _BoardRegistState extends State<BoardRegistWidget>
                   child: _buildContents(context),
                 ),
               ),
+              IconButton(
+                  icon: Icon(Icons.photo_library),
+                  color: Colors.white,
+                  tooltip: 'photos',
+                  onPressed: () {
+                    _loadAssets();
+                  }),
+              Expanded(child: _buildGridView(context)),
+              _buildLineDecoration(context),
+              _buildRegistButton(context),
             ],
           ),
         )));
@@ -86,37 +99,94 @@ class _BoardRegistState extends State<BoardRegistWidget>
     ));
   }
 
-  Widget _buildGallery(BuildContext context) {
+  Future<void> _loadAssets() async {
+    setState(() {
+      images = List<Asset>();
+    });
+
     List<Asset> resultList;
     String error;
-    return Container(
-        margin: EdgeInsets.symmetric(vertical: 10.0),
-        height: 100.0,
-        child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: 1,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: MainTheme.edgeInsets,
-                child: GestureDetector(
-                  onTap: () async => {
-                    resultList = await MultiImagePicker.pickImages(
-                      maxImages: 300,
-                    ),
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.all(10.0),
-                    decoration: new BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: MainTheme.bgndColor,
-                    ),
-                    child: new Icon(FontAwesomeIcons.images,
-                        color: MainTheme.enabledIconColor),
-                  ),
-                ),
-              );
-            }));
+
+    try {
+      resultList = await MultiImagePicker.pickImages(
+        maxImages: 300,
+      );
+    } on PlatformException catch (e) {
+      error = e.message;
+    }
+
+    if (!mounted) return;
+
+    setState(() {
+      images = resultList;
+      if (error == null) _error = 'No Error Dectected';
+    });
   }
+
+  Widget _buildGridView(BuildContext context) {
+    if (images.length <= 0) {
+      return Container();
+    }
+
+    return GridView.count(
+      padding: MainTheme.edgeInsets,
+      crossAxisCount: 3,
+      children: List.generate(images.length, (index) {
+        Asset asset = images[index];
+        return AssetThumbWidget(
+          asset: asset,
+          width: 300,
+          height: 300,
+        );
+      }),
+    );
+  }
+  // ListView.builder(
+  //       scrollDirection: Axis.horizontal,
+  //       itemCount: 1,
+  //       itemBuilder: (context, index) {
+  //         return Padding(
+  //           padding: MainTheme.edgeInsets,
+  //           child: GestureDetector(
+  //             onTap: () => {},
+  //             child: Container(
+  //               padding: const EdgeInsets.all(10.0),
+  //               decoration: new BoxDecoration(
+  //                 shape: BoxShape.circle,
+  //                 color: MainTheme.bgndColor,
+  //               ),
+  //               child: new Icon(FontAwesomeIcons.images,
+  //                   color: MainTheme.enabledIconColor),
+  //             ),
+  //           ),
+  //         );
+  //       });
+  // }
+
+  // Expanded(
+  //     child: GridView.count(
+  //         crossAxisCount: 3,
+  //         children: List.generate(images.length, (index) {
+  //           Asset asset = images[index];
+  //           return Container(
+  //             child: Text("a cccc"),
+  //           );
+  //           // AssetThumb(
+  //           //   asset: asset,
+  //           //   width: 300,
+  //           //   height: 300,
+  //           // );
+  //         }))),
+  //   child: Container(
+  //     margin: EdgeInsets.symmetric(vertical: 10.0),
+  //     height: 180.0,
+  //     child: RaisedButton(
+  //       child: Text("Pick images"),
+  //       onPressed: () {},
+  //     ),
+
+  //     // child: _buildListView(context),
+  //   ),
 
   Widget _buildLineDecoration(BuildContext context) {
     return Padding(
@@ -272,9 +342,6 @@ class _BoardRegistState extends State<BoardRegistWidget>
               ),
             ],
           ),
-          _buildGallery(context),
-          _buildLineDecoration(context),
-          _buildRegistButton(context),
         ],
       ),
     );
