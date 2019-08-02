@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
 
-class AssetThumbWidget extends StatefulWidget {
-  /// The asset we want to show thumb for.
-  final Asset asset;
+class ThumbnailWidget extends StatefulWidget {
+  final ByteData data;
 
   /// The thumb width
   final int width;
@@ -19,9 +18,9 @@ class AssetThumbWidget extends StatefulWidget {
   /// thumb is loading.
   final Widget spinner;
 
-  const AssetThumbWidget({
+  const ThumbnailWidget({
     Key key,
-    @required this.asset,
+    @required this.data,
     @required this.width,
     @required this.height,
     this.quality = 100,
@@ -35,16 +34,15 @@ class AssetThumbWidget extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _AssetThumbWidgetState createState() => _AssetThumbWidgetState();
+  _ThumbnailWidgetState createState() => _ThumbnailWidgetState();
 }
 
-class _AssetThumbWidgetState extends State<AssetThumbWidget> {
+class _ThumbnailWidgetState extends State<ThumbnailWidget> {
   ByteData _thumbData;
 
   int get width => widget.width;
   int get height => widget.height;
   int get quality => widget.quality;
-  Asset get asset => widget.asset;
   Widget get spinner => widget.spinner;
 
   @override
@@ -54,8 +52,8 @@ class _AssetThumbWidgetState extends State<AssetThumbWidget> {
   }
 
   @override
-  void didUpdateWidget(AssetThumbWidget oldWidget) {
-    if (oldWidget.asset.identifier != widget.asset.identifier) {
+  void didUpdateWidget(ThumbnailWidget oldWidget) {
+    if (oldWidget.data.hashCode != widget.data.hashCode) {
       this._loadThumb();
     }
     super.didUpdateWidget(oldWidget);
@@ -66,15 +64,9 @@ class _AssetThumbWidgetState extends State<AssetThumbWidget> {
       _thumbData = null;
     });
 
-    ByteData thumbData = await asset.requestThumbnail(
-      width,
-      height,
-      quality: quality,
-    );
-
     if (this.mounted) {
       setState(() {
-        _thumbData = thumbData;
+        _thumbData = widget.data;
       });
     }
   }
@@ -86,7 +78,7 @@ class _AssetThumbWidgetState extends State<AssetThumbWidget> {
     }
     return Image.memory(
       _thumbData.buffer.asUint8List(),
-      key: ValueKey(asset.identifier),
+      key: ValueKey(widget.data.hashCode),
       fit: BoxFit.cover,
       gaplessPlayback: true,
     );

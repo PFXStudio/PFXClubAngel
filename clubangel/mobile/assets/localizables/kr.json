@@ -8,5 +8,7 @@
   "board_title_hint_text": "제목을 입력 해 주세요...",
   "board_contents_hint_text": "내용을 입력 해 주세요...",
 
-  "board_regist_button": "등록"
+  "board_regist_button": "등록",
+  "add_pictures_button": "사진을 추가 해 주세요. (최대 %s장)",
+  "notice_remove_pictures": "이미 추가 된 사진을 삭제 후 이용 해 주세요."
 }

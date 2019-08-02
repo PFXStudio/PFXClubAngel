@@ -1,16 +1,14 @@
 import 'package:clubangel/loaders/localizable_loader.dart';
 import 'package:clubangel/themes/main_theme.dart';
-import 'package:clubangel/utils/asset_thumb_widget.dart';
+import 'package:clubangel/utils/thumbnail_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:multi_image_picker/asset.dart';
-import 'package:flutter/material.dart';
 import 'dart:async';
 
-import 'package:flutter/services.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
 import 'board_regist_top_bar_widget.dart';
+import 'package:sprintf/sprintf.dart';
 
 class BoardRegistWidget extends StatefulWidget {
   BoardRegistWidget({Key key}) : super(key: key);
@@ -29,9 +27,11 @@ class _BoardRegistState extends State<BoardRegistWidget>
   TextEditingController titleController = new TextEditingController();
   TextEditingController contentsController = new TextEditingController();
 
-  List<Asset> images = List<Asset>();
+  final List<ByteData> selectedThumbDatas = List<ByteData>();
+  final List<ByteData> selectedOriginalDatas = List<ByteData>();
   String _error;
-  double contentsHeight = 1800;
+  final double maxContentsHeight = 950;
+  final int maxPicturesCount = 20;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +44,7 @@ class _BoardRegistState extends State<BoardRegistWidget>
         body: SingleChildScrollView(
             child: Container(
           width: MediaQuery.of(context).size.width,
-          height: contentsHeight,
+          height: maxContentsHeight,
           decoration: new BoxDecoration(
             gradient: MainTheme.primaryLinearGradient,
           ),
@@ -58,14 +58,7 @@ class _BoardRegistState extends State<BoardRegistWidget>
                   child: _buildContents(context),
                 ),
               ),
-              IconButton(
-                  icon: Icon(Icons.photo_library),
-                  color: Colors.white,
-                  tooltip: 'photos',
-                  onPressed: () {
-                    _loadAssets();
-                  }),
-              Expanded(child: _buildGridView(context)),
+              _buildPhotoFiles(context),
               _buildLineDecoration(context),
               _buildRegistButton(context),
             ],
@@ -100,17 +93,29 @@ class _BoardRegistState extends State<BoardRegistWidget>
   }
 
   Future<void> _loadAssets() async {
-    setState(() {
-      images = List<Asset>();
-    });
+    setState(() {});
 
     List<Asset> resultList;
     String error;
 
     try {
       resultList = await MultiImagePicker.pickImages(
-        maxImages: 300,
+        maxImages: maxPicturesCount - selectedThumbDatas.length,
       );
+
+      if (resultList.length > 0) {
+        for (Asset asset in resultList) {
+          ByteData data = await asset.requestThumbnail(
+            100,
+            100,
+            quality: 50,
+          );
+          selectedThumbDatas.add(data);
+
+          ByteData originalData = await asset.requestOriginal();
+          selectedOriginalDatas.add(originalData);
+        }
+      }
     } on PlatformException catch (e) {
       error = e.message;
     }
@@ -118,79 +123,203 @@ class _BoardRegistState extends State<BoardRegistWidget>
     if (!mounted) return;
 
     setState(() {
-      images = resultList;
+      if (selectedThumbDatas.length > maxPicturesCount) {
+        int end = selectedThumbDatas.length - maxPicturesCount - 1;
+        selectedThumbDatas.removeRange(0, end);
+
+        selectedOriginalDatas.removeRange(0, end);
+      }
+
       if (error == null) _error = 'No Error Dectected';
     });
   }
 
+  Widget _buildContents(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(top: MainTheme.edgeInsets.top),
+      child: Column(
+        children: <Widget>[
+          Stack(
+            alignment: Alignment.topCenter,
+            overflow: Overflow.visible,
+            children: <Widget>[
+              Card(
+                elevation: 2.0,
+                color: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                child: Container(
+                  width: MediaQuery.of(context).size.width -
+                      MainTheme.edgeInsets.left,
+                  height: 450,
+                  child: Column(
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.only(left: 20, top: 5, bottom: 5),
+                        child: TextField(
+                          focusNode: titleFocusNode,
+                          controller: titleController,
+                          keyboardType: TextInputType.multiline,
+                          style: TextStyle(fontSize: 16.0, color: Colors.black),
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            icon: Icon(
+                              FontAwesomeIcons.cocktail,
+                              color: Colors.black54,
+                              size: 18.0,
+                            ),
+                            hintText: LocalizableLoader.of(context)
+                                .text("board_title_hint_text"),
+                            hintStyle: TextStyle(fontSize: 17.0),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width -
+                            MainTheme.edgeInsets.left * 2,
+                        height: 1.0,
+                        color: Colors.grey[400],
+                      ),
+                      Padding(
+                          padding: EdgeInsets.only(left: 20, top: 5, bottom: 5),
+                          child: TextField(
+                            focusNode: contentsFocusNode,
+                            controller: contentsController,
+                            keyboardType: TextInputType.multiline,
+                            maxLines: 15,
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              icon: Icon(
+                                FontAwesomeIcons.alignJustify,
+                                size: 18.0,
+                                color: Colors.black54,
+                              ),
+                              hintText: LocalizableLoader.of(context)
+                                  .text("board_contents_hint_text"),
+                              hintStyle: TextStyle(fontSize: 17.0),
+                            ),
+                          )),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPhotoFiles(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(top: MainTheme.edgeInsets.top),
+      child: Column(
+        children: <Widget>[
+          Stack(
+            alignment: Alignment.topCenter,
+            overflow: Overflow.visible,
+            children: <Widget>[
+              Card(
+                elevation: 2.0,
+                color: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                child: Container(
+                  width: MediaQuery.of(context).size.width -
+                      MainTheme.edgeInsets.left,
+                  height: 330,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Padding(
+                          padding: EdgeInsets.only(left: 10, top: 5, bottom: 5),
+                          child: FlatButton.icon(
+                              focusColor: Colors.red,
+                              icon: Icon(
+                                Icons.photo_library,
+                                color: MainTheme.enabledButtonColor,
+                              ),
+                              label: Text(
+                                sprintf(
+                                    LocalizableLoader.of(context).text(
+                                        "add_pictures_button_description"),
+                                    [maxPicturesCount]),
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: MainTheme.enabledButtonColor),
+                              ),
+                              onPressed: () {
+                                if (selectedThumbDatas.length >=
+                                    maxPicturesCount) {
+                                  showInSnackBar(LocalizableLoader.of(context)
+                                      .text("notice_remove_pictures"));
+                                  return;
+                                }
+
+                                _loadAssets();
+                              })),
+                      Padding(
+                          padding: EdgeInsets.only(left: 10),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width -
+                                MainTheme.edgeInsets.left * 2,
+                            height: 1.0,
+                            color: Colors.grey[400],
+                          )),
+                      Expanded(child: _buildGridView(context)),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildGridView(BuildContext context) {
-    if (images.length <= 0) {
+    if (selectedThumbDatas.length <= 0) {
       return Container();
     }
 
     return GridView.count(
       padding: MainTheme.edgeInsets,
-      crossAxisCount: 3,
-      children: List.generate(images.length, (index) {
-        Asset asset = images[index];
-        return AssetThumbWidget(
-          asset: asset,
-          width: 300,
-          height: 300,
-        );
+      crossAxisCount: 4,
+      children: List.generate(selectedThumbDatas.length, (index) {
+        ByteData data = selectedThumbDatas[index];
+        return Stack(children: <Widget>[
+          ThumbnailWidget(
+            data: data,
+            width: 100,
+            height: 100,
+            quality: 50,
+          ),
+          CircleAvatar(
+            backgroundColor: MainTheme.disabledColor,
+            child: IconButton(
+              icon: Icon(
+                Icons.delete,
+              ),
+              color: MainTheme.enabledIconColor,
+              onPressed: () {
+                selectedThumbDatas.removeAt(index);
+                selectedOriginalDatas.removeAt(index);
+                setState(() {});
+                print("deleted");
+              },
+            ),
+          ),
+        ]);
       }),
     );
   }
-  // ListView.builder(
-  //       scrollDirection: Axis.horizontal,
-  //       itemCount: 1,
-  //       itemBuilder: (context, index) {
-  //         return Padding(
-  //           padding: MainTheme.edgeInsets,
-  //           child: GestureDetector(
-  //             onTap: () => {},
-  //             child: Container(
-  //               padding: const EdgeInsets.all(10.0),
-  //               decoration: new BoxDecoration(
-  //                 shape: BoxShape.circle,
-  //                 color: MainTheme.bgndColor,
-  //               ),
-  //               child: new Icon(FontAwesomeIcons.images,
-  //                   color: MainTheme.enabledIconColor),
-  //             ),
-  //           ),
-  //         );
-  //       });
-  // }
-
-  // Expanded(
-  //     child: GridView.count(
-  //         crossAxisCount: 3,
-  //         children: List.generate(images.length, (index) {
-  //           Asset asset = images[index];
-  //           return Container(
-  //             child: Text("a cccc"),
-  //           );
-  //           // AssetThumb(
-  //           //   asset: asset,
-  //           //   width: 300,
-  //           //   height: 300,
-  //           // );
-  //         }))),
-  //   child: Container(
-  //     margin: EdgeInsets.symmetric(vertical: 10.0),
-  //     height: 180.0,
-  //     child: RaisedButton(
-  //       child: Text("Pick images"),
-  //       onPressed: () {},
-  //     ),
-
-  //     // child: _buildListView(context),
-  //   ),
 
   Widget _buildLineDecoration(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: 10.0),
+      padding: EdgeInsets.only(top: MainTheme.edgeInsets.top),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -267,83 +396,6 @@ class _BoardRegistState extends State<BoardRegistWidget>
             showInSnackBar("Login button pressed");
             _requestRegist(context);
           }),
-    );
-  }
-
-  Widget _buildContents(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(top: MainTheme.edgeInsets.top),
-      child: Column(
-        children: <Widget>[
-          Stack(
-            alignment: Alignment.topCenter,
-            overflow: Overflow.visible,
-            children: <Widget>[
-              Card(
-                elevation: 2.0,
-                color: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                child: Container(
-                  width: MediaQuery.of(context).size.width -
-                      MainTheme.edgeInsets.left,
-                  height: 450,
-                  child: Column(
-                    children: <Widget>[
-                      Padding(
-                        padding: MainTheme.edgeInsets,
-                        child: TextField(
-                          focusNode: titleFocusNode,
-                          controller: titleController,
-                          keyboardType: TextInputType.multiline,
-                          style: TextStyle(fontSize: 16.0, color: Colors.black),
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            icon: Icon(
-                              FontAwesomeIcons.cocktail,
-                              color: Colors.black54,
-                              size: 18.0,
-                            ),
-                            hintText: LocalizableLoader.of(context)
-                                .text("board_title_hint_text"),
-                            hintStyle: TextStyle(fontSize: 17.0),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        width: MediaQuery.of(context).size.width -
-                            MainTheme.edgeInsets.left * 2,
-                        height: 1.0,
-                        color: Colors.grey[400],
-                      ),
-                      Padding(
-                          padding: MainTheme.edgeInsets,
-                          child: TextField(
-                            focusNode: contentsFocusNode,
-                            controller: contentsController,
-                            keyboardType: TextInputType.multiline,
-                            maxLines: 15,
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              icon: Icon(
-                                FontAwesomeIcons.alignJustify,
-                                size: 18.0,
-                                color: Colors.black54,
-                              ),
-                              hintText: LocalizableLoader.of(context)
-                                  .text("board_contents_hint_text"),
-                              hintStyle: TextStyle(fontSize: 17.0),
-                            ),
-                          )),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
     );
   }
 

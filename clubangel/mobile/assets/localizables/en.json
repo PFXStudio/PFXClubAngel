@@ -8,5 +8,7 @@
   "board_title_hint_text": "Write your title...",
   "board_contents_hint_text": "Write your contents...",
 
-  "board_regist_button": "Regist"
+  "board_regist_button": "Regist",
+  "add_pictures_button_description": "Add pictures. (Max %s)",
+  "notice_remove_pictures": "First remove already added pictures."
 }
