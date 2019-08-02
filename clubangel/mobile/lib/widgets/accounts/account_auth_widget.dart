@@ -140,9 +140,9 @@ class _AccountAuthWidgetState extends State<AccountAuthWidget>
         value,
         textAlign: TextAlign.center,
         style: TextStyle(
-            color: Colors.white,
-            fontSize: 16.0,
-            fontFamily: "WorkSansSemiBold"),
+          color: Colors.white,
+          fontSize: 16.0,
+        ),
       ),
       backgroundColor: Colors.blue,
       duration: Duration(seconds: 3),
@@ -170,9 +170,9 @@ class _AccountAuthWidgetState extends State<AccountAuthWidget>
                 child: Text(
                   "Existing",
                   style: TextStyle(
-                      color: left,
-                      fontSize: 16.0,
-                      fontFamily: "WorkSansSemiBold"),
+                    color: left,
+                    fontSize: 16.0,
+                  ),
                 ),
               ),
             ),
@@ -185,9 +185,9 @@ class _AccountAuthWidgetState extends State<AccountAuthWidget>
                 child: Text(
                   "New",
                   style: TextStyle(
-                      color: right,
-                      fontSize: 16.0,
-                      fontFamily: "WorkSansSemiBold"),
+                    color: right,
+                    fontSize: 16.0,
+                  ),
                 ),
               ),
             ),
@@ -224,10 +224,7 @@ class _AccountAuthWidgetState extends State<AccountAuthWidget>
                           focusNode: myFocusNodeEmailLogin,
                           controller: loginEmailController,
                           keyboardType: TextInputType.emailAddress,
-                          style: TextStyle(
-                              fontFamily: "WorkSansSemiBold",
-                              fontSize: 16.0,
-                              color: Colors.black),
+                          style: TextStyle(fontSize: 16.0, color: Colors.black),
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             icon: Icon(
@@ -236,8 +233,7 @@ class _AccountAuthWidgetState extends State<AccountAuthWidget>
                               size: 22.0,
                             ),
                             hintText: "Email Address",
-                            hintStyle: TextStyle(
-                                fontFamily: "WorkSansSemiBold", fontSize: 17.0),
+                            hintStyle: TextStyle(fontSize: 17.0),
                           ),
                         ),
                       ),
@@ -253,10 +249,7 @@ class _AccountAuthWidgetState extends State<AccountAuthWidget>
                           focusNode: myFocusNodePasswordLogin,
                           controller: loginPasswordController,
                           obscureText: _obscureTextLogin,
-                          style: TextStyle(
-                              fontFamily: "WorkSansSemiBold",
-                              fontSize: 16.0,
-                              color: Colors.black),
+                          style: TextStyle(fontSize: 16.0, color: Colors.black),
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             icon: Icon(
@@ -265,8 +258,7 @@ class _AccountAuthWidgetState extends State<AccountAuthWidget>
                               color: Colors.black,
                             ),
                             hintText: "Password",
-                            hintStyle: TextStyle(
-                                fontFamily: "WorkSansSemiBold", fontSize: 17.0),
+                            hintStyle: TextStyle(fontSize: 17.0),
                             suffixIcon: GestureDetector(
                               onTap: _toggleLogin,
                               child: Icon(
@@ -312,9 +304,9 @@ class _AccountAuthWidgetState extends State<AccountAuthWidget>
                       child: Text(
                         "LOGIN",
                         style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 25.0,
-                            fontFamily: "WorkSansBold"),
+                          color: Colors.white,
+                          fontSize: 25.0,
+                        ),
                       ),
                     ),
                     onPressed: () {
@@ -333,10 +325,10 @@ class _AccountAuthWidgetState extends State<AccountAuthWidget>
                 child: Text(
                   "Forgot Password?",
                   style: TextStyle(
-                      decoration: TextDecoration.underline,
-                      color: Colors.white,
-                      fontSize: 16.0,
-                      fontFamily: "WorkSansMedium"),
+                    decoration: TextDecoration.underline,
+                    color: Colors.white,
+                    fontSize: 16.0,
+                  ),
                 )),
           ),
           Padding(
@@ -364,9 +356,9 @@ class _AccountAuthWidgetState extends State<AccountAuthWidget>
                   child: Text(
                     "Or",
                     style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16.0,
-                        fontFamily: "WorkSansMedium"),
+                      color: Colors.white,
+                      fontSize: 16.0,
+                    ),
                   ),
                 ),
                 Container(
@@ -459,10 +451,7 @@ class _AccountAuthWidgetState extends State<AccountAuthWidget>
                           controller: signupNameController,
                           keyboardType: TextInputType.text,
                           textCapitalization: TextCapitalization.words,
-                          style: TextStyle(
-                              fontFamily: "WorkSansSemiBold",
-                              fontSize: 16.0,
-                              color: Colors.black),
+                          style: TextStyle(fontSize: 16.0, color: Colors.black),
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             icon: Icon(
@@ -470,8 +459,7 @@ class _AccountAuthWidgetState extends State<AccountAuthWidget>
                               color: Colors.black,
                             ),
                             hintText: "Name",
-                            hintStyle: TextStyle(
-                                fontFamily: "WorkSansSemiBold", fontSize: 16.0),
+                            hintStyle: TextStyle(fontSize: 16.0),
                           ),
                         ),
                       ),
@@ -487,10 +475,7 @@ class _AccountAuthWidgetState extends State<AccountAuthWidget>
                           focusNode: myFocusNodeEmail,
                           controller: signupEmailController,
                           keyboardType: TextInputType.emailAddress,
-                          style: TextStyle(
-                              fontFamily: "WorkSansSemiBold",
-                              fontSize: 16.0,
-                              color: Colors.black),
+                          style: TextStyle(fontSize: 16.0, color: Colors.black),
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             icon: Icon(
@@ -498,8 +483,7 @@ class _AccountAuthWidgetState extends State<AccountAuthWidget>
                               color: Colors.black,
                             ),
                             hintText: "Email Address",
-                            hintStyle: TextStyle(
-                                fontFamily: "WorkSansSemiBold", fontSize: 16.0),
+                            hintStyle: TextStyle(fontSize: 16.0),
                           ),
                         ),
                       ),
@@ -515,10 +499,7 @@ class _AccountAuthWidgetState extends State<AccountAuthWidget>
                           focusNode: myFocusNodePassword,
                           controller: signupPasswordController,
                           obscureText: _obscureTextSignup,
-                          style: TextStyle(
-                              fontFamily: "WorkSansSemiBold",
-                              fontSize: 16.0,
-                              color: Colors.black),
+                          style: TextStyle(fontSize: 16.0, color: Colors.black),
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             icon: Icon(
@@ -526,8 +507,7 @@ class _AccountAuthWidgetState extends State<AccountAuthWidget>
                               color: Colors.black,
                             ),
                             hintText: "Password",
-                            hintStyle: TextStyle(
-                                fontFamily: "WorkSansSemiBold", fontSize: 16.0),
+                            hintStyle: TextStyle(fontSize: 16.0),
                             suffixIcon: GestureDetector(
                               onTap: _toggleSignup,
                               child: Icon(
@@ -552,10 +532,7 @@ class _AccountAuthWidgetState extends State<AccountAuthWidget>
                         child: TextField(
                           controller: signupConfirmPasswordController,
                           obscureText: _obscureTextSignupConfirm,
-                          style: TextStyle(
-                              fontFamily: "WorkSansSemiBold",
-                              fontSize: 16.0,
-                              color: Colors.black),
+                          style: TextStyle(fontSize: 16.0, color: Colors.black),
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             icon: Icon(
@@ -563,8 +540,7 @@ class _AccountAuthWidgetState extends State<AccountAuthWidget>
                               color: Colors.black,
                             ),
                             hintText: "Confirmation",
-                            hintStyle: TextStyle(
-                                fontFamily: "WorkSansSemiBold", fontSize: 16.0),
+                            hintStyle: TextStyle(fontSize: 16.0),
                             suffixIcon: GestureDetector(
                               onTap: _toggleSignupConfirm,
                               child: Icon(
@@ -610,9 +586,9 @@ class _AccountAuthWidgetState extends State<AccountAuthWidget>
                       child: Text(
                         "SIGN UP",
                         style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 25.0,
-                            fontFamily: "WorkSansBold"),
+                          color: Colors.white,
+                          fontSize: 25.0,
+                        ),
                       ),
                     ),
                     onPressed: () => showInSnackBar("SignUp button pressed")),

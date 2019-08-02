@@ -2,6 +2,7 @@ import 'package:clubangel/singletons/keyboard_singleton.dart';
 import 'package:clubangel/themes/main_theme.dart';
 import 'package:core/core.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:clubangel/delegates/localizable_delegate.dart';
 import 'package:clubangel/widgets/splash/splash_widget.dart';
@@ -45,6 +46,11 @@ class _MainAppState extends State<MainApp> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+
     return StoreProvider<AppState>(
         store: widget.store,
         child: MaterialApp(

@@ -4,5 +4,9 @@
   "dash_board_section_header_01": "Real Time",
   "dash_board_section_header_02": "Gallery",
   "dash_board_section_header_03": "Free",
-  "comment_hint_text": "Write your message..."
+  "comment_hint_text": "Write your message...",
+  "board_title_hint_text": "Write your title...",
+  "board_contents_hint_text": "Write your contents...",
+
+  "board_regist_button": "Regist"
 }

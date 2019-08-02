@@ -1,9 +1,8 @@
+import 'package:clubangel/widgets/boards/board_infomation_widget.dart';
+import 'package:clubangel/widgets/boards/board_poster.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
-
-import 'board_infomation_widget.dart';
-import 'board_poster.dart';
 
 class DashBoardListItemWidget extends StatelessWidget {
   DashBoardListItemWidget({

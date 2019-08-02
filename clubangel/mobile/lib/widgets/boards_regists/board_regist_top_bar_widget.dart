@@ -1,3 +1,4 @@
+import 'package:clubangel/loaders/localizable_loader.dart';
 import 'package:clubangel/themes/main_theme.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
@@ -28,23 +29,16 @@ class _BoardTopBarWidgetState extends State<BoardRegistTopBarWidget>
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: MainTheme.appBarColor,
-      actions: <Widget>[
-        Positioned(
-          top: MediaQuery.of(context).padding.top,
-          left: 4.0,
-          child: IgnorePointer(
-            ignoring: true,
-            child: Material(
-              type: MaterialType.circle,
-              color: Colors.transparent,
-              child: BackButton(
-                color: Colors.white.withOpacity(1),
-              ),
-            ),
-          ),
-        ),
-      ],
-      title: Text('Regist Board'),
+      automaticallyImplyLeading: false,
+      centerTitle: false,
+      leading: IconButton(
+        icon: Icon(Icons.arrow_back_ios),
+        onPressed: () {
+          Navigator.pop(context);
+        },
+      ),
+      title: Text(
+          LocalizableLoader.of(context).text("dash_board_section_header_01")),
     );
   }
 }

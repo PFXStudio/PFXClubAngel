@@ -4,5 +4,9 @@
   "dash_board_section_header_01": "실시간 게시판",
   "dash_board_section_header_02": "갤러리 게시판",
   "dash_board_section_header_03": "자유 게시판",
-  "comment_hint_text": "입력 해 주세요..."
+  "comment_hint_text": "입력 해 주세요...",
+  "board_title_hint_text": "제목을 입력 해 주세요...",
+  "board_contents_hint_text": "내용을 입력 해 주세요...",
+
+  "board_regist_button": "등록"
 }

@@ -2,6 +2,7 @@ import 'package:clubangel/loaders/localizable_loader.dart';
 import 'package:clubangel/singletons/keyboard_singleton.dart';
 import 'package:clubangel/themes/main_theme.dart';
 import 'package:clubangel/widgets/board_details/board_details_widget.dart';
+import 'package:clubangel/widgets/boards_regists/board_regist_widget.dart';
 import 'package:clubangel/widgets/comments/comment_widget.dart';
 import 'package:clubangel/widgets/commons/info_message_widget.dart';
 import 'package:core/core.dart';
@@ -107,7 +108,7 @@ class _Content extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (_) => CommentWidget(),
+        builder: (_) => BoardRegistWidget(),
       ),
     );
   }

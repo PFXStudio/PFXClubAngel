@@ -6,11 +6,11 @@ import 'package:flutter/material.dart';
 class MainTheme {
   const MainTheme();
 
-  static Color bgndColor = const Color(0xFFfa6464);
-  static const Color buttonColor = const Color(0xFF2DB5F5);
+  static const Color bgndColor = const Color(0xFFfa6464);
   static const Color disabledColor = const Color(0x552B2B2B);
   static const Color enabledButtonColor = const Color(0xFFee6d66);
   static const Color appBarColor = const Color(0xFFfa6464);
+  static const Color enabledIconColor = Colors.white;
 
   static const Color gradientStartColor = const Color(0xFFfa6464);
   static const Color gradientEndColor = const Color(0xFF2d122d);
@@ -27,4 +27,7 @@ class MainTheme {
       begin: Alignment.topCenter,
       end: Alignment.bottomCenter,
       tileMode: TileMode.clamp);
+
+  // paddings
+  static const EdgeInsets edgeInsets = EdgeInsets.all(20);
 }

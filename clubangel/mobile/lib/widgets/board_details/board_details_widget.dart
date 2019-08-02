@@ -170,25 +170,46 @@ class _Header extends StatelessWidget {
         Positioned(
           top: 238.0,
           left: 156.0,
-          right: 16.0,
+          right: 56.0,
           child: _EventInfo(event),
         ),
         Positioned(
           top: 225.0,
           right: 5.0,
-          child: IconButton(
-            icon: Icon(Icons.chat),
-            iconSize: 30,
-            color: MainTheme.enabledButtonColor,
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => CommentWidget(),
+          child: SizedBox(
+              width: 60,
+              child: FlatButton(
+                padding: EdgeInsets.only(top: 10),
+                onPressed: () => {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => CommentWidget(),
+                      )),
+                },
+                child: Column(
+                  // Replace with a Row for horizontal icon + text
+                  children: <Widget>[
+                    Icon(
+                      Icons.message,
+                      color: MainTheme.enabledButtonColor,
+                    ),
+                    Text("30",
+                        style: TextStyle(
+                            color: MainTheme.enabledButtonColor,
+                            fontSize: 12.0,
+                            fontWeight: FontWeight.bold)),
+                  ],
                 ),
-              );
-            },
-          ),
+              )),
+          // IconButton(
+          //   icon: Icon(Icons.chat),
+          //   iconSize: 30,
+          //   color: MainTheme.enabledButtonColor,
+          //   onPressed: () {
+          //     );
+          //   },
+          // ),
         ),
       ],
     );

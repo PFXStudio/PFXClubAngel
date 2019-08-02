@@ -3,7 +3,7 @@ import 'package:clubangel/singletons/keyboard_singleton.dart';
 import 'package:clubangel/themes/main_theme.dart';
 import 'package:clubangel/widgets/accounts/account_widget.dart';
 import 'package:clubangel/widgets/angels/angel_widget.dart';
-import 'package:clubangel/widgets/boards/dash_board_widget.dart';
+import 'package:clubangel/widgets/dash_boards/dash_board_widget.dart';
 import 'package:clubangel/widgets/infos/info_collection_widget.dart';
 import 'package:clubangel/widgets/mains/main_bottom_bar_widget.dart';
 import 'package:clubangel/widgets/mains/main_invisible_bottom_bar.dart';
