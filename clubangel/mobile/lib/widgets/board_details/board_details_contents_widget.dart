@@ -1,3 +1,4 @@
+import 'package:clubangel/loaders/localizable_loader.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 
@@ -76,7 +77,7 @@ class _Title extends StatelessWidget {
   Widget build(BuildContext context) {
     final content = <Widget>[
       Text(
-        "내용",
+        LocalizableLoader.of(context).text("board_contents_text"),
         style: const TextStyle(
           fontSize: 16.0,
           fontWeight: FontWeight.w700,
@@ -87,7 +88,8 @@ class _Title extends StatelessWidget {
     if (expandable) {
       content.add(Padding(
         padding: const EdgeInsets.only(left: 4.0),
-        child: _buildExpandCollapsePrompt("더 보기"),
+        child: _buildExpandCollapsePrompt(
+            LocalizableLoader.of(context).text("board_contents_more_text")),
       ));
     }
 

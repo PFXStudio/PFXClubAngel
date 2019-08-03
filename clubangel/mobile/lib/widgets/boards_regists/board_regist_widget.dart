@@ -27,6 +27,7 @@ class _BoardRegistState extends State<BoardRegistWidget>
   TextEditingController titleController = new TextEditingController();
   TextEditingController contentsController = new TextEditingController();
 
+// multi image picker 이미지 데이터가 사라짐. 받아오면 바로 백업.
   final List<ByteData> selectedThumbDatas = List<ByteData>();
   final List<ByteData> selectedOriginalDatas = List<ByteData>();
   String _error;
@@ -58,7 +59,7 @@ class _BoardRegistState extends State<BoardRegistWidget>
                   child: _buildContents(context),
                 ),
               ),
-              _buildPhotoFiles(context),
+              _buildGalleryFiles(context),
               _buildLineDecoration(context),
               _buildRegistButton(context),
             ],
@@ -211,7 +212,7 @@ class _BoardRegistState extends State<BoardRegistWidget>
     );
   }
 
-  Widget _buildPhotoFiles(BuildContext context) {
+  Widget _buildGalleryFiles(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(top: MainTheme.edgeInsets.top),
       child: Column(
@@ -245,7 +246,10 @@ class _BoardRegistState extends State<BoardRegistWidget>
                                 sprintf(
                                     LocalizableLoader.of(context).text(
                                         "add_pictures_button_description"),
-                                    [maxPicturesCount]),
+                                    [
+                                      selectedThumbDatas.length,
+                                      maxPicturesCount
+                                    ]),
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: MainTheme.enabledButtonColor),
@@ -393,13 +397,15 @@ class _BoardRegistState extends State<BoardRegistWidget>
             ),
           ),
           onPressed: () {
-            showInSnackBar("Login button pressed");
             _requestRegist(context);
           }),
     );
   }
 
   void _requestRegist(BuildContext context) {
-    print("tab!!");
+    showInSnackBar("Registed your contents.");
+    Future.delayed(new Duration(seconds: 2), () {
+      Navigator.of(context).pop();
+    });
   }
 }

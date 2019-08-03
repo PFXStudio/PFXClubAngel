@@ -85,20 +85,6 @@ class _Content extends StatelessWidget {
               ),
             ),
           )),
-      floatingActionButton: KeyboardSingleton().isKeyboardVisible()
-          ? Container()
-          : Container(
-              child: FloatingActionButton(
-                onPressed: _incrementCounter,
-                tooltip: 'Add',
-                backgroundColor: MainTheme.bgndColor,
-                child: Icon(
-                  Icons.add,
-                  color: Colors.white,
-                ),
-              ),
-              padding: EdgeInsets.only(bottom: 70),
-            ),
     );
   }
 }

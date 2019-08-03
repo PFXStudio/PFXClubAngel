@@ -6,6 +6,7 @@ import 'package:clubangel/widgets/comments/comment_widget.dart';
 import 'package:clubangel/widgets/commons/widget_utils.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:sprintf/sprintf.dart';
 
 import 'board_details_backdrop_photo.dart';
 import 'board_details_contents_widget.dart';
@@ -187,14 +188,17 @@ class _Header extends StatelessWidget {
                         builder: (_) => CommentWidget(),
                       )),
                 },
-                child: Column(
+                child: Row(
                   // Replace with a Row for horizontal icon + text
                   children: <Widget>[
                     Icon(
                       Icons.message,
                       color: MainTheme.enabledButtonColor,
                     ),
-                    Text("30",
+                    Padding(
+                      padding: EdgeInsets.only(left: 5),
+                    ),
+                    Text(sprintf("%d", [15]),
                         style: TextStyle(
                             color: MainTheme.enabledButtonColor,
                             fontSize: 12.0,

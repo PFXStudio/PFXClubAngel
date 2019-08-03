@@ -1,6 +1,11 @@
 import 'package:clubangel/defines/define_images.dart';
+import 'package:clubangel/loaders/localizable_loader.dart';
+import 'package:clubangel/widgets/galleries/gallery_wrapper_widget.dart';
+import 'package:clubangel/widgets/galleries/gallery_wrapper_widget.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:kt_dart/collection.dart';
+import 'package:core/src/models/gallery_image.dart';
 
 class BoardDetailsGalleryGridWidget extends StatelessWidget {
   BoardDetailsGalleryGridWidget(this.event);
@@ -27,7 +32,7 @@ class _Title extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Text(
-        "gallery",
+        LocalizableLoader.of(context).text("board_gallery_title"),
         style: const TextStyle(
           fontSize: 18.0,
           color: Colors.white,
@@ -56,16 +61,28 @@ class _Grid extends StatelessWidget {
         vertical: 16.0,
         horizontal: 8.0,
       ),
-      children: event.galleryImages.map((image) {
-        return _GalleryImage(image.location);
+      children: event.galleryImages.mapIndexed((index, image) {
+        return _GalleryImage(image.location, index, () {
+          print("taped image!!");
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => GalleryWrapperWidget(
+                  galleryItems: event.galleryImages,
+                  initialIndex: index,
+                ),
+              ));
+        });
       }).list,
     );
   }
 }
 
 class _GalleryImage extends StatelessWidget {
-  _GalleryImage(this.url);
+  _GalleryImage(this.url, this.index, this.onTap);
   final String url;
+  final int index;
+  final GestureTapCallback onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -80,14 +97,28 @@ class _GalleryImage extends StatelessWidget {
       ],
     );
 
-    return Container(
-      margin: const EdgeInsets.all(8.0),
-      decoration: decoration,
-      child: FadeInImage.assetNetwork(
-        placeholder: DefineImages.icon_fake_8_path,
-        image: url,
-        fit: BoxFit.cover,
+    return Stack(children: <Widget>[
+      Container(
+          margin: const EdgeInsets.all(8.0),
+          decoration: decoration,
+          child: FadeInImage.assetNetwork(
+            placeholder: DefineImages.icon_fake_8_path,
+            image: url,
+            fit: BoxFit.cover,
+          )),
+      Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          Container(
+              child: GestureDetector(
+            onTap: onTap,
+            child: Hero(
+              tag: index,
+              child: Image.asset(DefineImages.icon_fake_8_path, height: 80.0),
+            ),
+          )),
+        ],
       ),
-    );
+    ]);
   }
 }
