@@ -1,19 +1,19 @@
 import 'dart:async';
 
 import 'package:core/src/models/loading_status.dart';
-import 'package:core/src/models/show.dart';
+import 'package:core/src/models/angel.dart';
 import 'package:core/src/models/show_cache.dart';
 import 'package:core/src/models/theater.dart';
 import 'package:core/src/networking/finnkino_api.dart';
 import 'package:core/src/redux/_common/common_actions.dart';
 import 'package:core/src/redux/app/app_state.dart';
-import 'package:core/src/redux/show/show_actions.dart';
+import 'package:core/src/redux/angel/angel_actions.dart';
 import 'package:core/src/utils/clock.dart';
 import 'package:kt_dart/collection.dart';
 import 'package:redux/redux.dart';
 
-class ShowMiddleware extends MiddlewareClass<AppState> {
-  ShowMiddleware(this.api);
+class AngelMiddleware extends MiddlewareClass<AppState> {
+  AngelMiddleware(this.api);
 
   final FinnkinoApi api;
 
@@ -22,34 +22,34 @@ class ShowMiddleware extends MiddlewareClass<AppState> {
       Store<AppState> store, dynamic action, NextDispatcher next) async {
     next(action);
 
-    if (action is InitCompleteAction || action is UpdateShowDatesAction) {
-      await _updateShowDates(action, next);
+    if (action is InitCompleteAction || action is UpdateAngelDatesAction) {
+      await _updateAngelDates(action, next);
     }
 
     if (action is ChangeCurrentTheaterAction ||
-        action is RefreshShowsAction ||
+        action is RefreshAngelsAction ||
         action is ChangeCurrentDateAction) {
-      await _updateCurrentShows(store, action, next);
+      await _updateCurrentAngels(store, action, next);
     }
 
-    if (action is FetchShowsIfNotLoadedAction) {
+    if (action is FetchAngelsIfNotLoadedAction) {
       if (store.state.showState.loadingStatus == LoadingStatus.idle) {
-        await _updateCurrentShows(store, action, next);
+        await _updateCurrentAngels(store, action, next);
       }
     }
   }
 
-  void _updateShowDates(dynamic action, NextDispatcher next) {
+  void _updateAngelDates(dynamic action, NextDispatcher next) {
     final now = Clock.getCurrentTime();
     var dates =
         listFrom(List.generate(7, (index) => now.add(Duration(days: index))));
 
-    next(new ShowDatesUpdatedAction(dates));
+    next(new AngelDatesUpdatedAction(dates));
   }
 
-  Future<void> _updateCurrentShows(
+  Future<void> _updateCurrentAngels(
       Store<AppState> store, dynamic action, NextDispatcher next) async {
-    next(RequestingShowsAction());
+    next(RequestingAngelsAction());
 
     try {
       final theater = _getCorrectTheater(store, action);
@@ -59,16 +59,16 @@ class ShowMiddleware extends MiddlewareClass<AppState> {
       var shows = store.state.showState.shows[cacheKey];
 
       if (shows == null) {
-        shows = await _fetchShows(date, theater, next);
+        shows = await _fetchAngels(date, theater, next);
       }
 
-      next(ReceivedShowsAction(DateTheaterPair(date, theater), shows));
+      next(ReceivedAngelsAction(DateTheaterPair(date, theater), shows));
     } catch (e) {
-      next(ErrorLoadingShowsAction());
+      next(ErrorLoadingAngelsAction());
     }
   }
 
-  Future<KtList<Show>> _fetchShows(
+  Future<KtList<Angel>> _fetchAngels(
       DateTime currentDate, Theater newTheater, NextDispatcher next) async {
     final shows = await api.getSchedule(newTheater, currentDate);
     final now = Clock.getCurrentTime();

@@ -3,24 +3,23 @@ import 'package:clubangel/themes/main_theme.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 
-class BoardDetailsContentsWidget extends StatefulWidget {
-  BoardDetailsContentsWidget(this.event);
-  final Board event;
+class AngelDetailContentsWidget extends StatefulWidget {
+  AngelDetailContentsWidget(this.angel);
+  final Angel angel;
 
   @override
-  _BoardDetailsContentsWidgetState createState() =>
-      _BoardDetailsContentsWidgetState();
+  _AngelDetailContentsWidgetState createState() =>
+      _AngelDetailContentsWidgetState();
 }
 
-class _BoardDetailsContentsWidgetState
-    extends State<BoardDetailsContentsWidget> {
+class _AngelDetailContentsWidgetState extends State<AngelDetailContentsWidget> {
   bool _isExpandable;
   bool _isExpanded = false;
 
   @override
   void initState() {
     super.initState();
-    _isExpandable = widget.event.shortSynopsis != widget.event.synopsis;
+    _isExpandable = widget.angel.shortSynopsis != widget.angel.synopsis;
   }
 
   void _toggleExpandedState() {
@@ -32,8 +31,9 @@ class _BoardDetailsContentsWidgetState
   @override
   Widget build(BuildContext context) {
     final content = AnimatedCrossFade(
-      firstChild: Text(widget.event.shortSynopsis),
-      secondChild: Text(widget.event.synopsis),
+      // TODO : synopsis
+      firstChild: Text("null"), //Text(widget.angel.shortSynopsis),
+      secondChild: Text("null"), //Text(widget.angel.synopsis),
       crossFadeState:
           _isExpanded ? CrossFadeState.showSecond : CrossFadeState.showFirst,
       duration: kThemeAnimationDuration,

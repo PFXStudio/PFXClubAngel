@@ -1,5 +1,5 @@
 import 'package:core/src/models/board.dart';
-import 'package:core/src/models/show.dart';
+import 'package:core/src/models/angel.dart';
 import 'package:core/src/redux/app/app_state.dart';
 import 'package:kt_dart/collection.dart';
 import 'package:reselect/reselect.dart';
@@ -22,7 +22,7 @@ Board boardByIdSelector(AppState state, String id) {
       comingSoonSelector(state).firstOrNull(predicate);
 }
 
-Board boardForShowSelector(AppState state, Show show) {
+Board boardForShowSelector(AppState state, Angel show) {
   return state.boardState.nowInTheatersEvents
       .filter((board) => board.id == show.eventId)
       .first();

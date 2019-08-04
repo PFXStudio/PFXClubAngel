@@ -8,35 +8,32 @@ import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:sprintf/sprintf.dart';
 
-import 'board_details_backdrop_photo.dart';
-import 'board_details_contents_widget.dart';
-import 'board_details_gallery_grid_widget.dart';
-import 'board_details_member_scroller_widget.dart';
-import 'board_details_scroll_effects.dart';
+import 'angel_detail_backdrop_photo.dart';
+import 'angel_detail_contents_widget.dart';
+import 'angel_detail_gallery_grid_widget.dart';
+import 'angel_detail_member_scroller_widget.dart';
+import 'angel_detail_poster.dart';
+import 'angel_detail_scroll_effects.dart';
 
-class BoardDetailsWidget extends StatefulWidget {
-  BoardDetailsWidget(
-    this.event, {
-    this.show,
-  });
+class AngelDetailWidget extends StatefulWidget {
+  AngelDetailWidget(this.angel);
 
-  final Board event;
-  final Angel show;
+  final Angel angel;
 
   @override
-  _BoardDetailsWidgetState createState() => _BoardDetailsWidgetState();
+  _AngelDetailWidgetState createState() => _AngelDetailWidgetState();
 }
 
-class _BoardDetailsWidgetState extends State<BoardDetailsWidget> {
+class _AngelDetailWidgetState extends State<AngelDetailWidget> {
   ScrollController _scrollController;
-  BoardDetailsScrollEffects _scrollEffects;
+  AngelDetailScrollEffects _scrollEffects;
 
   @override
   void initState() {
     super.initState();
     _scrollController = ScrollController();
     _scrollController.addListener(_scrollListener);
-    _scrollEffects = BoardDetailsScrollEffects();
+    _scrollEffects = AngelDetailScrollEffects();
   }
 
   @override
@@ -53,29 +50,25 @@ class _BoardDetailsWidgetState extends State<BoardDetailsWidget> {
   }
 
   Widget _buildSynopsis() {
-    if (widget.event.hasSynopsis) {
-      return Container(
-        color: Colors.white,
-        padding: EdgeInsets.only(
-          top: widget.show == null ? 12.0 : 0.0,
-          bottom: 16.0,
-        ),
-        child: BoardDetailsContentsWidget(widget.event),
-      );
-    }
-
-    return null;
+    return Container(
+      color: Colors.white,
+      padding: EdgeInsets.only(
+        top: widget.angel == null ? 12.0 : 0.0,
+        bottom: 16.0,
+      ),
+      child: AngelDetailContentsWidget(widget.angel),
+    );
   }
 
-  Widget _buildGallery() => widget.event.galleryImages.isNotEmpty()
-      ? BoardDetailsGalleryGridWidget(widget.event)
+  Widget _buildGallery() => widget.angel.galleryImages.isNotEmpty()
+      ? AngelDetailGalleryGridWidget(widget.angel)
       : Container(color: Colors.white, height: 500.0);
 
   Widget _buildEventBackdrop() {
     return Positioned(
       top: _scrollEffects.headerOffset,
-      child: BoardDetailsBackdropPhotoWidget(
-        event: widget.event,
+      child: AngelDetailBackdropPhotoWidget(
+        angel: widget.angel,
         scrollEffects: _scrollEffects,
       ),
     );
@@ -93,11 +86,12 @@ class _BoardDetailsWidgetState extends State<BoardDetailsWidget> {
   @override
   Widget build(BuildContext context) {
     final content = <Widget>[
-      _Header(widget.event),
+      _Header(widget.angel),
     ];
 
     addIfNonNull(_buildSynopsis(), content);
-    addIfNonNull(_buildGallery(), content);
+    // TODO : Gallery
+    // addIfNonNull(_buildGallery(), content);
 
     // Some padding for the bottom.
     content.add(const SizedBox(height: 32.0));
@@ -132,15 +126,15 @@ class _BoardDetailsWidgetState extends State<BoardDetailsWidget> {
 }
 
 class _Header extends StatelessWidget {
-  _Header(this.event);
-  final Board event;
+  _Header(this.angel);
+  final Angel angel;
 
   @override
   Widget build(BuildContext context) {
     final moviePoster = Padding(
       padding: const EdgeInsets.all(6.0),
-      child: BoardPoster(
-        event: event,
+      child: AngelDetailPoster(
+        angel: angel,
         size: const Size(125.0, 187.5),
         displayPlayButton: true,
       ),
@@ -247,7 +241,7 @@ class _Header extends StatelessWidget {
               ),
             ]),
             Padding(
-                padding: EdgeInsets.only(left: 10), child: _EventInfo(event)),
+                padding: EdgeInsets.only(left: 10), child: _EventInfo(angel)),
           ]))
     ]);
   }
@@ -255,7 +249,7 @@ class _Header extends StatelessWidget {
 
 class _BackButton extends StatelessWidget {
   _BackButton(this.scrollEffects);
-  final BoardDetailsScrollEffects scrollEffects;
+  final AngelDetailScrollEffects scrollEffects;
 
   @override
   Widget build(BuildContext context) {
@@ -279,16 +273,16 @@ class _BackButton extends StatelessWidget {
 }
 
 class _EventInfo extends StatelessWidget {
-  _EventInfo(this.event);
-  final Board event;
+  _EventInfo(this.angel);
+  final Angel angel;
 
   List<Widget> _buildTitleAndLengthInMinutes() {
-    final length = '${event.lengthInMinutes} min';
-    final genres = event.genres.split(', ').take(4).join(', ');
+    final length = "";
+    final genres = "";
 
     return [
       Text(
-        event.title,
+        angel.title,
         style: const TextStyle(
           fontSize: 18.0,
           fontWeight: FontWeight.w800,
@@ -310,13 +304,6 @@ class _EventInfo extends StatelessWidget {
     final content = <Widget>[]..addAll(
         _buildTitleAndLengthInMinutes(),
       );
-
-    if (event.directors.isNotEmpty()) {
-      content.add(Padding(
-        padding: const EdgeInsets.only(top: 8.0),
-        child: _DirectorInfo(event.director),
-      ));
-    }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

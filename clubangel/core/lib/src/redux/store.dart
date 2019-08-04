@@ -4,7 +4,7 @@ import 'package:core/src/redux/actor/actor_middleware.dart';
 import 'package:core/src/redux/app/app_reducer.dart';
 import 'package:core/src/redux/app/app_state.dart';
 import 'package:core/src/redux/board/board_middleware.dart';
-import 'package:core/src/redux/show/show_middleware.dart';
+import 'package:core/src/redux/angel/angel_middleware.dart';
 import 'package:core/src/redux/theater/theater_middleware.dart';
 import 'package:http/http.dart';
 import 'package:key_value_store/key_value_store.dart';
@@ -21,7 +21,7 @@ Store<AppState> createStore(Client client, KeyValueStore keyValueStore) {
     middleware: [
       ActorMiddleware(tmdbApi),
       TheaterMiddleware(keyValueStore),
-      ShowMiddleware(finnkinoApi),
+      AngelMiddleware(finnkinoApi),
       BoardMiddleware(finnkinoApi),
     ],
   );

@@ -10,15 +10,15 @@ class AngelWidgetModel {
     @required this.selectedDate,
     @required this.shows,
     @required this.changeCurrentDate,
-    @required this.refreshShowtimes,
+    @required this.refreshAngeltimes,
   });
 
   final LoadingStatus status;
   final KtList<DateTime> dates;
   final DateTime selectedDate;
-  final KtList<Show> shows;
+  final KtList<Angel> shows;
   final Function(DateTime) changeCurrentDate;
-  final Function refreshShowtimes;
+  final Function refreshAngeltimes;
 
   static AngelWidgetModel fromStore(Store<AppState> store) {
     return AngelWidgetModel(
@@ -29,7 +29,7 @@ class AngelWidgetModel {
       changeCurrentDate: (newDate) {
         store.dispatch(ChangeCurrentDateAction(newDate));
       },
-      refreshShowtimes: () => store.dispatch(RefreshShowsAction()),
+      refreshAngeltimes: () => store.dispatch(RefreshAngelsAction()),
     );
   }
 

@@ -25,9 +25,11 @@ class _BoardRegistState extends State<BoardRegistWidget>
 
   final FocusNode titleFocusNode = FocusNode();
   final FocusNode contentsFocusNode = FocusNode();
+  final FocusNode youtubeFocusNode = FocusNode();
 
   TextEditingController titleController = new TextEditingController();
   TextEditingController contentsController = new TextEditingController();
+  TextEditingController youtubeController = new TextEditingController();
 
 // multi image picker 이미지 데이터가 사라짐. 받아오면 바로 백업.
   final List<ByteData> selectedThumbDatas = List<ByteData>();
@@ -35,7 +37,7 @@ class _BoardRegistState extends State<BoardRegistWidget>
   String _error;
 
 // 이 값은 초기에 초기화 되기 때문에 재 진입해야 적용 됨.
-  final double maxContentsHeight = 1200;
+  double maxContentsHeight = 1200;
   final int maxPicturesCount = 20;
 
   @override
@@ -49,7 +51,7 @@ class _BoardRegistState extends State<BoardRegistWidget>
         body: SingleChildScrollView(
             child: Container(
           width: MediaQuery.of(context).size.width,
-          height: maxContentsHeight,
+          height: selectedThumbDatas.length == 0 ? 900 : maxContentsHeight,
           decoration: new BoxDecoration(
             gradient: MainTheme.primaryLinearGradient,
           ),
@@ -57,28 +59,29 @@ class _BoardRegistState extends State<BoardRegistWidget>
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
               Expanded(
-                flex: 18,
+                flex: 5,
                 child: ConstrainedBox(
                   constraints: const BoxConstraints.expand(),
                   child: _buildBoardType(context),
                 ),
               ),
               Expanded(
-                flex: 40,
+                flex: 11,
                 child: ConstrainedBox(
                   constraints: const BoxConstraints.expand(),
                   child: _buildContents(context),
                 ),
               ),
               Expanded(
-                flex: 40,
-                child: ConstrainedBox(
-                  constraints: const BoxConstraints.expand(),
-                  child: _buildGalleryFiles(context),
-                ),
-              ),
-              _buildLineDecoration(context),
-              _buildRegistButton(context),
+                  flex: selectedThumbDatas.length == 0 ? 7 : 14,
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints.expand(),
+                    child: Column(children: <Widget>[
+                      _buildGalleryFiles(context),
+                      _buildLineDecoration(context),
+                      _buildRegistButton(context),
+                    ]),
+                  )),
             ],
           ),
         )));
@@ -88,6 +91,7 @@ class _BoardRegistState extends State<BoardRegistWidget>
   void dispose() {
     titleFocusNode.dispose();
     contentsFocusNode.dispose();
+    youtubeFocusNode.dispose();
     super.dispose();
   }
 
@@ -170,7 +174,7 @@ class _BoardRegistState extends State<BoardRegistWidget>
                 child: Container(
                   width: MediaQuery.of(context).size.width -
                       MainTheme.edgeInsets.left,
-                  height: 160,
+                  height: 155,
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: <Widget>[
@@ -288,7 +292,7 @@ class _BoardRegistState extends State<BoardRegistWidget>
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             icon: Icon(
-                              FontAwesomeIcons.cocktail,
+                              FontAwesomeIcons.penNib,
                               color: Colors.black54,
                               size: 18.0,
                             ),
@@ -352,12 +356,12 @@ class _BoardRegistState extends State<BoardRegistWidget>
                 child: Container(
                   width: MediaQuery.of(context).size.width -
                       MainTheme.edgeInsets.left,
-                  height: 400,
+                  height: (selectedThumbDatas.length > 0) ? 400 : 114,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Padding(
-                          padding: EdgeInsets.only(left: 10, top: 5, bottom: 5),
+                          padding: EdgeInsets.only(left: 7, top: 5, bottom: 5),
                           child: FlatButton.icon(
                               focusColor: Colors.red,
                               icon: Icon(
@@ -395,6 +399,34 @@ class _BoardRegistState extends State<BoardRegistWidget>
                             color: Colors.grey[400],
                           )),
                       Expanded(child: _buildGridView(context)),
+                      Padding(
+                          padding: EdgeInsets.only(left: 10),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width -
+                                MainTheme.edgeInsets.left * 2,
+                            height: 1.0,
+                            color: Colors.grey[400],
+                          )),
+                      Padding(
+                        padding: EdgeInsets.only(left: 20, top: 5, bottom: 5),
+                        child: TextField(
+                          focusNode: youtubeFocusNode,
+                          controller: youtubeController,
+                          keyboardType: TextInputType.multiline,
+                          style: TextStyle(fontSize: 16.0, color: Colors.black),
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            icon: Icon(
+                              FontAwesomeIcons.youtube,
+                              color: Colors.black54,
+                              size: 18.0,
+                            ),
+                            hintText: LocalizableLoader.of(context)
+                                .text("board_youtube_hint_text"),
+                            hintStyle: TextStyle(fontSize: 17.0),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),

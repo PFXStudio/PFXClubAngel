@@ -1,6 +1,6 @@
 import 'package:core/src/models/actor.dart';
 import 'package:core/src/redux/board/board_state.dart';
-import 'package:core/src/redux/show/show_state.dart';
+import 'package:core/src/redux/angel/angel_state.dart';
 import 'package:core/src/redux/theater/theater_state.dart';
 import 'package:kt_dart/collection.dart';
 import 'package:meta/meta.dart';
@@ -18,7 +18,7 @@ class AppState {
   final String searchQuery;
   final KtMap<String, Actor> actorsByName;
   final TheaterState theaterState;
-  final ShowState showState;
+  final AngelState showState;
   final BoardState boardState;
 
   factory AppState.initial() {
@@ -26,7 +26,7 @@ class AppState {
       searchQuery: null,
       actorsByName: emptyMap(),
       theaterState: TheaterState.initial(),
-      showState: ShowState.initial(),
+      showState: AngelState.initial(),
       boardState: BoardState.initial(),
     );
   }
@@ -35,7 +35,7 @@ class AppState {
     String searchQuery,
     KtMap<String, Actor> actorsByName,
     TheaterState theaterState,
-    ShowState showState,
+    AngelState showState,
     BoardState boardState,
   }) {
     return AppState(

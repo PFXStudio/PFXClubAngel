@@ -1,10 +1,12 @@
 import 'package:kt_dart/collection.dart';
 
+import 'comment.dart';
 import 'content_descriptor.dart';
 import 'board.dart';
+import 'gallery_image.dart';
 
-class Show {
-  Show({
+class Angel {
+  Angel({
     this.id,
     this.eventId,
     this.title,
@@ -18,6 +20,11 @@ class Show {
     this.end,
     this.images,
     this.contentDescriptors,
+    this.youtubeTrailers,
+    this.galleryImages,
+    this.comments,
+    this.shortSynopsis,
+    this.synopsis,
   });
 
   final String id;
@@ -33,11 +40,16 @@ class Show {
   final DateTime end;
   final BoardImageData images;
   final KtList<ContentDescriptor> contentDescriptors;
+  final KtList<String> youtubeTrailers;
+  final KtList<GalleryImage> galleryImages;
+  final KtList<Comment> comments;
+  final String shortSynopsis;
+  final String synopsis;
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is Show &&
+      other is Angel &&
           runtimeType == other.runtimeType &&
           id == other.id &&
           eventId == other.eventId &&

@@ -1,3 +1,4 @@
+import 'package:clubangel/widgets/angel_details/angel_detail_widget.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -16,20 +17,17 @@ class AngelListTileWidget extends StatelessWidget {
     this.opensEventDetails = true,
   }) : ticketsButtonKey = Key('${show.id}-tickets');
 
-  final Show show;
+  final Angel show;
   final bool opensEventDetails;
   final Key ticketsButtonKey;
 
   void _navigateToEventDetails(BuildContext context) {
-    // final store = StoreProvider.of<AppState>(context);
-    // final board = eventForShowSelector(store.state, show);
-
-    // Navigator.push<Null>(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (_) => EventDetailsPage(event, show: show),
-    //   ),
-    // );
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => AngelDetailWidget(show),
+      ),
+    );
   }
 
   @override
@@ -51,7 +49,7 @@ class AngelListTileWidget extends StatelessWidget {
       ),
       child: Row(
         children: [
-          _ShowtimesInfo(show),
+          _AngeltimesInfo(show),
           _DetailedInfo(show),
           ticketsButton,
         ],
@@ -71,11 +69,11 @@ class AngelListTileWidget extends StatelessWidget {
   }
 }
 
-class _ShowtimesInfo extends StatelessWidget {
+class _AngeltimesInfo extends StatelessWidget {
   static final hoursAndMins = DateFormat('HH:mm');
 
-  _ShowtimesInfo(this.show);
-  final Show show;
+  _AngeltimesInfo(this.show);
+  final Angel show;
 
   @override
   Widget build(BuildContext context) {
@@ -97,7 +95,7 @@ class _ShowtimesInfo extends StatelessWidget {
 
 class _DetailedInfo extends StatelessWidget {
   _DetailedInfo(this.show);
-  final Show show;
+  final Angel show;
 
   @override
   Widget build(BuildContext context) {
@@ -140,7 +138,7 @@ class _DetailedInfo extends StatelessWidget {
 
 class _PresentationMethodChip extends StatelessWidget {
   _PresentationMethodChip(this.show);
-  final Show show;
+  final Angel show;
 
   @override
   Widget build(BuildContext context) {

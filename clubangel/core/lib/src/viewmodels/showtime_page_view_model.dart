@@ -1,31 +1,31 @@
 import 'package:core/src/models/loading_status.dart';
-import 'package:core/src/models/show.dart';
+import 'package:core/src/models/angel.dart';
 import 'package:core/src/redux/app/app_state.dart';
-import 'package:core/src/redux/show/show_actions.dart';
-import 'package:core/src/redux/show/show_selectors.dart';
+import 'package:core/src/redux/angel/angel_actions.dart';
+import 'package:core/src/redux/angel/angel_selectors.dart';
 import 'package:kt_dart/collection.dart';
 import 'package:meta/meta.dart';
 import 'package:redux/redux.dart';
 
-class ShowtimesPageViewModel {
-  ShowtimesPageViewModel({
+class AngeltimesPageViewModel {
+  AngeltimesPageViewModel({
     @required this.status,
     @required this.dates,
     @required this.selectedDate,
     @required this.shows,
     @required this.changeCurrentDate,
-    @required this.refreshShowtimes,
+    @required this.refreshAngeltimes,
   });
 
   final LoadingStatus status;
   final KtList<DateTime> dates;
   final DateTime selectedDate;
-  final KtList<Show> shows;
+  final KtList<Angel> shows;
   final Function(DateTime) changeCurrentDate;
-  final Function refreshShowtimes;
+  final Function refreshAngeltimes;
 
-  static ShowtimesPageViewModel fromStore(Store<AppState> store) {
-    return ShowtimesPageViewModel(
+  static AngeltimesPageViewModel fromStore(Store<AppState> store) {
+    return AngeltimesPageViewModel(
       selectedDate: store.state.showState.selectedDate,
       dates: store.state.showState.dates,
       status: store.state.showState.loadingStatus,
@@ -33,14 +33,14 @@ class ShowtimesPageViewModel {
       changeCurrentDate: (newDate) {
         store.dispatch(ChangeCurrentDateAction(newDate));
       },
-      refreshShowtimes: () => store.dispatch(RefreshShowsAction()),
+      refreshAngeltimes: () => store.dispatch(RefreshAngelsAction()),
     );
   }
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is ShowtimesPageViewModel &&
+      other is AngeltimesPageViewModel &&
           runtimeType == other.runtimeType &&
           status == other.status &&
           dates == other.dates &&

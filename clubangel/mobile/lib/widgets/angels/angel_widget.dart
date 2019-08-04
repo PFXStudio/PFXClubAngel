@@ -19,7 +19,7 @@ class AngelWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return StoreConnector<AppState, AngelWidgetModel>(
       distinct: true,
-      onInit: (store) => store.dispatch(FetchShowsIfNotLoadedAction()),
+      onInit: (store) => store.dispatch(FetchAngelsIfNotLoadedAction()),
       converter: (store) => AngelWidgetModel.fromStore(store),
       builder: (_, viewModel) => AngelWidgetContent(viewModel),
     );
@@ -47,7 +47,7 @@ class AngelWidgetContent extends StatelessWidget {
               child: LoadingWidget(
                 status: viewModel.status,
                 loadingContent: const PlatformAdaptiveProgressIndicator(),
-                errorContent: ErrorView(onRetry: viewModel.refreshShowtimes),
+                errorContent: ErrorView(onRetry: viewModel.refreshAngeltimes),
                 successContent:
                     AngelListWidget(viewModel.status, viewModel.shows),
               ),

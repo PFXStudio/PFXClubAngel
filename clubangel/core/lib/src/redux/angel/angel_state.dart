@@ -1,12 +1,12 @@
 import 'package:core/src/models/loading_status.dart';
-import 'package:core/src/models/show.dart';
+import 'package:core/src/models/angel.dart';
 import 'package:core/src/models/show_cache.dart';
 import 'package:kt_dart/collection.dart';
 import 'package:meta/meta.dart';
 
 @immutable
-class ShowState {
-  ShowState({
+class AngelState {
+  AngelState({
     @required this.loadingStatus,
     @required this.dates,
     @required this.selectedDate,
@@ -16,10 +16,10 @@ class ShowState {
   final LoadingStatus loadingStatus;
   final KtList<DateTime> dates;
   final DateTime selectedDate;
-  final KtMap<DateTheaterPair, KtList<Show>> shows;
+  final KtMap<DateTheaterPair, KtList<Angel>> shows;
 
-  factory ShowState.initial() {
-    return ShowState(
+  factory AngelState.initial() {
+    return AngelState(
       loadingStatus: LoadingStatus.idle,
       dates: emptyList(),
       selectedDate: null,
@@ -27,13 +27,13 @@ class ShowState {
     );
   }
 
-  ShowState copyWith({
+  AngelState copyWith({
     LoadingStatus loadingStatus,
     KtList<DateTime> availableDates,
     DateTime selectedDate,
-    KtMap<DateTheaterPair, KtList<Show>> shows,
+    KtMap<DateTheaterPair, KtList<Angel>> shows,
   }) {
-    return ShowState(
+    return AngelState(
       loadingStatus: loadingStatus ?? this.loadingStatus,
       dates: availableDates ?? this.dates,
       selectedDate: selectedDate ?? this.selectedDate,
@@ -44,7 +44,7 @@ class ShowState {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is ShowState &&
+      other is AngelState &&
           runtimeType == other.runtimeType &&
           loadingStatus == other.loadingStatus &&
           dates == other.dates &&

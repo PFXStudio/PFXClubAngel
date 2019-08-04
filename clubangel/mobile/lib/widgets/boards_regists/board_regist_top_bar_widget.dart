@@ -37,8 +37,7 @@ class _BoardTopBarWidgetState extends State<BoardRegistTopBarWidget>
           Navigator.pop(context);
         },
       ),
-      title: Text(
-          LocalizableLoader.of(context).text("dash_board_section_header_01")),
+      title: Text(LocalizableLoader.of(context).text("board_regist_title")),
     );
   }
 }

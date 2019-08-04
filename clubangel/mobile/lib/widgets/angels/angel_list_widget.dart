@@ -14,14 +14,14 @@ class AngelListWidget extends StatefulWidget {
 
   AngelListWidget(this.status, this.shows);
   final LoadingStatus status;
-  final KtList<Show> shows;
+  final KtList<Angel> shows;
 
   @override
   _AngelListWidgetState createState() => _AngelListWidgetState();
 }
 
 class _AngelListWidgetState extends State<AngelListWidget> {
-  KtList<Show> _shows = emptyList();
+  KtList<Angel> _shows = emptyList();
   bool _showEmptyView = false;
 
   @override
