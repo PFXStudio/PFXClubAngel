@@ -4,14 +4,24 @@
   "dash_board_section_header_01": "실시간 게시판",
   "dash_board_section_header_02": "갤러리 게시판",
   "dash_board_section_header_03": "자유 게시판",
-  "comment_hint_text": "입력 해 주세요...",
-  "board_title_hint_text": "제목을 입력 해 주세요...",
-  "board_contents_hint_text": "내용을 입력 해 주세요...",
+  "comment_hint_text": "입력 해 주세요..",
+  "board_title_hint_text": "제목을 입력 해 주세요..",
+  "board_contents_hint_text": "내용을 입력 해 주세요..",
   "board_contents_text": "내용",
   "board_contents_more_text": "더 보기",
   "board_gallery_title": "갤러리",
 
   "board_regist_button": "등록",
   "add_pictures_button": "사진을 추가 해 주세요. (%d / 최대 %s장)",
-  "notice_remove_pictures": "이미 추가 된 사진을 삭제 후 이용 해 주세요."
+  "notice_remove_pictures": "이미 추가 된 사진을 삭제 후 이용 해 주세요.",
+
+  "board_type_select": "게시판을 선택 해 주세요..",
+  "BoardType.realTime": "실시간 게시판",
+  "BoardType.gallery": "갤러리 게시판",
+  "BoardType.free": "자유 게시판",
+  "publish_type_select": "Select publish type..",
+  "PublishType.all": "All",
+  "PublishType.male": "Male",
+  "PublishType.female": "Female",
+  "anonymous_checkbox": "Enable anonymous"
 }

@@ -4,14 +4,24 @@
   "dash_board_section_header_01": "Real Time",
   "dash_board_section_header_02": "Gallery",
   "dash_board_section_header_03": "Free",
-  "comment_hint_text": "Write your comment...",
-  "board_title_hint_text": "Write your title...",
-  "board_contents_hint_text": "Write your contents...",
+  "comment_hint_text": "Write your comment..",
+  "board_title_hint_text": "Write your title..",
+  "board_contents_hint_text": "Write your contents..",
   "board_contents_text": "Contents",
   "board_contents_more_text": "more...",
   "board_gallery_title": "Gallery",
 
   "board_regist_button": "Regist",
   "add_pictures_button_description": "Add pictures. (%d / Max %s)",
-  "notice_remove_pictures": "First remove already added pictures."
+  "notice_remove_pictures": "First remove already added pictures.",
+
+  "board_type_select": "Select board type..",
+  "BoardType.realTime": "Real Time",
+  "BoardType.gallery": "Gallery",
+  "BoardType.free": "Free",
+  "publish_type_select": "Select publish type..",
+  "PublishType.all": "All",
+  "PublishType.male": "Male",
+  "PublishType.female": "Female",
+  "anonymous_checkbox": "Enable anonymous"
 }

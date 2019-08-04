@@ -1,3 +1,4 @@
+import 'package:clubangel/defines/define_enums.dart';
 import 'package:clubangel/loaders/localizable_loader.dart';
 import 'package:clubangel/themes/main_theme.dart';
 import 'package:clubangel/utils/thumbnail_widget.dart';
@@ -5,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'dart:async';
+import 'package:flutter/cupertino.dart';
 
 import 'package:multi_image_picker/multi_image_picker.dart';
 import 'board_regist_top_bar_widget.dart';
@@ -31,7 +33,9 @@ class _BoardRegistState extends State<BoardRegistWidget>
   final List<ByteData> selectedThumbDatas = List<ByteData>();
   final List<ByteData> selectedOriginalDatas = List<ByteData>();
   String _error;
-  final double maxContentsHeight = 950;
+
+// 이 값은 초기에 초기화 되기 때문에 재 진입해야 적용 됨.
+  final double maxContentsHeight = 1200;
   final int maxPicturesCount = 20;
 
   @override
@@ -53,13 +57,26 @@ class _BoardRegistState extends State<BoardRegistWidget>
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
               Expanded(
-                flex: 2,
+                flex: 18,
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints.expand(),
+                  child: _buildBoardType(context),
+                ),
+              ),
+              Expanded(
+                flex: 40,
                 child: ConstrainedBox(
                   constraints: const BoxConstraints.expand(),
                   child: _buildContents(context),
                 ),
               ),
-              _buildGalleryFiles(context),
+              Expanded(
+                flex: 40,
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints.expand(),
+                  child: _buildGalleryFiles(context),
+                ),
+              ),
               _buildLineDecoration(context),
               _buildRegistButton(context),
             ],
@@ -135,6 +152,111 @@ class _BoardRegistState extends State<BoardRegistWidget>
     });
   }
 
+  Widget _buildBoardType(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(top: MainTheme.edgeInsets.top),
+      child: Column(
+        children: <Widget>[
+          Stack(
+            alignment: Alignment.topCenter,
+            overflow: Overflow.visible,
+            children: <Widget>[
+              Card(
+                elevation: 2.0,
+                color: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                child: Container(
+                  width: MediaQuery.of(context).size.width -
+                      MainTheme.edgeInsets.left,
+                  height: 160,
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: <Widget>[
+                        Padding(
+                            padding:
+                                EdgeInsets.only(left: 10, top: 5, bottom: 5),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: <Widget>[
+                                DropdownButton<BoardType>(
+                                  isExpanded: true,
+                                  // value: 0,
+                                  onChanged: (BoardType newValue) {
+                                    setState(() {
+                                      print(newValue);
+                                    });
+                                  },
+                                  items: BoardType.values
+                                      .map((BoardType boardType) {
+                                    return new DropdownMenuItem<BoardType>(
+                                        value: boardType,
+                                        child: Text(
+                                            LocalizableLoader.of(context)
+                                                .text(boardType.toString())));
+                                  }).toList(),
+                                  hint: Text(
+                                    LocalizableLoader.of(context)
+                                        .text("board_type_select"),
+                                    style: TextStyle(
+                                      color: Colors.black54,
+                                    ),
+                                  ),
+                                ),
+                                DropdownButton<PublishType>(
+                                  isExpanded: true,
+                                  // value: 0,
+                                  onChanged: (PublishType newValue) {
+                                    setState(() {
+                                      print(newValue);
+                                    });
+                                  },
+                                  items: PublishType.values
+                                      .map((PublishType publishType) {
+                                    return new DropdownMenuItem<PublishType>(
+                                        value: publishType,
+                                        child: Text(
+                                            LocalizableLoader.of(context)
+                                                .text(publishType.toString())));
+                                  }).toList(),
+                                  hint: Text(
+                                    LocalizableLoader.of(context)
+                                        .text("publish_type_select"),
+                                    style: TextStyle(
+                                      color: Colors.black54,
+                                    ),
+                                  ),
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: <Widget>[
+                                    Text(
+                                      LocalizableLoader.of(context)
+                                          .text("anonymous_checkbox"),
+                                      style: TextStyle(color: Colors.black54),
+                                    ),
+                                    Checkbox(
+                                      value: true,
+                                      onChanged: (bool value) {
+                                        setState(() {});
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ))
+                      ]),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildContents(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(top: MainTheme.edgeInsets.top),
@@ -153,7 +275,7 @@ class _BoardRegistState extends State<BoardRegistWidget>
                 child: Container(
                   width: MediaQuery.of(context).size.width -
                       MainTheme.edgeInsets.left,
-                  height: 450,
+                  height: 400,
                   child: Column(
                     children: <Widget>[
                       Padding(
@@ -230,7 +352,7 @@ class _BoardRegistState extends State<BoardRegistWidget>
                 child: Container(
                   width: MediaQuery.of(context).size.width -
                       MainTheme.edgeInsets.left,
-                  height: 330,
+                  height: 400,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
