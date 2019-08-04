@@ -399,14 +399,16 @@ class _BoardRegistState extends State<BoardRegistWidget>
                             color: Colors.grey[400],
                           )),
                       Expanded(child: _buildGridView(context)),
-                      Padding(
-                          padding: EdgeInsets.only(left: 10),
-                          child: Container(
-                            width: MediaQuery.of(context).size.width -
-                                MainTheme.edgeInsets.left * 2,
-                            height: 1.0,
-                            color: Colors.grey[400],
-                          )),
+                      selectedThumbDatas.length == 0
+                          ? Container()
+                          : Padding(
+                              padding: EdgeInsets.only(left: 10),
+                              child: Container(
+                                width: MediaQuery.of(context).size.width -
+                                    MainTheme.edgeInsets.left * 2,
+                                height: 1.0,
+                                color: Colors.grey[400],
+                              )),
                       Padding(
                         padding: EdgeInsets.only(left: 20, top: 5, bottom: 5),
                         child: TextField(

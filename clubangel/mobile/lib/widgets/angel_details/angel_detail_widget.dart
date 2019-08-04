@@ -2,6 +2,7 @@ import 'package:clubangel/defines/define_images.dart';
 import 'package:clubangel/themes/main_theme.dart';
 import 'package:clubangel/widgets/angels/angel_list_tile_widget.dart';
 import 'package:clubangel/widgets/boards/board_poster.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:clubangel/widgets/comments/comment_widget.dart';
 import 'package:clubangel/widgets/commons/widget_utils.dart';
 import 'package:core/core.dart';
@@ -125,6 +126,31 @@ class _AngelDetailWidgetState extends State<AngelDetailWidget> {
   }
 }
 
+class _BackButton extends StatelessWidget {
+  _BackButton(this.scrollEffects);
+  final AngelDetailScrollEffects scrollEffects;
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      top: MediaQuery.of(context).padding.top,
+      left: 4.0,
+      child: IgnorePointer(
+        ignoring: scrollEffects.backButtonOpacity == 0.0,
+        child: Material(
+          type: MaterialType.circle,
+          color: Colors.transparent,
+          child: BackButton(
+            color: Colors.white.withOpacity(
+              scrollEffects.backButtonOpacity * 0.9,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class _Header extends StatelessWidget {
   _Header(this.angel);
   final Angel angel;
@@ -165,115 +191,91 @@ class _Header extends StatelessWidget {
           top: 218.0,
           left: 146.0,
           right: 0,
-          child: Column(children: <Widget>[
-            Row(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
-              FlatButton(
-                padding: EdgeInsets.only(top: 5),
-                onPressed: () => {},
-                child: Row(
-                  // Replace with a Row for horizontal icon + text
-                  children: <Widget>[
-                    Icon(
-                      Icons.visibility,
-                      color: MainTheme.disabledColor,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 5),
-                    ),
-                    Text(sprintf("%d", [128]),
-                        style: TextStyle(
-                            color: MainTheme.disabledColor,
-                            fontSize: 12.0,
-                            fontWeight: FontWeight.bold)),
-                  ],
-                ),
-              ),
-              FlatButton(
-                padding: EdgeInsets.only(top: 5),
-                onPressed: () => {},
-                child: Row(
-                  // Replace with a Row for horizontal icon + text
-                  children: <Widget>[
-                    Icon(
-                      Icons.thumb_up,
-                      color: MainTheme.enabledButtonColor,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 5),
-                    ),
-                    Text(sprintf("%d", [15]),
-                        style: TextStyle(
-                            color: MainTheme.enabledButtonColor,
-                            fontSize: 12.0,
-                            fontWeight: FontWeight.bold)),
-                  ],
-                ),
-              ),
-              FlatButton(
-                padding: EdgeInsets.only(top: 5),
-                onPressed: () => {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => CommentWidget(),
-                      )),
-                },
-                child: Row(
-                  // Replace with a Row for horizontal icon + text
-                  children: <Widget>[
-                    Icon(
-                      Icons.message,
-                      color: MainTheme.enabledButtonColor,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 5),
-                    ),
-                    Text(sprintf("%d", [15]),
-                        style: TextStyle(
-                            color: MainTheme.enabledButtonColor,
-                            fontSize: 12.0,
-                            fontWeight: FontWeight.bold)),
-                    Padding(
-                      padding: EdgeInsets.only(right: 15),
-                    ),
-                  ],
-                ),
-              ),
-            ]),
-            Padding(
-                padding: EdgeInsets.only(left: 10), child: _EventInfo(angel)),
-          ]))
+          child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      FlatButton(
+                        padding: EdgeInsets.only(top: 5),
+                        onPressed: () => {},
+                        child: Row(
+                          // Replace with a Row for horizontal icon + text
+                          children: <Widget>[
+                            Icon(
+                              Icons.visibility,
+                              color: MainTheme.disabledColor,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(left: 5),
+                            ),
+                            Text(sprintf("%d", [128]),
+                                style: TextStyle(
+                                    color: MainTheme.disabledColor,
+                                    fontSize: 12.0,
+                                    fontWeight: FontWeight.bold)),
+                          ],
+                        ),
+                      ),
+                      FlatButton(
+                        padding: EdgeInsets.only(top: 5),
+                        onPressed: () => {},
+                        child: Row(
+                          // Replace with a Row for horizontal icon + text
+                          children: <Widget>[
+                            Icon(
+                              Icons.thumb_up,
+                              color: MainTheme.enabledButtonColor,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(left: 5),
+                            ),
+                            Text(sprintf("%d", [15]),
+                                style: TextStyle(
+                                    color: MainTheme.enabledButtonColor,
+                                    fontSize: 12.0,
+                                    fontWeight: FontWeight.bold)),
+                          ],
+                        ),
+                      ),
+                      FlatButton(
+                        padding: EdgeInsets.only(top: 5),
+                        onPressed: () => {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => CommentWidget(),
+                              )),
+                        },
+                        child: Row(
+                          // Replace with a Row for horizontal icon + text
+                          children: <Widget>[
+                            Icon(
+                              Icons.message,
+                              color: MainTheme.enabledButtonColor,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(left: 5),
+                            ),
+                            Text(sprintf("%d", [135]),
+                                style: TextStyle(
+                                    color: MainTheme.enabledButtonColor,
+                                    fontSize: 12.0,
+                                    fontWeight: FontWeight.bold)),
+                          ],
+                        ),
+                      ),
+                    ]),
+                Padding(
+                    padding: EdgeInsets.only(left: 5), child: AngelInfo(angel)),
+              ]))
     ]);
   }
 }
 
-class _BackButton extends StatelessWidget {
-  _BackButton(this.scrollEffects);
-  final AngelDetailScrollEffects scrollEffects;
-
-  @override
-  Widget build(BuildContext context) {
-    return Positioned(
-      top: MediaQuery.of(context).padding.top,
-      left: 4.0,
-      child: IgnorePointer(
-        ignoring: scrollEffects.backButtonOpacity == 0.0,
-        child: Material(
-          type: MaterialType.circle,
-          color: Colors.transparent,
-          child: BackButton(
-            color: Colors.white.withOpacity(
-              scrollEffects.backButtonOpacity * 0.9,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _EventInfo extends StatelessWidget {
-  _EventInfo(this.angel);
+class AngelInfo extends StatelessWidget {
+  AngelInfo(this.angel);
   final Angel angel;
 
   List<Widget> _buildTitleAndLengthInMinutes() {
@@ -281,19 +283,57 @@ class _EventInfo extends StatelessWidget {
     final genres = "";
 
     return [
+      Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            FlatButton(
+              padding: EdgeInsets.only(top: 5),
+              onPressed: () => {},
+              child: Row(
+                // Replace with a Row for horizontal icon + text
+                children: <Widget>[
+                  Icon(
+                    FontAwesomeIcons.userEdit,
+                    color: MainTheme.enabledButtonColor,
+                    size: 18.0,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 10),
+                  ),
+                  Text("작성자댕댕이이이이12",
+                      style: TextStyle(
+                          color: MainTheme.enabledButtonColor,
+                          fontSize: 12.0,
+                          fontWeight: FontWeight.bold)),
+                ],
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 10),
+            ),
+            FlatButton(
+              padding: EdgeInsets.only(top: 5),
+              onPressed: () => {},
+              child: Row(
+                // Replace with a Row for horizontal icon + text
+                children: <Widget>[
+                  Text("1시간 전",
+                      style: TextStyle(
+                          color: Colors.black54,
+                          fontSize: 12.0,
+                          fontWeight: FontWeight.bold)),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ]),
       Text(
         angel.title,
         style: const TextStyle(
           fontSize: 18.0,
           fontWeight: FontWeight.w800,
-        ),
-      ),
-      const SizedBox(height: 8.0),
-      Text(
-        '$length | $genres',
-        style: const TextStyle(
-          fontSize: 12.0,
-          fontWeight: FontWeight.w600,
         ),
       ),
     ];

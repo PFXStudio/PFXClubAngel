@@ -171,84 +171,86 @@ class _Header extends StatelessWidget {
           top: 218.0,
           left: 146.0,
           right: 0,
-          child: Column(children: <Widget>[
-            Row(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
-              FlatButton(
-                padding: EdgeInsets.only(top: 5),
-                onPressed: () => {},
-                child: Row(
-                  // Replace with a Row for horizontal icon + text
-                  children: <Widget>[
-                    Icon(
-                      Icons.visibility,
-                      color: MainTheme.disabledColor,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 5),
-                    ),
-                    Text(sprintf("%d", [128]),
-                        style: TextStyle(
-                            color: MainTheme.disabledColor,
-                            fontSize: 12.0,
-                            fontWeight: FontWeight.bold)),
-                  ],
-                ),
-              ),
-              FlatButton(
-                padding: EdgeInsets.only(top: 5),
-                onPressed: () => {},
-                child: Row(
-                  // Replace with a Row for horizontal icon + text
-                  children: <Widget>[
-                    Icon(
-                      Icons.thumb_up,
-                      color: MainTheme.enabledButtonColor,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 5),
-                    ),
-                    Text(sprintf("%d", [15]),
-                        style: TextStyle(
-                            color: MainTheme.enabledButtonColor,
-                            fontSize: 12.0,
-                            fontWeight: FontWeight.bold)),
-                  ],
-                ),
-              ),
-              FlatButton(
-                padding: EdgeInsets.only(top: 5),
-                onPressed: () => {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => CommentWidget(),
-                      )),
-                },
-                child: Row(
-                  // Replace with a Row for horizontal icon + text
-                  children: <Widget>[
-                    Icon(
-                      Icons.message,
-                      color: MainTheme.enabledButtonColor,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 5),
-                    ),
-                    Text(sprintf("%d", [15]),
-                        style: TextStyle(
-                            color: MainTheme.enabledButtonColor,
-                            fontSize: 12.0,
-                            fontWeight: FontWeight.bold)),
-                    Padding(
-                      padding: EdgeInsets.only(right: 15),
-                    ),
-                  ],
-                ),
-              ),
-            ]),
-            Padding(
-                padding: EdgeInsets.only(left: 10), child: _EventInfo(event)),
-          ]))
+          child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      FlatButton(
+                        padding: EdgeInsets.only(top: 5),
+                        onPressed: () => {},
+                        child: Row(
+                          // Replace with a Row for horizontal icon + text
+                          children: <Widget>[
+                            Icon(
+                              Icons.visibility,
+                              color: MainTheme.disabledColor,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(left: 5),
+                            ),
+                            Text(sprintf("%d", [128]),
+                                style: TextStyle(
+                                    color: MainTheme.disabledColor,
+                                    fontSize: 12.0,
+                                    fontWeight: FontWeight.bold)),
+                          ],
+                        ),
+                      ),
+                      FlatButton(
+                        padding: EdgeInsets.only(top: 5),
+                        onPressed: () => {},
+                        child: Row(
+                          // Replace with a Row for horizontal icon + text
+                          children: <Widget>[
+                            Icon(
+                              Icons.thumb_up,
+                              color: MainTheme.enabledButtonColor,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(left: 5),
+                            ),
+                            Text(sprintf("%d", [15]),
+                                style: TextStyle(
+                                    color: MainTheme.enabledButtonColor,
+                                    fontSize: 12.0,
+                                    fontWeight: FontWeight.bold)),
+                          ],
+                        ),
+                      ),
+                      FlatButton(
+                        padding: EdgeInsets.only(top: 5),
+                        onPressed: () => {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => CommentWidget(),
+                              )),
+                        },
+                        child: Row(
+                          // Replace with a Row for horizontal icon + text
+                          children: <Widget>[
+                            Icon(
+                              Icons.message,
+                              color: MainTheme.enabledButtonColor,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(left: 5),
+                            ),
+                            Text(sprintf("%d", [115]),
+                                style: TextStyle(
+                                    color: MainTheme.enabledButtonColor,
+                                    fontSize: 12.0,
+                                    fontWeight: FontWeight.bold)),
+                          ],
+                        ),
+                      ),
+                    ]),
+                Padding(
+                    padding: EdgeInsets.only(left: 10),
+                    child: _EventInfo(event)),
+              ]))
     ]);
   }
 }

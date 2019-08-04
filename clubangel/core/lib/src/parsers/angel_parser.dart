@@ -23,24 +23,25 @@ class AngelParser {
       KtList<GalleryImage> galleryImages;
       KtList<Comment> comments;
       return Angel(
-        id: tagContents(node, 'ID'),
-        eventId: tagContents(node, 'EventID'),
-        title: EventNameCleaner.cleanup(title),
-        originalTitle: EventNameCleaner.cleanup(originalTitle),
-        ageRating: tagContentsOrNull(node, 'Rating'),
-        ageRatingUrl:
-            rewriteImageUrl(tagContentsOrNull(node, 'RatingImageUrl')),
-        url: tagContents(node, 'ShowURL'),
-        presentationMethod: tagContents(node, 'PresentationMethod'),
-        theaterAndAuditorium: tagContents(node, 'TheatreAndAuditorium'),
-        start: DateTime.parse(tagContents(node, 'dttmShowStart')),
-        end: DateTime.parse(tagContents(node, 'dttmShowEnd')),
-        images: EventImageDataParser.parse(node.findElements('Images')),
-        contentDescriptors: ContentDescriptorParser.parse(
-            node.findElements('ContentDescriptors')),
-        galleryImages: galleryImages,
-        comments: comments,
-      );
+          id: tagContents(node, 'ID'),
+          eventId: tagContents(node, 'EventID'),
+          title: EventNameCleaner.cleanup(title),
+          originalTitle: EventNameCleaner.cleanup(originalTitle),
+          ageRating: tagContentsOrNull(node, 'Rating'),
+          ageRatingUrl:
+              rewriteImageUrl(tagContentsOrNull(node, 'RatingImageUrl')),
+          url: tagContents(node, 'ShowURL'),
+          presentationMethod: tagContents(node, 'PresentationMethod'),
+          theaterAndAuditorium: tagContents(node, 'TheatreAndAuditorium'),
+          start: DateTime.parse(tagContents(node, 'dttmShowStart')),
+          end: DateTime.parse(tagContents(node, 'dttmShowEnd')),
+          images: EventImageDataParser.parse(node.findElements('Images')),
+          contentDescriptors: ContentDescriptorParser.parse(
+              node.findElements('ContentDescriptors')),
+          galleryImages: galleryImages,
+          comments: comments,
+          shortSynopsis: "short",
+          synopsis: "long");
     });
   }
 }
