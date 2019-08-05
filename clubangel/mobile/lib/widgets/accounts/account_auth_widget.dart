@@ -296,7 +296,7 @@ class _AccountAuthWidgetState extends State<AccountAuthWidget>
                 ),
                 child: MaterialButton(
                     highlightColor: Colors.transparent,
-                    splashColor: MainTheme.gradientEndColor,
+                    splashColor: Colors.red,
                     //shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5.0))),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
@@ -305,7 +305,7 @@ class _AccountAuthWidgetState extends State<AccountAuthWidget>
                         "LOGIN",
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 25.0,
+                          fontSize: 20.0,
                         ),
                       ),
                     ),
@@ -574,11 +574,11 @@ class _AccountAuthWidgetState extends State<AccountAuthWidget>
                       blurRadius: 20.0,
                     ),
                   ],
-                  gradient: MainTheme.primaryLinearGradient,
+                  gradient: MainTheme.buttonLinearGradient,
                 ),
                 child: MaterialButton(
                     highlightColor: Colors.transparent,
-                    splashColor: MainTheme.gradientEndColor,
+                    splashColor: Colors.red,
                     //shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5.0))),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
@@ -587,7 +587,7 @@ class _AccountAuthWidgetState extends State<AccountAuthWidget>
                         "SIGN UP",
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 25.0,
+                          fontSize: 20.0,
                         ),
                       ),
                     ),

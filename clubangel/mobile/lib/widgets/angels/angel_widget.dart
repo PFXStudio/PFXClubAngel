@@ -1,6 +1,7 @@
 import 'package:clubangel/models/angel_widget_model.dart';
 import 'package:clubangel/singletons/keyboard_singleton.dart';
 import 'package:clubangel/themes/main_theme.dart';
+import 'package:clubangel/widgets/angel_regists/angel_regist_widget.dart';
 import 'package:clubangel/widgets/angels/angel_date_widget.dart';
 import 'package:clubangel/widgets/angels/angel_list_widget.dart';
 import 'package:clubangel/widgets/commons/info_message_widget.dart';
@@ -30,7 +31,14 @@ class AngelWidgetContent extends StatelessWidget {
   AngelWidgetContent(this.viewModel);
   final AngelWidgetModel viewModel;
 
-  void _incrementCounter() {}
+  void _registAngel(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => AngelRegistWidget(),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +67,7 @@ class AngelWidgetContent extends StatelessWidget {
           ? Container()
           : Container(
               child: FloatingActionButton(
-                onPressed: _incrementCounter,
+                onPressed: () => _registAngel(context),
                 tooltip: 'Add',
                 backgroundColor: MainTheme.bgndColor,
                 child: Icon(

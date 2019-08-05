@@ -9,17 +9,17 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 
 import 'package:multi_image_picker/multi_image_picker.dart';
-import 'board_regist_top_bar_widget.dart';
+import 'angel_regist_top_bar_widget.dart';
 import 'package:sprintf/sprintf.dart';
 
-class BoardRegistWidget extends StatefulWidget {
-  BoardRegistWidget({Key key}) : super(key: key);
+class AngelRegistWidget extends StatefulWidget {
+  AngelRegistWidget({Key key}) : super(key: key);
 
   @override
-  _BoardRegistState createState() => new _BoardRegistState();
+  _AngelRegistState createState() => new _AngelRegistState();
 }
 
-class _BoardRegistState extends State<BoardRegistWidget>
+class _AngelRegistState extends State<AngelRegistWidget>
     with SingleTickerProviderStateMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
@@ -45,7 +45,7 @@ class _BoardRegistState extends State<BoardRegistWidget>
     return new Scaffold(
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(kToolbarHeight),
-          child: BoardRegistTopBarWidget(),
+          child: AngelRegistTopBarWidget(),
         ),
         key: _scaffoldKey,
         body: SingleChildScrollView(

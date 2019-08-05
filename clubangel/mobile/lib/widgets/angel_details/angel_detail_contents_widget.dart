@@ -56,7 +56,7 @@ class _AngelDetailContentsWidgetState extends State<AngelDetailContentsWidget> {
                           Icon(
                             FontAwesomeIcons.calendar,
                             color: Colors.black54,
-                            size: 18.0,
+                            size: 14.0,
                           ),
                           Padding(
                             padding: EdgeInsets.only(right: 10),
@@ -65,6 +65,7 @@ class _AngelDetailContentsWidgetState extends State<AngelDetailContentsWidget> {
                             "2019년9월19일 토",
                             style: TextStyle(
                               color: Colors.black54,
+                              fontSize: 12,
                             ),
                           ),
                         ],
@@ -77,7 +78,7 @@ class _AngelDetailContentsWidgetState extends State<AngelDetailContentsWidget> {
                           Icon(
                             FontAwesomeIcons.mapMarkerAlt,
                             color: Colors.black54,
-                            size: 18.0,
+                            size: 14.0,
                           ),
                           Padding(
                             padding: EdgeInsets.only(right: 10),
@@ -86,6 +87,7 @@ class _AngelDetailContentsWidgetState extends State<AngelDetailContentsWidget> {
                             "클럽명은옥타곤",
                             style: TextStyle(
                               color: Colors.black54,
+                              fontSize: 12,
                             ),
                           ),
                         ],
@@ -96,9 +98,9 @@ class _AngelDetailContentsWidgetState extends State<AngelDetailContentsWidget> {
                       child: Row(
                         children: <Widget>[
                           Icon(
-                            FontAwesomeIcons.jenkins,
+                            FontAwesomeIcons.idCard,
                             color: Colors.black54,
-                            size: 18.0,
+                            size: 14.0,
                           ),
                           Padding(
                             padding: EdgeInsets.only(right: 10),
@@ -107,6 +109,7 @@ class _AngelDetailContentsWidgetState extends State<AngelDetailContentsWidget> {
                             "엠디명은김상무",
                             style: TextStyle(
                               color: Colors.black54,
+                              fontSize: 12,
                             ),
                           ),
                         ],
@@ -124,7 +127,7 @@ class _AngelDetailContentsWidgetState extends State<AngelDetailContentsWidget> {
                           Icon(
                             FontAwesomeIcons.users,
                             color: Colors.black54,
-                            size: 18.0,
+                            size: 14.0,
                           ),
                           Padding(
                             padding: EdgeInsets.only(right: 10),
@@ -133,6 +136,7 @@ class _AngelDetailContentsWidgetState extends State<AngelDetailContentsWidget> {
                             "총7명 - 2자리남음",
                             style: TextStyle(
                               color: Colors.black54,
+                              fontSize: 12,
                             ),
                           ),
                         ],
@@ -145,7 +149,7 @@ class _AngelDetailContentsWidgetState extends State<AngelDetailContentsWidget> {
                           Icon(
                             FontAwesomeIcons.cocktail,
                             color: Colors.black54,
-                            size: 18.0,
+                            size: 14.0,
                           ),
                           Padding(
                             padding: EdgeInsets.only(right: 10),
@@ -154,6 +158,7 @@ class _AngelDetailContentsWidgetState extends State<AngelDetailContentsWidget> {
                             "3하드 2샴 + 섭샴",
                             style: TextStyle(
                               color: Colors.black54,
+                              fontSize: 12,
                             ),
                           ),
                         ],
@@ -166,7 +171,7 @@ class _AngelDetailContentsWidgetState extends State<AngelDetailContentsWidget> {
                           Icon(
                             FontAwesomeIcons.wonSign,
                             color: Colors.black54,
-                            size: 18.0,
+                            size: 14.0,
                           ),
                           Padding(
                             padding: EdgeInsets.only(right: 10),
@@ -175,6 +180,7 @@ class _AngelDetailContentsWidgetState extends State<AngelDetailContentsWidget> {
                             "총 150만원 - 엔 21만원",
                             style: TextStyle(
                               color: Colors.black54,
+                              fontSize: 12,
                             ),
                           ),
                         ],

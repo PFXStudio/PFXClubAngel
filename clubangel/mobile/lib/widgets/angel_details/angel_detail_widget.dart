@@ -129,8 +129,9 @@ class _AngelDetailWidgetState extends State<AngelDetailWidget> {
 }
 
 Widget _buildJoin(BuildContext context) {
+  double margin = MediaQuery.of(context).size.width / 6;
   return Container(
-    margin: MainTheme.edgeInsets,
+    margin: EdgeInsets.only(top: 28, left: margin, right: margin),
     decoration: new BoxDecoration(
       borderRadius: BorderRadius.all(Radius.circular(5.0)),
       boxShadow: <BoxShadow>[
@@ -149,7 +150,7 @@ Widget _buildJoin(BuildContext context) {
     ),
     child: MaterialButton(
         highlightColor: Colors.transparent,
-        splashColor: MainTheme.gradientEndColor,
+        splashColor: Colors.red,
         //shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5.0))),
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 42.0),
@@ -157,7 +158,7 @@ Widget _buildJoin(BuildContext context) {
             LocalizableLoader.of(context).text("angel_join_button"),
             style: TextStyle(
               color: Colors.white,
-              fontSize: 25.0,
+              fontSize: 20.0,
             ),
           ),
         ),
@@ -238,10 +239,9 @@ class _Header extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       FlatButton(
-                        padding: EdgeInsets.only(top: 5),
                         onPressed: () => {},
                         child: Row(
                           // Replace with a Row for horizontal icon + text
@@ -249,6 +249,7 @@ class _Header extends StatelessWidget {
                             Icon(
                               Icons.visibility,
                               color: MainTheme.disabledColor,
+                              size: 14,
                             ),
                             Padding(
                               padding: EdgeInsets.only(left: 5),
@@ -262,7 +263,6 @@ class _Header extends StatelessWidget {
                         ),
                       ),
                       FlatButton(
-                        padding: EdgeInsets.only(top: 5),
                         onPressed: () => {},
                         child: Row(
                           // Replace with a Row for horizontal icon + text
@@ -270,6 +270,7 @@ class _Header extends StatelessWidget {
                             Icon(
                               Icons.thumb_up,
                               color: MainTheme.enabledButtonColor,
+                              size: 14,
                             ),
                             Padding(
                               padding: EdgeInsets.only(left: 5),
@@ -282,33 +283,33 @@ class _Header extends StatelessWidget {
                           ],
                         ),
                       ),
-                      FlatButton(
-                        padding: EdgeInsets.only(top: 5),
-                        onPressed: () => {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => CommentWidget(),
-                              )),
-                        },
-                        child: Row(
-                          // Replace with a Row for horizontal icon + text
-                          children: <Widget>[
-                            Icon(
-                              Icons.message,
-                              color: MainTheme.enabledButtonColor,
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 5),
-                            ),
-                            Text(sprintf("%d", [135]),
-                                style: TextStyle(
-                                    color: MainTheme.enabledButtonColor,
-                                    fontSize: 12.0,
-                                    fontWeight: FontWeight.bold)),
-                          ],
-                        ),
-                      ),
+                      // FlatButton(
+                      //   onPressed: () => {
+                      //     Navigator.push(
+                      //         context,
+                      //         MaterialPageRoute(
+                      //           builder: (_) => CommentWidget(),
+                      //         )),
+                      //   },
+                      //   child: Row(
+                      //     // Replace with a Row for horizontal icon + text
+                      //     children: <Widget>[
+                      //       Icon(
+                      //         Icons.message,
+                      //         color: MainTheme.enabledButtonColor,
+                      //         size: 14,
+                      //       ),
+                      //       Padding(
+                      //         padding: EdgeInsets.only(left: 5),
+                      //       ),
+                      //       Text(sprintf("%d", [135]),
+                      //           style: TextStyle(
+                      //               color: MainTheme.enabledButtonColor,
+                      //               fontSize: 12.0,
+                      //               fontWeight: FontWeight.bold)),
+                      //     ],
+                      //   ),
+                      // ),
                     ]),
                 Padding(
                     padding: EdgeInsets.only(left: 5), child: AngelInfo(angel)),
@@ -339,12 +340,12 @@ class AngelInfo extends StatelessWidget {
                   Icon(
                     FontAwesomeIcons.userEdit,
                     color: Colors.black54,
-                    size: 18.0,
+                    size: 14.0,
                   ),
                   Padding(
                     padding: EdgeInsets.only(left: 10),
                   ),
-                  Text("작성자댕댕이이이이12",
+                  Text("작성자댕댕이이12",
                       style: TextStyle(
                           color: Colors.black54,
                           fontSize: 12.0,
@@ -361,6 +362,14 @@ class AngelInfo extends StatelessWidget {
               child: Row(
                 // Replace with a Row for horizontal icon + text
                 children: <Widget>[
+                  Icon(
+                    FontAwesomeIcons.clock,
+                    color: Colors.black54,
+                    size: 14.0,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 10),
+                  ),
                   Text("1시간 전",
                       style: TextStyle(
                           color: Colors.black54,

@@ -4,12 +4,12 @@ import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
-class BoardRegistTopBarWidget extends StatefulWidget {
+class AngelRegistTopBarWidget extends StatefulWidget {
   @override
   _BoardTopBarWidgetState createState() => _BoardTopBarWidgetState();
 }
 
-class _BoardTopBarWidgetState extends State<BoardRegistTopBarWidget>
+class _BoardTopBarWidgetState extends State<AngelRegistTopBarWidget>
     with SingleTickerProviderStateMixin {
   @override
   void initState() {

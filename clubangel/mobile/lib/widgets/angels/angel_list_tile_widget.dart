@@ -35,13 +35,6 @@ class AngelListTileWidget extends StatelessWidget {
     final onTap =
         opensEventDetails ? () => _navigateToEventDetails(context) : null;
 
-    final ticketsButton = IconButton(
-      key: ticketsButtonKey,
-      color: Colors.white,
-      icon: const Icon(Icons.theaters),
-      onPressed: () => launchTicketsUrl(show.url),
-    );
-
     final content = Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: 16.0,
@@ -49,9 +42,8 @@ class AngelListTileWidget extends StatelessWidget {
       ),
       child: Row(
         children: [
-          _AngeltimesInfo(show),
+          _ClubInfo(show),
           _DetailedInfo(show),
-          ticketsButton,
         ],
       ),
     );
@@ -69,24 +61,34 @@ class AngelListTileWidget extends StatelessWidget {
   }
 }
 
-class _AngeltimesInfo extends StatelessWidget {
-  static final hoursAndMins = DateFormat('HH:mm');
-
-  _AngeltimesInfo(this.show);
+class _ClubInfo extends StatelessWidget {
+  _ClubInfo(this.show);
   final Angel show;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(
-          hoursAndMins.format(show.start),
-          style: const TextStyle(fontSize: 18.0, color: Colors.white),
+        Container(
+          decoration: BoxDecoration(
+            borderRadius: new BorderRadius.all(new Radius.circular(40.0)),
+            border: new Border.all(
+              color: Colors.white10,
+              width: 2.0,
+            ),
+          ),
+          child: CircleAvatar(
+            backgroundColor: Colors.transparent,
+            backgroundImage: NetworkImage(
+                "https://avatars1.githubusercontent.com/u/13096942?s=460&v=4"),
+            foregroundColor: Colors.white,
+            radius: 30.0,
+          ),
         ),
         const SizedBox(height: 4.0),
         Text(
-          hoursAndMins.format(show.end),
-          style: const TextStyle(fontSize: 14.0, color: Colors.white30),
+          "FACE",
+          style: const TextStyle(fontSize: 14.0, color: Colors.white),
         ),
       ],
     );
@@ -115,7 +117,7 @@ class _DetailedInfo extends StatelessWidget {
       ),
       const SizedBox(height: 4.0),
       Text(
-        show.theaterAndAuditorium,
+        show.theaterAndAuditorium + "1234567",
         style: const TextStyle(color: Colors.white70),
       ),
       _PresentationMethodChip(show),
