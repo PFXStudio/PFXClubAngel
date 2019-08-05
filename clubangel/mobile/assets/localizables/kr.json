@@ -25,5 +25,7 @@
   "PublishType.all": "전체 공개",
   "PublishType.male": "남성에게만 공개",
   "PublishType.female": "여성에게만 공개",
-  "anonymous_checkbox": "익명"
+  "anonymous_checkbox": "익명",
+
+  "angel_join_button": "참석 요청"
 }

@@ -25,5 +25,7 @@
   "PublishType.all": "All",
   "PublishType.male": "Male",
   "PublishType.female": "Female",
-  "anonymous_checkbox": "Enable anonymous"
+  "anonymous_checkbox": "Enable anonymous",
+
+  "angel_join_button": "Request Join"
 }

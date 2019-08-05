@@ -1,4 +1,5 @@
 import 'package:clubangel/defines/define_images.dart';
+import 'package:clubangel/loaders/localizable_loader.dart';
 import 'package:clubangel/themes/main_theme.dart';
 import 'package:clubangel/widgets/angels/angel_list_tile_widget.dart';
 import 'package:clubangel/widgets/boards/board_poster.dart';
@@ -63,7 +64,7 @@ class _AngelDetailWidgetState extends State<AngelDetailWidget> {
 
   Widget _buildGallery() => widget.angel.galleryImages.isNotEmpty()
       ? AngelDetailGalleryGridWidget(widget.angel)
-      : Container(color: Colors.white, height: 500.0);
+      : Container(color: Colors.white, height: 0.0);
 
   Widget _buildEventBackdrop() {
     return Positioned(
@@ -93,6 +94,7 @@ class _AngelDetailWidgetState extends State<AngelDetailWidget> {
     addIfNonNull(_buildSynopsis(), content);
     // TODO : Gallery
     // addIfNonNull(_buildGallery(), content);
+    addIfNonNull(_buildJoin(context), content);
 
     // Some padding for the bottom.
     content.add(const SizedBox(height: 32.0));
@@ -125,6 +127,47 @@ class _AngelDetailWidgetState extends State<AngelDetailWidget> {
     );
   }
 }
+
+Widget _buildJoin(BuildContext context) {
+  return Container(
+    margin: MainTheme.edgeInsets,
+    decoration: new BoxDecoration(
+      borderRadius: BorderRadius.all(Radius.circular(5.0)),
+      boxShadow: <BoxShadow>[
+        BoxShadow(
+          color: MainTheme.gradientStartColor,
+          offset: Offset(1.0, 6.0),
+          blurRadius: 20.0,
+        ),
+        BoxShadow(
+          color: MainTheme.gradientEndColor,
+          offset: Offset(1.0, 6.0),
+          blurRadius: 20.0,
+        ),
+      ],
+      gradient: MainTheme.buttonLinearGradient,
+    ),
+    child: MaterialButton(
+        highlightColor: Colors.transparent,
+        splashColor: MainTheme.gradientEndColor,
+        //shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5.0))),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 42.0),
+          child: Text(
+            LocalizableLoader.of(context).text("angel_join_button"),
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 25.0,
+            ),
+          ),
+        ),
+        onPressed: () {
+          _requestJoin(context);
+        }),
+  );
+}
+
+void _requestJoin(BuildContext context) {}
 
 class _BackButton extends StatelessWidget {
   _BackButton(this.scrollEffects);
@@ -295,7 +338,7 @@ class AngelInfo extends StatelessWidget {
                 children: <Widget>[
                   Icon(
                     FontAwesomeIcons.userEdit,
-                    color: MainTheme.enabledButtonColor,
+                    color: Colors.black54,
                     size: 18.0,
                   ),
                   Padding(
@@ -303,7 +346,7 @@ class AngelInfo extends StatelessWidget {
                   ),
                   Text("작성자댕댕이이이이12",
                       style: TextStyle(
-                          color: MainTheme.enabledButtonColor,
+                          color: Colors.black54,
                           fontSize: 12.0,
                           fontWeight: FontWeight.bold)),
                 ],

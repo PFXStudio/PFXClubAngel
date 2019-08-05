@@ -42,182 +42,158 @@ class _AngelDetailContentsWidgetState extends State<AngelDetailContentsWidget> {
           fontWeight: FontWeight.w600,
         ),
       ),
-
       secondChild: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Row(
-              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                Expanded(
-                    flex: 1,
-                    child: FlatButton(
-                      padding: EdgeInsets.only(top: 5),
-                      onPressed: () => {},
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    FlatButton(
                       child: Row(
-                        // Replace with a Row for horizontal icon + text
                         children: <Widget>[
                           Icon(
                             FontAwesomeIcons.calendar,
-                            color: MainTheme.enabledButtonColor,
+                            color: Colors.black54,
                             size: 18.0,
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left: 10),
+                            padding: EdgeInsets.only(right: 10),
                           ),
-                          Text("2019년9월19일 토",
-                              style: TextStyle(
-                                  color: MainTheme.enabledButtonColor,
-                                  fontSize: 12.0,
-                                  fontWeight: FontWeight.bold)),
+                          Text(
+                            "2019년9월19일 토",
+                            style: TextStyle(
+                              color: Colors.black54,
+                            ),
+                          ),
                         ],
                       ),
-                    )),
-                Padding(
-                  padding: EdgeInsets.only(left: 10),
-                ),
-                Expanded(
-                    flex: 1,
-                    child: FlatButton(
-                      padding: EdgeInsets.only(top: 5),
-                      onPressed: () => {},
+                      onPressed: () {},
+                    ),
+                    FlatButton(
                       child: Row(
-                        // Replace with a Row for horizontal icon + text
                         children: <Widget>[
                           Icon(
-                            FontAwesomeIcons.cocktail,
-                            color: MainTheme.enabledButtonColor,
+                            FontAwesomeIcons.mapMarkerAlt,
+                            color: Colors.black54,
                             size: 18.0,
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left: 10),
+                            padding: EdgeInsets.only(right: 10),
                           ),
-                          Text("클럽명은옥타곤",
-                              style: TextStyle(
-                                  color: MainTheme.enabledButtonColor,
-                                  fontSize: 12.0,
-                                  fontWeight: FontWeight.bold)),
+                          Text(
+                            "클럽명은옥타곤",
+                            style: TextStyle(
+                              color: Colors.black54,
+                            ),
+                          ),
                         ],
                       ),
-                    )),
-                Padding(
-                  padding: EdgeInsets.only(left: 10),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Expanded(
-                    flex: 1,
-                    child: FlatButton(
-                      padding: EdgeInsets.only(top: 5),
-                      onPressed: () => {},
+                      onPressed: () {},
+                    ),
+                    FlatButton(
                       child: Row(
-                        // Replace with a Row for horizontal icon + text
                         children: <Widget>[
                           Icon(
                             FontAwesomeIcons.jenkins,
-                            color: MainTheme.enabledButtonColor,
+                            color: Colors.black54,
                             size: 18.0,
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left: 10),
+                            padding: EdgeInsets.only(right: 10),
                           ),
-                          Text("엠디명은김상무",
-                              style: TextStyle(
-                                  color: MainTheme.enabledButtonColor,
-                                  fontSize: 12.0,
-                                  fontWeight: FontWeight.bold)),
+                          Text(
+                            "엠디명은김상무",
+                            style: TextStyle(
+                              color: Colors.black54,
+                            ),
+                          ),
                         ],
                       ),
-                    )),
-                Expanded(
-                    flex: 1,
-                    child: FlatButton(
-                      padding: EdgeInsets.only(top: 5),
-                      onPressed: () => {},
+                      onPressed: () {},
+                    )
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    FlatButton(
                       child: Row(
-                        // Replace with a Row for horizontal icon + text
                         children: <Widget>[
                           Icon(
-                            FontAwesomeIcons.fantasyFlightGames,
-                            color: MainTheme.enabledButtonColor,
+                            FontAwesomeIcons.users,
+                            color: Colors.black54,
                             size: 18.0,
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left: 10),
+                            padding: EdgeInsets.only(right: 10),
                           ),
-                          Text("총7명 - 2자리남음",
-                              style: TextStyle(
-                                  color: MainTheme.enabledButtonColor,
-                                  fontSize: 12.0,
-                                  fontWeight: FontWeight.bold)),
+                          Text(
+                            "총7명 - 2자리남음",
+                            style: TextStyle(
+                              color: Colors.black54,
+                            ),
+                          ),
                         ],
                       ),
-                    )),
-                Padding(
-                  padding: EdgeInsets.only(left: 10),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Expanded(
-                    flex: 1,
-                    child: FlatButton(
-                      padding: EdgeInsets.only(top: 5),
-                      onPressed: () => {},
+                      onPressed: () {},
+                    ),
+                    FlatButton(
                       child: Row(
-                        // Replace with a Row for horizontal icon + text
                         children: <Widget>[
                           Icon(
                             FontAwesomeIcons.cocktail,
-                            color: MainTheme.enabledButtonColor,
+                            color: Colors.black54,
                             size: 18.0,
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left: 10),
+                            padding: EdgeInsets.only(right: 10),
                           ),
-                          Text("3하드 2샴 + 섭샴",
-                              style: TextStyle(
-                                  color: MainTheme.enabledButtonColor,
-                                  fontSize: 12.0,
-                                  fontWeight: FontWeight.bold)),
+                          Text(
+                            "3하드 2샴 + 섭샴",
+                            style: TextStyle(
+                              color: Colors.black54,
+                            ),
+                          ),
                         ],
                       ),
-                    )),
-                Padding(
-                  padding: EdgeInsets.only(left: 10),
-                ),
-                Expanded(
-                    flex: 1,
-                    child: FlatButton(
-                      padding: EdgeInsets.only(top: 5),
-                      onPressed: () => {},
+                      onPressed: () {},
+                    ),
+                    FlatButton(
                       child: Row(
-                        // Replace with a Row for horizontal icon + text
                         children: <Widget>[
                           Icon(
-                            FontAwesomeIcons.moneyBill,
-                            color: MainTheme.enabledButtonColor,
+                            FontAwesomeIcons.wonSign,
+                            color: Colors.black54,
                             size: 18.0,
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left: 10),
+                            padding: EdgeInsets.only(right: 10),
                           ),
-                          Text("총 150만원 - 엔 21만원",
-                              style: TextStyle(
-                                  color: MainTheme.enabledButtonColor,
-                                  fontSize: 12.0,
-                                  fontWeight: FontWeight.bold)),
+                          Text(
+                            "총 150만원 - 엔 21만원",
+                            style: TextStyle(
+                              color: Colors.black54,
+                            ),
+                          ),
                         ],
                       ),
-                    )),
+                      onPressed: () {},
+                    ),
+                  ],
+                )
               ],
             ),
-            Text("seeennddddd....\n asdfasdfddddfadfa\n\ndsfasdgadsa"),
+            Padding(
+              padding: EdgeInsets.only(top: 10),
+            ),
+            Text(
+              "seeennddddd....\n asdfasdfddddfadfa\n\ndsfasdgadsa",
+              style: TextStyle(
+                color: Colors.black54,
+              ),
+            ),
           ]),
       crossFadeState:
           _isExpanded ? CrossFadeState.showSecond : CrossFadeState.showFirst,
