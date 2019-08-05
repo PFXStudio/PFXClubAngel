@@ -36,7 +36,7 @@ class _AngelDetailContentsWidgetState extends State<AngelDetailContentsWidget> {
     final content = AnimatedCrossFade(
       // TODO : synopsis
       firstChild: Text(
-        "클럽명/엠디/모임일/현인원/총인원/총비용/엔비/주류구성/테이블위치/이미지첨부/유투브링크/제목/내용",
+        "모임일/클럽명/엠디/현인원-총인원/총비용-엔비/주류구성/이미지첨부/유투브링크/제목/내용\nas\n\nsefsf",
         style: const TextStyle(
           fontSize: 12.0,
           fontWeight: FontWeight.w600,
@@ -58,6 +58,33 @@ class _AngelDetailContentsWidgetState extends State<AngelDetailContentsWidget> {
                         // Replace with a Row for horizontal icon + text
                         children: <Widget>[
                           Icon(
+                            FontAwesomeIcons.calendar,
+                            color: MainTheme.enabledButtonColor,
+                            size: 18.0,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(left: 10),
+                          ),
+                          Text("2019년9월19일 토",
+                              style: TextStyle(
+                                  color: MainTheme.enabledButtonColor,
+                                  fontSize: 12.0,
+                                  fontWeight: FontWeight.bold)),
+                        ],
+                      ),
+                    )),
+                Padding(
+                  padding: EdgeInsets.only(left: 10),
+                ),
+                Expanded(
+                    flex: 1,
+                    child: FlatButton(
+                      padding: EdgeInsets.only(top: 5),
+                      onPressed: () => {},
+                      child: Row(
+                        // Replace with a Row for horizontal icon + text
+                        children: <Widget>[
+                          Icon(
                             FontAwesomeIcons.cocktail,
                             color: MainTheme.enabledButtonColor,
                             size: 18.0,
@@ -76,6 +103,11 @@ class _AngelDetailContentsWidgetState extends State<AngelDetailContentsWidget> {
                 Padding(
                   padding: EdgeInsets.only(left: 10),
                 ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
                 Expanded(
                     flex: 1,
                     child: FlatButton(
@@ -100,9 +132,6 @@ class _AngelDetailContentsWidgetState extends State<AngelDetailContentsWidget> {
                         ],
                       ),
                     )),
-                Padding(
-                  padding: EdgeInsets.only(left: 10),
-                ),
                 Expanded(
                     flex: 1,
                     child: FlatButton(
@@ -112,21 +141,24 @@ class _AngelDetailContentsWidgetState extends State<AngelDetailContentsWidget> {
                         // Replace with a Row for horizontal icon + text
                         children: <Widget>[
                           Icon(
-                            FontAwesomeIcons.calendar,
-                            color: Colors.black54,
+                            FontAwesomeIcons.fantasyFlightGames,
+                            color: MainTheme.enabledButtonColor,
                             size: 18.0,
                           ),
                           Padding(
                             padding: EdgeInsets.only(left: 10),
                           ),
-                          Text("2019년9월19일",
+                          Text("총7명 - 2자리남음",
                               style: TextStyle(
-                                  color: Colors.black54,
+                                  color: MainTheme.enabledButtonColor,
                                   fontSize: 12.0,
                                   fontWeight: FontWeight.bold)),
                         ],
                       ),
                     )),
+                Padding(
+                  padding: EdgeInsets.only(left: 10),
+                ),
               ],
             ),
             Row(
@@ -148,7 +180,7 @@ class _AngelDetailContentsWidgetState extends State<AngelDetailContentsWidget> {
                           Padding(
                             padding: EdgeInsets.only(left: 10),
                           ),
-                          Text("클럽명은옥타곤",
+                          Text("3하드 2샴 + 섭샴",
                               style: TextStyle(
                                   color: MainTheme.enabledButtonColor,
                                   fontSize: 12.0,
@@ -168,41 +200,14 @@ class _AngelDetailContentsWidgetState extends State<AngelDetailContentsWidget> {
                         // Replace with a Row for horizontal icon + text
                         children: <Widget>[
                           Icon(
-                            FontAwesomeIcons.jenkins,
+                            FontAwesomeIcons.moneyBill,
                             color: MainTheme.enabledButtonColor,
                             size: 18.0,
                           ),
                           Padding(
                             padding: EdgeInsets.only(left: 10),
                           ),
-                          Text("엠디명은김상무",
-                              style: TextStyle(
-                                  color: MainTheme.enabledButtonColor,
-                                  fontSize: 12.0,
-                                  fontWeight: FontWeight.bold)),
-                        ],
-                      ),
-                    )),
-                Padding(
-                  padding: EdgeInsets.only(left: 10),
-                ),
-                Expanded(
-                    flex: 1,
-                    child: FlatButton(
-                      padding: EdgeInsets.only(top: 5),
-                      onPressed: () => {},
-                      child: Row(
-                        // Replace with a Row for horizontal icon + text
-                        children: <Widget>[
-                          Icon(
-                            FontAwesomeIcons.calendar,
-                            color: MainTheme.enabledButtonColor,
-                            size: 18.0,
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(left: 10),
-                          ),
-                          Text("2019년9월19일",
+                          Text("총 150만원 - 엔 21만원",
                               style: TextStyle(
                                   color: MainTheme.enabledButtonColor,
                                   fontSize: 12.0,
@@ -212,6 +217,7 @@ class _AngelDetailContentsWidgetState extends State<AngelDetailContentsWidget> {
                     )),
               ],
             ),
+            Text("seeennddddd....\n asdfasdfddddfadfa\n\ndsfasdgadsa"),
           ]),
       crossFadeState:
           _isExpanded ? CrossFadeState.showSecond : CrossFadeState.showFirst,
