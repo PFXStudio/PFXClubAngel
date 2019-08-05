@@ -8,6 +8,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'package:clubangel/main.dart';
+
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
@@ -24,37 +26,5 @@ void main() {
     // Verify that our counter has incremented.
     expect(find.text('0'), findsNothing);
     expect(find.text('1'), findsOneWidget);
-
-// ActionSheet Example
-    // showModalBottomSheet(
-    //   context: context,
-    //   builder: (BuildContext context) => CupertinoActionSheet(
-    //     cancelButton: FlatButton(
-    //       onPressed: () {
-    //         Navigator.pop(context, 'One');
-    //       },
-    //       child: Text(
-    //         "cancel",
-    //         style: const TextStyle(color: Colors.white),
-    //       ),
-    //     ),
-    //     title: const Text('Choose Options'),
-    //     message: const Text('Your options are '),
-    //     actions: <Widget>[
-    //       CupertinoActionSheetAction(
-    //         child: const Text('One'),
-    //         onPressed: () {
-    //           Navigator.pop(context, 'One');
-    //         },
-    //       ),
-    //       CupertinoActionSheetAction(
-    //         child: const Text('Two'),
-    //         onPressed: () {
-    //           Navigator.pop(context, 'Two');
-    //         },
-    //       )
-    //     ],
-    //   ),
-    // );
   });
 }

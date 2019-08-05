@@ -2,7 +2,6 @@
 # platform :ios, '9.0'
 
 # CocoaPods analytics sends network stats synchronously affecting flutter build latency.
-
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
 
 project 'Runner', {
@@ -40,7 +39,6 @@ target 'Runner' do
 
   system('rm -rf .symlinks')
   system('mkdir -p .symlinks/plugins')
-  pod 'Firebase/Analytics'
 
   # Flutter Pods
   generated_xcode_build_settings = parse_KV_file('./Flutter/Generated.xcconfig')

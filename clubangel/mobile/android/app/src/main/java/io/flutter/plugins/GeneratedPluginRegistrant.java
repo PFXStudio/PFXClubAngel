@@ -3,7 +3,6 @@ package io.flutter.plugins;
 import io.flutter.plugin.common.PluginRegistry;
 import io.flutter.plugins.firebaseanalytics.FirebaseAnalyticsPlugin;
 import io.flutter.plugins.firebase.core.FirebaseCorePlugin;
-import com.example.imagegallerysaver.ImageGallerySaverPlugin;
 import com.roughike.keyvaluestoreflutter.KeyValueStoreFlutterPlugin;
 import com.github.adee42.keyboardvisibility.KeyboardVisibilityPlugin;
 import com.vitanov.multiimagepicker.MultiImagePickerPlugin;
@@ -22,7 +21,6 @@ public final class GeneratedPluginRegistrant {
     }
     FirebaseAnalyticsPlugin.registerWith(registry.registrarFor("io.flutter.plugins.firebaseanalytics.FirebaseAnalyticsPlugin"));
     FirebaseCorePlugin.registerWith(registry.registrarFor("io.flutter.plugins.firebase.core.FirebaseCorePlugin"));
-    ImageGallerySaverPlugin.registerWith(registry.registrarFor("com.example.imagegallerysaver.ImageGallerySaverPlugin"));
     KeyValueStoreFlutterPlugin.registerWith(registry.registrarFor("com.roughike.keyvaluestoreflutter.KeyValueStoreFlutterPlugin"));
     KeyboardVisibilityPlugin.registerWith(registry.registrarFor("com.github.adee42.keyboardvisibility.KeyboardVisibilityPlugin"));
     MultiImagePickerPlugin.registerWith(registry.registrarFor("com.vitanov.multiimagepicker.MultiImagePickerPlugin"));

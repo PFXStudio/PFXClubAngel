@@ -1,5 +1,5 @@
 name: clubangel
-description: A new Flutter project.
+description: ClubAngel
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -14,43 +14,36 @@ description: A new Flutter project.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.2.0 <3.0.0"
+  sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
   core:
     path: ../core
   flutter:
     sdk: flutter
-  firebase_core: ^0.2.5
-  firebase_analytics: ^1.0.4
-  flutter_localizations:
-    sdk: flutter
-  xml: ^3.0.0
-  flutter_redux: ^0.5.0
-  intl: ^0.15.2
-  url_launcher: ^3.0.0
-  # path_provider: ^0.4.0
-  key_value_store_flutter: ^1.0.0
-  pull_to_refresh: ^1.5.3
-  fancy_on_boarding: ^1.2.0
-  multi_image_picker: ^2.2.55
-  sprintf: "^4.0.0"
+
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
-  keyboard_visibility: any
+  flutter_redux: ^0.5.0
+  intl: ^0.15.2
+  url_launcher: ^4.1.0
+  keyboard_visibility: ^0.5.6
   sqlcool: ^3.2.0
-  image_gallery_saver: ^1.1.0
+  firebase_core: ^0.2.5
+  firebase_analytics: ^1.1.0
+  flutter_localizations:
+    sdk: flutter
+  key_value_store_flutter: ^1.0.0
+  font_awesome_flutter: ^8.0.1
+  sprintf: "^4.0.0"
   photo_view: ^0.4.2
-  datetime_picker_formfield: any
-  flutter_datetime_picker: ^1.2.5
+  xml: ^3.0.0
+  multi_image_picker: ^4.3.6
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  mockito: ^3.0.0
-  image_test_utils: ^1.0.0
-  font_awesome_flutter: ^8.0.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -61,31 +54,8 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-
   # To add assets to your application, add an assets section, like this:
-  assets:
-    - assets/localizables/en.json
-    - assets/localizables/kr.json
-    - assets/images/bgnd_main.png
-    - assets/images/bgnd_main_220x330.png
-    - assets/images/bgnd_main_512x910.png
-    - assets/images/icon_main.png
-    - assets/images/icon_main_44x44.png
-    - assets/images/icon_main_128x128.png
-    - assets/images/icon_main_256x256.png
-    - assets/images/icon_fake_8x8.png
-
-    #test
-    - assets/images/cm1.jpeg
-    - assets/images/cm2.jpeg
-    - assets/images/cm3.jpeg
-    - assets/images/cm4.jpeg
-    - assets/images/cm5.jpeg
-    - assets/images/cm6.jpeg
-    - assets/images/cm7.jpeg
-    - assets/images/cm8.jpeg
-    - assets/images/cm9.jpeg
-    - assets/images/cm0.jpeg
+  # assets:
   #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -111,3 +81,26 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+  assets:
+    - assets/localizables/en.json
+    - assets/localizables/kr.json
+    - assets/images/bgnd_main.png
+    - assets/images/bgnd_main_220x330.png
+    - assets/images/bgnd_main_512x910.png
+    - assets/images/icon_main.png
+    - assets/images/icon_main_44x44.png
+    - assets/images/icon_main_128x128.png
+    - assets/images/icon_main_256x256.png
+    - assets/images/icon_fake_8x8.png
+
+    #test
+    - assets/images/cm1.jpeg
+    - assets/images/cm2.jpeg
+    - assets/images/cm3.jpeg
+    - assets/images/cm4.jpeg
+    - assets/images/cm5.jpeg
+    - assets/images/cm6.jpeg
+    - assets/images/cm7.jpeg
+    - assets/images/cm8.jpeg
+    - assets/images/cm9.jpeg
+    - assets/images/cm0.jpeg

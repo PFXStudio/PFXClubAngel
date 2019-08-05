@@ -1,7 +1,6 @@
 #include "AppDelegate.h"
 #include "GeneratedPluginRegistrant.h"
 #include <Firebase.h>
-#import <multi_image_picker/MultiImagePickerPlugin.h>
 
 @implementation AppDelegate
 
@@ -12,6 +11,7 @@
     if ([FIRApp defaultApp] == nil) {
         [FIRApp configure];
     }
+    
 
   return [super application:application didFinishLaunchingWithOptions:launchOptions];
 }

@@ -8,9 +8,7 @@ import 'package:core/src/parsers/content_descriptor_parser.dart';
 import 'package:core/src/parsers/board_parser.dart';
 import 'package:core/src/utils/event_name_cleaner.dart';
 import 'package:core/src/utils/xml_utils.dart';
-import 'package:kt_dart/collection.dart';
 import 'package:xml/xml.dart' as xml;
-import 'package:core/src/models/gallery_image.dart';
 
 class AngelParser {
   static KtList<Angel> parse(String xmlString) {

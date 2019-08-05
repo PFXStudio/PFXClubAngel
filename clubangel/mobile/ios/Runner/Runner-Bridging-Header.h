@@ -1,13 +1,4 @@
 //
-//  Runner-Bridging-Header.h
-//  Runner
-//
-//  Created by succorer on 02/08/2019.
-//  Copyright © 2019 The Chromium Authors. All rights reserved.
+//  Use this file to import your target's public headers that you would like to expose to Swift.
 //
 
-#ifndef Runner_Bridging_Header_h
-#define Runner_Bridging_Header_h
-
-
-#endif /* Runner_Bridging_Header_h */
