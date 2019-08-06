@@ -1,8 +1,7 @@
 import 'package:clubangel/defines/define_images.dart';
 import 'package:clubangel/loaders/localizable_loader.dart';
 import 'package:clubangel/themes/main_theme.dart';
-import 'package:clubangel/widgets/angels/angel_list_tile_widget.dart';
-import 'package:clubangel/widgets/boards/board_poster.dart';
+import 'package:clubangel/widgets/buttons/flat_icon_text_button.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:clubangel/widgets/comments/comment_widget.dart';
 import 'package:clubangel/widgets/commons/widget_utils.dart';
@@ -13,7 +12,6 @@ import 'package:sprintf/sprintf.dart';
 import 'angel_detail_backdrop_photo.dart';
 import 'angel_detail_contents_widget.dart';
 import 'angel_detail_gallery_grid_widget.dart';
-import 'angel_detail_member_scroller_widget.dart';
 import 'angel_detail_poster.dart';
 import 'angel_detail_scroll_effects.dart';
 
@@ -235,85 +233,37 @@ class _Header extends StatelessWidget {
           top: 218.0,
           left: 146.0,
           right: 0,
-          child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      FlatButton(
-                        onPressed: () => {},
-                        child: Row(
-                          // Replace with a Row for horizontal icon + text
-                          children: <Widget>[
-                            Icon(
-                              Icons.visibility,
-                              color: MainTheme.disabledColor,
-                              size: 14,
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 5),
-                            ),
-                            Text(sprintf("%d", [128]),
-                                style: TextStyle(
-                                    color: MainTheme.disabledColor,
-                                    fontSize: 12.0,
-                                    fontWeight: FontWeight.bold)),
-                          ],
-                        ),
-                      ),
-                      FlatButton(
-                        onPressed: () => {},
-                        child: Row(
-                          // Replace with a Row for horizontal icon + text
-                          children: <Widget>[
-                            Icon(
-                              Icons.thumb_up,
-                              color: MainTheme.enabledButtonColor,
-                              size: 14,
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 5),
-                            ),
-                            Text(sprintf("%d", [15]),
-                                style: TextStyle(
-                                    color: MainTheme.enabledButtonColor,
-                                    fontSize: 12.0,
-                                    fontWeight: FontWeight.bold)),
-                          ],
-                        ),
-                      ),
-                      // FlatButton(
-                      //   onPressed: () => {
-                      //     Navigator.push(
-                      //         context,
-                      //         MaterialPageRoute(
-                      //           builder: (_) => CommentWidget(),
-                      //         )),
-                      //   },
-                      //   child: Row(
-                      //     // Replace with a Row for horizontal icon + text
-                      //     children: <Widget>[
-                      //       Icon(
-                      //         Icons.message,
-                      //         color: MainTheme.enabledButtonColor,
-                      //         size: 14,
-                      //       ),
-                      //       Padding(
-                      //         padding: EdgeInsets.only(left: 5),
-                      //       ),
-                      //       Text(sprintf("%d", [135]),
-                      //           style: TextStyle(
-                      //               color: MainTheme.enabledButtonColor,
-                      //               fontSize: 12.0,
-                      //               fontWeight: FontWeight.bold)),
-                      //     ],
-                      //   ),
-                      // ),
-                    ]),
-                Padding(
-                    padding: EdgeInsets.only(left: 5), child: AngelInfo(angel)),
-              ]))
+          child: Column(children: <Widget>[
+            Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  FlatIconTextButton(
+                      iconData: Icons.visibility,
+                      color: Colors.black54,
+                      width: 70,
+                      text: sprintf("%d", [138]),
+                      onPressed: () => {}),
+                  FlatIconTextButton(
+                      iconData: Icons.thumb_up,
+                      color: MainTheme.enabledButtonColor,
+                      width: 70,
+                      text: sprintf("%d", [138]),
+                      onPressed: () => {}),
+                  FlatIconTextButton(
+                      iconData: Icons.message,
+                      color: MainTheme.enabledButtonColor,
+                      width: 70,
+                      text: sprintf("%d", [12118]),
+                      onPressed: () => {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => CommentWidget(),
+                                ))
+                          }),
+                ]),
+            Padding(padding: EdgeInsets.only(left: 5), child: AngelInfo(angel)),
+          ]))
     ]);
   }
 }
@@ -329,55 +279,20 @@ class AngelInfo extends StatelessWidget {
     return [
       Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
         Row(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            FlatButton(
-              padding: EdgeInsets.only(top: 5),
-              onPressed: () => {},
-              child: Row(
-                // Replace with a Row for horizontal icon + text
-                children: <Widget>[
-                  Icon(
-                    FontAwesomeIcons.userEdit,
-                    color: Colors.black54,
-                    size: 14.0,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 10),
-                  ),
-                  Text("작성자댕댕이이12",
-                      style: TextStyle(
-                          color: Colors.black54,
-                          fontSize: 12.0,
-                          fontWeight: FontWeight.bold)),
-                ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 10),
-            ),
-            FlatButton(
-              padding: EdgeInsets.only(top: 5),
-              onPressed: () => {},
-              child: Row(
-                // Replace with a Row for horizontal icon + text
-                children: <Widget>[
-                  Icon(
-                    FontAwesomeIcons.clock,
-                    color: Colors.black54,
-                    size: 14.0,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 10),
-                  ),
-                  Text("1시간 전",
-                      style: TextStyle(
-                          color: Colors.black54,
-                          fontSize: 12.0,
-                          fontWeight: FontWeight.bold)),
-                ],
-              ),
-            ),
+            FlatIconTextButton(
+                iconData: FontAwesomeIcons.userEdit,
+                color: Colors.black54,
+                width: 150,
+                text: "작성자댕댕이이12",
+                onPressed: () => {}),
+            FlatIconTextButton(
+                iconData: FontAwesomeIcons.clock,
+                color: Colors.black54,
+                width: 70,
+                text: "1시간 전",
+                onPressed: () => {}),
           ],
         ),
       ]),

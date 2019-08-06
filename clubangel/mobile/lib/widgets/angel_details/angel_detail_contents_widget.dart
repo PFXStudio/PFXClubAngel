@@ -1,3 +1,4 @@
+import 'package:clubangel/widgets/buttons/flat_icon_text_button.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:clubangel/loaders/localizable_loader.dart';
 import 'package:clubangel/themes/main_theme.dart';
@@ -47,148 +48,57 @@ class _AngelDetailContentsWidgetState extends State<AngelDetailContentsWidget> {
           children: <Widget>[
             Row(
               children: <Widget>[
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    FlatButton(
-                      child: Row(
-                        children: <Widget>[
-                          Icon(
-                            FontAwesomeIcons.calendar,
-                            color: Colors.black54,
-                            size: 14.0,
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(right: 10),
-                          ),
-                          Text(
-                            "2019년9월19일 토",
-                            style: TextStyle(
-                              color: Colors.black54,
-                              fontSize: 12,
-                            ),
-                          ),
-                        ],
-                      ),
-                      onPressed: () {},
-                    ),
-                    FlatButton(
-                      child: Row(
-                        children: <Widget>[
-                          Icon(
-                            FontAwesomeIcons.mapMarkerAlt,
-                            color: Colors.black54,
-                            size: 14.0,
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(right: 10),
-                          ),
-                          Text(
-                            "클럽명은옥타곤",
-                            style: TextStyle(
-                              color: Colors.black54,
-                              fontSize: 12,
-                            ),
-                          ),
-                        ],
-                      ),
-                      onPressed: () {},
-                    ),
-                    FlatButton(
-                      child: Row(
-                        children: <Widget>[
-                          Icon(
-                            FontAwesomeIcons.idCard,
-                            color: Colors.black54,
-                            size: 14.0,
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(right: 10),
-                          ),
-                          Text(
-                            "엠디명은김상무",
-                            style: TextStyle(
-                              color: Colors.black54,
-                              fontSize: 12,
-                            ),
-                          ),
-                        ],
-                      ),
-                      onPressed: () {},
-                    )
-                  ],
+                Expanded(
+                  flex: 1,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      FlatIconTextButton(
+                          iconData: FontAwesomeIcons.calendar,
+                          color: Colors.black54,
+                          width: 150,
+                          text: "2019년9월19일 토",
+                          onPressed: () => {}),
+                      FlatIconTextButton(
+                          iconData: FontAwesomeIcons.mapMarkerAlt,
+                          color: Colors.black54,
+                          width: 150,
+                          text: "클럽명은옥타곤",
+                          onPressed: () => {}),
+                      FlatIconTextButton(
+                          iconData: FontAwesomeIcons.idCard,
+                          color: Colors.black54,
+                          width: 150,
+                          text: "엠디명은김상무",
+                          onPressed: () => {}),
+                    ],
+                  ),
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    FlatButton(
-                      child: Row(
-                        children: <Widget>[
-                          Icon(
-                            FontAwesomeIcons.users,
+                Expanded(
+                    flex: 1,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        FlatIconTextButton(
+                            iconData: FontAwesomeIcons.users,
                             color: Colors.black54,
-                            size: 14.0,
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(right: 10),
-                          ),
-                          Text(
-                            "총7명 - 2자리남음",
-                            style: TextStyle(
-                              color: Colors.black54,
-                              fontSize: 12,
-                            ),
-                          ),
-                        ],
-                      ),
-                      onPressed: () {},
-                    ),
-                    FlatButton(
-                      child: Row(
-                        children: <Widget>[
-                          Icon(
-                            FontAwesomeIcons.cocktail,
+                            width: 150,
+                            text: "총7명 - 2자리남음",
+                            onPressed: () => {}),
+                        FlatIconTextButton(
+                            iconData: FontAwesomeIcons.cocktail,
                             color: Colors.black54,
-                            size: 14.0,
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(right: 10),
-                          ),
-                          Text(
-                            "3하드 2샴 + 섭샴",
-                            style: TextStyle(
-                              color: Colors.black54,
-                              fontSize: 12,
-                            ),
-                          ),
-                        ],
-                      ),
-                      onPressed: () {},
-                    ),
-                    FlatButton(
-                      child: Row(
-                        children: <Widget>[
-                          Icon(
-                            FontAwesomeIcons.wonSign,
+                            width: 150,
+                            text: "3하드 2샴 + 섭샴",
+                            onPressed: () => {}),
+                        FlatIconTextButton(
+                            iconData: FontAwesomeIcons.wonSign,
                             color: Colors.black54,
-                            size: 14.0,
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(right: 10),
-                          ),
-                          Text(
-                            "총 150만원 - 엔 21만원",
-                            style: TextStyle(
-                              color: Colors.black54,
-                              fontSize: 12,
-                            ),
-                          ),
-                        ],
-                      ),
-                      onPressed: () {},
-                    ),
-                  ],
-                )
+                            width: 150,
+                            text: "총 150만원 - 엔 21만원",
+                            onPressed: () => {}),
+                      ],
+                    )),
               ],
             ),
             Padding(

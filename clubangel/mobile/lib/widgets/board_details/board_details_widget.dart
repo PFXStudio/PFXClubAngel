@@ -2,6 +2,7 @@ import 'package:clubangel/defines/define_images.dart';
 import 'package:clubangel/themes/main_theme.dart';
 import 'package:clubangel/widgets/angels/angel_list_tile_widget.dart';
 import 'package:clubangel/widgets/boards/board_poster.dart';
+import 'package:clubangel/widgets/buttons/flat_icon_text_button.dart';
 import 'package:clubangel/widgets/comments/comment_widget.dart';
 import 'package:clubangel/widgets/commons/widget_utils.dart';
 import 'package:core/core.dart';
@@ -175,77 +176,32 @@ class _Header extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
-                      FlatButton(
-                        padding: EdgeInsets.only(top: 5),
-                        onPressed: () => {},
-                        child: Row(
-                          // Replace with a Row for horizontal icon + text
-                          children: <Widget>[
-                            Icon(
-                              Icons.visibility,
-                              color: MainTheme.disabledColor,
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 5),
-                            ),
-                            Text(sprintf("%d", [128]),
-                                style: TextStyle(
-                                    color: MainTheme.disabledColor,
-                                    fontSize: 12.0,
-                                    fontWeight: FontWeight.bold)),
-                          ],
-                        ),
-                      ),
-                      FlatButton(
-                        padding: EdgeInsets.only(top: 5),
-                        onPressed: () => {},
-                        child: Row(
-                          // Replace with a Row for horizontal icon + text
-                          children: <Widget>[
-                            Icon(
-                              Icons.thumb_up,
-                              color: MainTheme.enabledButtonColor,
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 5),
-                            ),
-                            Text(sprintf("%d", [15]),
-                                style: TextStyle(
-                                    color: MainTheme.enabledButtonColor,
-                                    fontSize: 12.0,
-                                    fontWeight: FontWeight.bold)),
-                          ],
-                        ),
-                      ),
-                      FlatButton(
-                        padding: EdgeInsets.only(top: 5),
-                        onPressed: () => {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => CommentWidget(),
-                              )),
-                        },
-                        child: Row(
-                          // Replace with a Row for horizontal icon + text
-                          children: <Widget>[
-                            Icon(
-                              Icons.message,
-                              color: MainTheme.enabledButtonColor,
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 5),
-                            ),
-                            Text(sprintf("%d", [115]),
-                                style: TextStyle(
-                                    color: MainTheme.enabledButtonColor,
-                                    fontSize: 12.0,
-                                    fontWeight: FontWeight.bold)),
-                          ],
-                        ),
-                      ),
+                      FlatIconTextButton(
+                          iconData: Icons.visibility,
+                          color: MainTheme.disabledColor,
+                          width: 70,
+                          text: sprintf("%d", [12]),
+                          onPressed: () => {}),
+                      FlatIconTextButton(
+                          iconData: Icons.thumb_up,
+                          color: MainTheme.enabledButtonColor,
+                          width: 70,
+                          text: sprintf("%d", [11]),
+                          onPressed: () => {}),
+                      FlatIconTextButton(
+                          iconData: Icons.message,
+                          color: MainTheme.enabledButtonColor,
+                          width: 70,
+                          text: sprintf("%d", [115]),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => CommentWidget(),
+                                ));
+                          }),
                     ]),
                 Padding(
                     padding: EdgeInsets.only(left: 10),

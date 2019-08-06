@@ -1,7 +1,7 @@
-import 'package:clubangel/defines/define_enums.dart';
 import 'package:clubangel/loaders/localizable_loader.dart';
 import 'package:clubangel/themes/main_theme.dart';
 import 'package:clubangel/utils/thumbnail_widget.dart';
+import 'package:clubangel/widgets/angel_regists/angel_regist_club_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -9,6 +9,11 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 
 import 'package:multi_image_picker/multi_image_picker.dart';
+import 'angel_regist_cocktail_count_widget.dart';
+import 'angel_regist_date_widget.dart';
+import 'angel_regist_gender_widget.dart';
+import 'angel_regist_member_count_widget.dart';
+import 'angel_regist_price_widget.dart';
 import 'angel_regist_top_bar_widget.dart';
 import 'package:sprintf/sprintf.dart';
 
@@ -59,10 +64,10 @@ class _AngelRegistState extends State<AngelRegistWidget>
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
               Expanded(
-                flex: 5,
+                flex: 4,
                 child: ConstrainedBox(
                   constraints: const BoxConstraints.expand(),
-                  child: _buildBoardType(context),
+                  child: _buildAngel(context),
                 ),
               ),
               Expanded(
@@ -156,7 +161,7 @@ class _AngelRegistState extends State<AngelRegistWidget>
     });
   }
 
-  Widget _buildBoardType(BuildContext context) {
+  Widget _buildAngel(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(top: MainTheme.edgeInsets.top),
       child: Column(
@@ -174,83 +179,39 @@ class _AngelRegistState extends State<AngelRegistWidget>
                 child: Container(
                   width: MediaQuery.of(context).size.width -
                       MainTheme.edgeInsets.left,
-                  height: 155,
+                  height: 120,
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: <Widget>[
-                        Padding(
-                            padding:
-                                EdgeInsets.only(left: 10, top: 5, bottom: 5),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: <Widget>[
-                                DropdownButton<BoardType>(
-                                  isExpanded: true,
-                                  // value: 0,
-                                  onChanged: (BoardType newValue) {
-                                    setState(() {
-                                      print(newValue);
-                                    });
-                                  },
-                                  items: BoardType.values
-                                      .map((BoardType boardType) {
-                                    return new DropdownMenuItem<BoardType>(
-                                        value: boardType,
-                                        child: Text(
-                                            LocalizableLoader.of(context)
-                                                .text(boardType.toString())));
-                                  }).toList(),
-                                  hint: Text(
-                                    LocalizableLoader.of(context)
-                                        .text("board_type_select"),
-                                    style: TextStyle(
-                                      color: Colors.black54,
-                                    ),
+                        Row(
+                          children: <Widget>[
+                            Expanded(
+                              flex: 1,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  AngelRegistDateWidget(),
+                                  AngelRegistClubWidget(
+                                    callback: (index) {
+                                      print(index);
+                                    },
                                   ),
-                                ),
-                                DropdownButton<PublishType>(
-                                  isExpanded: true,
-                                  // value: 0,
-                                  onChanged: (PublishType newValue) {
-                                    setState(() {
-                                      print(newValue);
-                                    });
-                                  },
-                                  items: PublishType.values
-                                      .map((PublishType publishType) {
-                                    return new DropdownMenuItem<PublishType>(
-                                        value: publishType,
-                                        child: Text(
-                                            LocalizableLoader.of(context)
-                                                .text(publishType.toString())));
-                                  }).toList(),
-                                  hint: Text(
-                                    LocalizableLoader.of(context)
-                                        .text("publish_type_select"),
-                                    style: TextStyle(
-                                      color: Colors.black54,
-                                    ),
-                                  ),
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  AngelRegistGenderWidget(),
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                                flex: 1,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
-                                    Text(
-                                      LocalizableLoader.of(context)
-                                          .text("anonymous_checkbox"),
-                                      style: TextStyle(color: Colors.black54),
-                                    ),
-                                    Checkbox(
-                                      value: true,
-                                      onChanged: (bool value) {
-                                        setState(() {});
-                                      },
-                                    ),
+                                    AngelRegistMemberCountWidget(),
+                                    AngelRegistCocktailCountWidget(),
+                                    AngelRegistPriceWidget(),
                                   ],
-                                ),
-                              ],
-                            ))
+                                )),
+                          ],
+                        ),
                       ]),
                 ),
               ),
