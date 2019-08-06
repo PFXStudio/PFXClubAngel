@@ -5,6 +5,7 @@
 #import "GeneratedPluginRegistrant.h"
 #import <firebase_analytics/FirebaseAnalyticsPlugin.h>
 #import <firebase_core/FirebaseCorePlugin.h>
+#import <flutter_picker/FlutterPickerPlugin.h>
 #import <key_value_store_flutter/KeyValueStoreFlutterPlugin.h>
 #import <keyboard_visibility/KeyboardVisibilityPlugin.h>
 #import <multi_image_picker/MultiImagePickerPlugin.h>
@@ -18,6 +19,7 @@
 + (void)registerWithRegistry:(NSObject<FlutterPluginRegistry>*)registry {
   [FLTFirebaseAnalyticsPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTFirebaseAnalyticsPlugin"]];
   [FLTFirebaseCorePlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTFirebaseCorePlugin"]];
+  [FlutterPickerPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterPickerPlugin"]];
   [KeyValueStoreFlutterPlugin registerWithRegistrar:[registry registrarForPlugin:@"KeyValueStoreFlutterPlugin"]];
   [FLTKeyboardVisibilityPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTKeyboardVisibilityPlugin"]];
   [MultiImagePickerPlugin registerWithRegistrar:[registry registrarForPlugin:@"MultiImagePickerPlugin"]];

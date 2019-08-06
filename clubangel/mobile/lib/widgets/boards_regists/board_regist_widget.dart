@@ -370,8 +370,8 @@ class _BoardRegistState extends State<BoardRegistWidget>
                               ),
                               label: Text(
                                 sprintf(
-                                    LocalizableLoader.of(context).text(
-                                        "add_pictures_button_description"),
+                                    LocalizableLoader.of(context)
+                                        .text("add_pictures_button"),
                                     [
                                       selectedThumbDatas.length,
                                       maxPicturesCount

@@ -190,7 +190,9 @@ class _AngelRegistState extends State<AngelRegistWidget>
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  AngelRegistDateWidget(),
+                                  AngelRegistDateWidget(callback: (dateTime) {
+                                    print(dateTime);
+                                  }),
                                   AngelRegistClubWidget(
                                     callback: (index) {
                                       print(index);
@@ -331,8 +333,8 @@ class _AngelRegistState extends State<AngelRegistWidget>
                               ),
                               label: Text(
                                 sprintf(
-                                    LocalizableLoader.of(context).text(
-                                        "add_pictures_button_description"),
+                                    LocalizableLoader.of(context)
+                                        .text("add_pictures_button"),
                                     [
                                       selectedThumbDatas.length,
                                       maxPicturesCount
