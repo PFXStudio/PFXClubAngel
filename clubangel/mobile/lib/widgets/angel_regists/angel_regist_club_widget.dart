@@ -1,10 +1,14 @@
+import 'dart:convert';
+
 import 'package:clubangel/defines/define_strings.dart';
 import 'package:clubangel/loaders/localizable_loader.dart';
 import 'package:clubangel/themes/main_theme.dart';
 import 'package:clubangel/widgets/buttons/flat_icon_text_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_picker/flutter_picker.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_xlider/flutter_xlider.dart';
 
 typedef AngelRegistClubCallback = void Function(int index);
 
@@ -16,51 +20,131 @@ class AngelRegistClubWidget extends StatefulWidget {
 }
 
 class _AngelRegistClubWidgetState extends State<AngelRegistClubWidget> {
+  double selectedPrice = 0;
+  Widget _buildHeader(BuildContext context) {
+    return Container(
+        padding: EdgeInsets.all(20),
+        color: MainTheme.bgndColor,
+        child: Material(
+            type: MaterialType.button,
+            color: Colors.transparent,
+            child: InkWell(
+              borderRadius: kMaterialEdges[MaterialType.button],
+              highlightColor: MainTheme.enabledButtonColor,
+              splashColor: Colors.transparent,
+              onTap: () {},
+              child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Text(
+                    LocalizableLoader.of(context).text("club_name_select"),
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
+                  )),
+            )));
+  }
+
+  Widget _buildContents(BuildContext context) {
+    return Container(
+        height: 250,
+        color: Colors.white,
+        child: ListView.separated(
+            separatorBuilder: (context, index) => Divider(
+                  color: Colors.black26,
+                ),
+            scrollDirection: Axis.vertical,
+            itemCount: DefineStrings.clubNames.length,
+            itemBuilder: (context, index) {
+              return Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(
+                    DefineStrings.clubNames[index],
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.black54,
+                        fontWeight: FontWeight.bold),
+                  ));
+            }));
+  }
+
+  Widget _buildActions(BuildContext context) {
+    return Container(
+        color: Colors.white,
+        child: ButtonTheme.bar(
+          child: ButtonBar(
+            children: <Widget>[
+              FlatButton(
+                  child:
+                      Text(LocalizableLoader.of(context).text("cancel_button")),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  }),
+              FlatButton(
+                  child:
+                      Text(LocalizableLoader.of(context).text("done_button")),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  }),
+            ],
+          ),
+        ));
+  }
+
   @override
   Widget build(BuildContext context) {
-    List<Widget> actions = List<Widget>();
-    var i = 0;
-    for (int i = 0; i < DefineStrings.clubNames.length; i++) {
-      String clubName = DefineStrings.clubNames[i];
-      var action = CupertinoActionSheetAction(
-        child: Text(clubName),
-        onPressed: () {
-          Navigator.pop(context, clubName);
-          widget.callback(i);
-        },
-      );
-
-      actions.add(action);
-    }
-    for (var clubName in DefineStrings.clubNames) {}
-
     return FlatIconTextButton(
         iconData: FontAwesomeIcons.mapMarkerAlt,
         color: MainTheme.enabledButtonColor,
         width: 170,
         text: LocalizableLoader.of(context).text("club_name_select"),
-        onPressed: () => {
-              showModalBottomSheet(
-                context: context,
-                builder: (BuildContext context) => CupertinoActionSheet(
-                  cancelButton: FlatButton(
-                    color: Colors.red,
-                    onPressed: () {
-                      Navigator.pop(context, 'One');
-                      widget.callback(-1);
-                    },
-                    child: Text(
-                      LocalizableLoader.of(context).text("cancel_button"),
-                      style: const TextStyle(color: Colors.white),
-                    ),
-                  ),
-                  title: Text(
-                    LocalizableLoader.of(context).text("club_name_select"),
-                  ),
-                  message: Text(""),
-                  actions: actions,
-                ),
-              )
-            });
+        onPressed: () {
+          showDialog(
+              context: context,
+              builder: (BuildContext context) => Container(
+                  padding: EdgeInsets.all(20),
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: <Widget>[
+                        _buildHeader(context),
+                        Material(
+                          type: MaterialType.transparency,
+                          child: _buildContents(context),
+                        ),
+                        _buildActions(context),
+                      ])));
+        });
   }
+}
+
+customHandler(IconData icon) {
+  return FlutterSliderHandler(
+    decoration: BoxDecoration(),
+    child: Container(
+      child: Container(
+        margin: EdgeInsets.all(5),
+        decoration: BoxDecoration(
+            color: Colors.blue.withOpacity(0.3), shape: BoxShape.circle),
+        child: Icon(
+          icon,
+          color: Colors.white,
+          size: 23,
+        ),
+      ),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        shape: BoxShape.circle,
+        boxShadow: [
+          BoxShadow(
+              color: Colors.blue.withOpacity(0.3),
+              spreadRadius: 0.05,
+              blurRadius: 5,
+              offset: Offset(0, 1))
+        ],
+      ),
+    ),
+  );
 }

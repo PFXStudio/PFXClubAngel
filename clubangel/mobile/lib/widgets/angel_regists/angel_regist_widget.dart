@@ -209,7 +209,7 @@ class _AngelRegistState extends State<AngelRegistWidget>
                                   children: <Widget>[
                                     AngelRegistMemberCountWidget(),
                                     AngelRegistCocktailCountWidget(),
-                                    AngelRegistPriceWidget(),
+                                    AngelRegistPriceWidget(callback: (index) {})
                                   ],
                                 )),
                           ],
