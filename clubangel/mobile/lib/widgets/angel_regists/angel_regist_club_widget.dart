@@ -1,3 +1,4 @@
+import 'package:clubangel/defines/define_strings.dart';
 import 'package:clubangel/loaders/localizable_loader.dart';
 import 'package:clubangel/themes/main_theme.dart';
 import 'package:clubangel/widgets/buttons/flat_icon_text_button.dart';
@@ -17,10 +18,26 @@ class AngelRegistClubWidget extends StatefulWidget {
 class _AngelRegistClubWidgetState extends State<AngelRegistClubWidget> {
   @override
   Widget build(BuildContext context) {
+    List<Widget> actions = List<Widget>();
+    var i = 0;
+    for (int i = 0; i < DefineStrings.clubNames.length; i++) {
+      String clubName = DefineStrings.clubNames[i];
+      var action = CupertinoActionSheetAction(
+        child: Text(clubName),
+        onPressed: () {
+          Navigator.pop(context, clubName);
+          widget.callback(i);
+        },
+      );
+
+      actions.add(action);
+    }
+    for (var clubName in DefineStrings.clubNames) {}
+
     return FlatIconTextButton(
         iconData: FontAwesomeIcons.mapMarkerAlt,
         color: MainTheme.enabledButtonColor,
-        width: 150,
+        width: 170,
         text: LocalizableLoader.of(context).text("club_name_select"),
         onPressed: () => {
               showModalBottomSheet(
@@ -37,24 +54,11 @@ class _AngelRegistClubWidgetState extends State<AngelRegistClubWidget> {
                       style: const TextStyle(color: Colors.white),
                     ),
                   ),
-                  title: const Text('Choose Options'),
-                  message: const Text('Your options are '),
-                  actions: <Widget>[
-                    CupertinoActionSheetAction(
-                      child: const Text('One'),
-                      onPressed: () {
-                        Navigator.pop(context, 'One');
-                        widget.callback(0);
-                      },
-                    ),
-                    CupertinoActionSheetAction(
-                      child: const Text('Two'),
-                      onPressed: () {
-                        Navigator.pop(context, 'Two');
-                        widget.callback(1);
-                      },
-                    )
-                  ],
+                  title: Text(
+                    LocalizableLoader.of(context).text("club_name_select"),
+                  ),
+                  message: Text(""),
+                  actions: actions,
                 ),
               )
             });

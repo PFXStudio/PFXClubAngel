@@ -22,7 +22,7 @@ class _AngelRegistGenderWidgetState extends State<AngelRegistGenderWidget> {
     return FlatIconTextButton(
         iconData: FontAwesomeIcons.venusMars,
         color: MainTheme.enabledButtonColor,
-        width: 150,
+        width: 170,
         text: LocalizableLoader.of(context).text("gender_type_select"),
         onPressed: () => {
               showModalBottomSheet(

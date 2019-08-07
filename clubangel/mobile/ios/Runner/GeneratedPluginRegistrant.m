@@ -5,7 +5,12 @@
 #import "GeneratedPluginRegistrant.h"
 #import <firebase_analytics/FirebaseAnalyticsPlugin.h>
 #import <firebase_core/FirebaseCorePlugin.h>
+#import <firebase_database/FirebaseDatabasePlugin.h>
+#import <firebase_messaging/FirebaseMessagingPlugin.h>
 #import <flutter_picker/FlutterPickerPlugin.h>
+#import <flutter_webview_plugin/FlutterWebviewPlugin.h>
+#import <google_maps_flutter/GoogleMapsPlugin.h>
+#import <google_sign_in/GoogleSignInPlugin.h>
 #import <key_value_store_flutter/KeyValueStoreFlutterPlugin.h>
 #import <keyboard_visibility/KeyboardVisibilityPlugin.h>
 #import <multi_image_picker/MultiImagePickerPlugin.h>
@@ -19,7 +24,12 @@
 + (void)registerWithRegistry:(NSObject<FlutterPluginRegistry>*)registry {
   [FLTFirebaseAnalyticsPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTFirebaseAnalyticsPlugin"]];
   [FLTFirebaseCorePlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTFirebaseCorePlugin"]];
+  [FLTFirebaseDatabasePlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTFirebaseDatabasePlugin"]];
+  [FLTFirebaseMessagingPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTFirebaseMessagingPlugin"]];
   [FlutterPickerPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterPickerPlugin"]];
+  [FlutterWebviewPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterWebviewPlugin"]];
+  [FLTGoogleMapsPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTGoogleMapsPlugin"]];
+  [FLTGoogleSignInPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTGoogleSignInPlugin"]];
   [KeyValueStoreFlutterPlugin registerWithRegistrar:[registry registrarForPlugin:@"KeyValueStoreFlutterPlugin"]];
   [FLTKeyboardVisibilityPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTKeyboardVisibilityPlugin"]];
   [MultiImagePickerPlugin registerWithRegistrar:[registry registrarForPlugin:@"MultiImagePickerPlugin"]];

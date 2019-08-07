@@ -26,7 +26,11 @@ class _FlatIconTextButtonState extends State<FlatIconTextButton> {
       width: widget.width,
       height: 35,
       child: FlatButton(
-        padding: EdgeInsets.only(left: 5, right: 5),
+        padding: EdgeInsets.only(
+          left: 15,
+          right: 5,
+          top: 5,
+        ),
         onPressed: widget.onPressed,
         child: Row(
           // Replace with a Row for horizontal icon + text

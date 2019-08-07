@@ -5,6 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 
 typedef AngelRegistDateCallback = void Function(DateTime dateTime);
 
@@ -16,23 +18,24 @@ class AngelRegistDateWidget extends StatefulWidget {
 }
 
 class _AngelRegistDateWidgetState extends State<AngelRegistDateWidget> {
+  final format = DateFormat("yyyy-MM-dd");
+  DateTime selectedDate;
   @override
   Widget build(BuildContext context) {
+    print(selectedDate);
     DateTime now = DateTime.now();
     return FlatIconTextButton(
       iconData: FontAwesomeIcons.calendar,
       color: MainTheme.enabledButtonColor,
       width: 150,
       text: LocalizableLoader.of(context).text("date_select"),
-      onPressed: () {
-        DatePicker.showDatePicker(context,
-            showTitleActions: true,
-            minTime: now,
-            maxTime: now.add(Duration(days: 6)), onChanged: (date) {
-          print('change $date');
-        }, onConfirm: (date) {
-          widget.callback(date);
-        }, currentTime: now, locale: LocaleType.ko);
+      onPressed: () async {
+        final date = await showDatePicker(
+            context: context,
+            firstDate: now,
+            initialDate: now,
+            lastDate: now.add(Duration(days: 6)));
+        selectedDate = date;
       },
     );
   }

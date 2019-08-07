@@ -3,7 +3,12 @@ package io.flutter.plugins;
 import io.flutter.plugin.common.PluginRegistry;
 import io.flutter.plugins.firebaseanalytics.FirebaseAnalyticsPlugin;
 import io.flutter.plugins.firebase.core.FirebaseCorePlugin;
+import io.flutter.plugins.firebase.database.FirebaseDatabasePlugin;
+import io.flutter.plugins.firebasemessaging.FirebaseMessagingPlugin;
 import com.yangyxd.flutterpicker.FlutterPickerPlugin;
+import com.flutter_webview_plugin.FlutterWebviewPlugin;
+import io.flutter.plugins.googlemaps.GoogleMapsPlugin;
+import io.flutter.plugins.googlesignin.GoogleSignInPlugin;
 import com.roughike.keyvaluestoreflutter.KeyValueStoreFlutterPlugin;
 import com.github.adee42.keyboardvisibility.KeyboardVisibilityPlugin;
 import com.vitanov.multiimagepicker.MultiImagePickerPlugin;
@@ -22,7 +27,12 @@ public final class GeneratedPluginRegistrant {
     }
     FirebaseAnalyticsPlugin.registerWith(registry.registrarFor("io.flutter.plugins.firebaseanalytics.FirebaseAnalyticsPlugin"));
     FirebaseCorePlugin.registerWith(registry.registrarFor("io.flutter.plugins.firebase.core.FirebaseCorePlugin"));
+    FirebaseDatabasePlugin.registerWith(registry.registrarFor("io.flutter.plugins.firebase.database.FirebaseDatabasePlugin"));
+    FirebaseMessagingPlugin.registerWith(registry.registrarFor("io.flutter.plugins.firebasemessaging.FirebaseMessagingPlugin"));
     FlutterPickerPlugin.registerWith(registry.registrarFor("com.yangyxd.flutterpicker.FlutterPickerPlugin"));
+    FlutterWebviewPlugin.registerWith(registry.registrarFor("com.flutter_webview_plugin.FlutterWebviewPlugin"));
+    GoogleMapsPlugin.registerWith(registry.registrarFor("io.flutter.plugins.googlemaps.GoogleMapsPlugin"));
+    GoogleSignInPlugin.registerWith(registry.registrarFor("io.flutter.plugins.googlesignin.GoogleSignInPlugin"));
     KeyValueStoreFlutterPlugin.registerWith(registry.registrarFor("com.roughike.keyvaluestoreflutter.KeyValueStoreFlutterPlugin"));
     KeyboardVisibilityPlugin.registerWith(registry.registrarFor("com.github.adee42.keyboardvisibility.KeyboardVisibilityPlugin"));
     MultiImagePickerPlugin.registerWith(registry.registrarFor("com.vitanov.multiimagepicker.MultiImagePickerPlugin"));
