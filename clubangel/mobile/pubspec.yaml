@@ -59,6 +59,7 @@ dependencies:
   datetime_picker_formfield: ^0.4.1
   flutter_xlider: ^2.5.2
   auto_size_text: ^2.0.2+1
+  cloud_firestore: ^0.12.9
 
 dev_dependencies:
   flutter_test:
