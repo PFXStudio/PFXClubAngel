@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 
 // FIXME: This is ugly, but works. Look into doing this with Animations and
 // Tweens instead.
-class BoardDetailsScrollEffects {
+class BoardDetailScrollEffects {
   static const double kHeaderHeight = 225.0;
 
-  BoardDetailsScrollEffects() {
+  BoardDetailScrollEffects() {
     updateScrollOffset(null, 0.0);
   }
 

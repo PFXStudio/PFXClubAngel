@@ -1,10 +1,13 @@
 import 'package:clubangel/loaders/localizable_loader.dart';
 import 'package:clubangel/themes/main_theme.dart';
 import 'package:clubangel/widgets/buttons/flat_icon_text_button.dart';
+import 'package:clubangel/widgets/dialogs/dialog_bottom_widget.dart';
+import 'package:clubangel/widgets/dialogs/dialog_header_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_xlider/flutter_xlider.dart';
+import 'package:intl/intl.dart' as intl;
 
 typedef AngelRegistCocktailCountCallback = void Function(int index);
 
@@ -18,61 +21,8 @@ class AngelRegistCocktailCountWidget extends StatefulWidget {
 
 class _AngelRegistCocktailCountWidgetState
     extends State<AngelRegistCocktailCountWidget> {
-  double selectedPrice = 0;
-  Widget _buildHeader(BuildContext context) {
-    return Container(
-        padding: EdgeInsets.all(20),
-        color: MainTheme.bgndColor,
-        child: Material(
-            type: MaterialType.button,
-            color: Colors.transparent,
-            child: InkWell(
-              borderRadius: kMaterialEdges[MaterialType.button],
-              highlightColor: MainTheme.enabledButtonColor,
-              splashColor: Colors.transparent,
-              onTap: () {},
-              child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Text(
-                    LocalizableLoader.of(context).text("cocktail_count_select"),
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
-                  )),
-            )));
-  }
-
   Widget _buildContents(BuildContext context) {
-    return Container(
-        color: Colors.white,
-        child: Container(
-            margin: EdgeInsets.only(top: 50),
-            alignment: Alignment.centerLeft,
-            child: Container()));
-  }
-
-  Widget _buildActions(BuildContext context) {
-    return Container(
-        color: Colors.white,
-        child: ButtonTheme.bar(
-          child: ButtonBar(
-            children: <Widget>[
-              FlatButton(
-                  child:
-                      Text(LocalizableLoader.of(context).text("cancel_button")),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  }),
-              FlatButton(
-                  child:
-                      Text(LocalizableLoader.of(context).text("done_button")),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  }),
-            ],
-          ),
-        ));
+    return AngelRegistCocktailCountContentsWidget();
   }
 
   @override
@@ -80,7 +30,7 @@ class _AngelRegistCocktailCountWidgetState
     return FlatIconTextButton(
         iconData: FontAwesomeIcons.cocktail,
         color: MainTheme.enabledButtonColor,
-        width: 170,
+        width: 180,
         text: LocalizableLoader.of(context).text("cocktail_count_select"),
         onPressed: () {
           showDialog(
@@ -92,39 +42,298 @@ class _AngelRegistCocktailCountWidgetState
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: <Widget>[
-                        _buildHeader(context),
-                        _buildContents(context),
-                        _buildActions(context),
+                        DialogHeaderWidget(
+                            title: LocalizableLoader.of(context)
+                                .text("cocktail_count_select")),
+                        Material(
+                          type: MaterialType.transparency,
+                          child: AngelRegistCocktailCountContentsWidget(),
+                        ),
+                        DialogBottomWidget(
+                          cancelCallback: () {
+                            Navigator.pop(context);
+                          },
+                          confirmCallback: () {
+                            Navigator.pop(context);
+                          },
+                        )
                       ])));
         });
   }
 }
 
-customHandler(IconData icon) {
-  return FlutterSliderHandler(
-    decoration: BoxDecoration(),
-    child: Container(
+class AngelRegistCocktailCountContentsWidget extends StatefulWidget {
+  @override
+  _AngelRegistCocktailCountContentsWidgetState createState() =>
+      _AngelRegistCocktailCountContentsWidgetState();
+}
+
+class _AngelRegistCocktailCountContentsWidgetState
+    extends State<AngelRegistCocktailCountContentsWidget> {
+  @override
+  double hardCount = 0;
+  double champagneCount = 0;
+  double serviceCount = 0;
+  final double maxCount = 30;
+
+  Widget build(BuildContext context) {
+    return Container(
+        color: Colors.white,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.all(10),
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Expanded(
+                  flex: 1,
+                  child: IconButton(
+                    padding: EdgeInsets.only(top: 28),
+                    icon: Icon(FontAwesomeIcons.caretLeft),
+                    color: Colors.blueAccent,
+                    onPressed: () {
+                      setState(() {
+                        if (hardCount > 0) {
+                          hardCount = hardCount - 1;
+                        }
+                      });
+                    },
+                  ),
+                ),
+                Expanded(
+                    flex: 10,
+                    child: FlutterSlider(
+                      values: [hardCount],
+                      rangeSlider: false,
+                      max: maxCount,
+                      min: 0,
+                      step: 1,
+                      jump: true,
+                      trackBar: FlutterSliderTrackBar(
+                        inactiveTrackBarHeight: 2,
+                        activeTrackBarHeight: 3,
+                      ),
+                      disabled: false,
+                      handler: customHandler(Icons.chevron_right),
+                      rightHandler: customHandler(Icons.chevron_left),
+                      tooltip: FlutterSliderTooltip(
+                        alwaysShowTooltip: true,
+                        numberFormat: intl.NumberFormat(),
+                        rightSuffix: Padding(
+                            padding: EdgeInsets.only(left: 5),
+                            child: Text(
+                                LocalizableLoader.of(context)
+                                    .text("hard_bottle"),
+                                style: TextStyle(
+                                    color: Colors.black54,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold))),
+                        textStyle:
+                            TextStyle(fontSize: 17, color: Colors.black45),
+                      ),
+                      onDragging: (handlerIndex, lowerValue, upperValue) {
+                        setState(() {
+                          hardCount = lowerValue;
+                        });
+                      },
+                    )),
+                Expanded(
+                    flex: 1,
+                    child: IconButton(
+                      padding: EdgeInsets.only(top: 28),
+                      icon: Icon(FontAwesomeIcons.caretRight),
+                      color: Colors.blue,
+                      onPressed: () {
+                        setState(() {
+                          if (hardCount < maxCount) {
+                            hardCount = hardCount + 1;
+                          }
+                        });
+                      },
+                    )),
+              ],
+            ),
+            Padding(
+              padding: EdgeInsets.all(10),
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Expanded(
+                  flex: 1,
+                  child: IconButton(
+                    padding: EdgeInsets.only(top: 28),
+                    icon: Icon(FontAwesomeIcons.caretLeft),
+                    color: Colors.blueAccent,
+                    onPressed: () {
+                      setState(() {
+                        if (champagneCount > 0) {
+                          champagneCount = champagneCount - 1;
+                        }
+                      });
+                    },
+                  ),
+                ),
+                Expanded(
+                    flex: 10,
+                    child: FlutterSlider(
+                      values: [champagneCount],
+                      rangeSlider: false,
+                      max: maxCount,
+                      min: 0,
+                      step: 1,
+                      jump: true,
+                      trackBar: FlutterSliderTrackBar(
+                        inactiveTrackBarHeight: 2,
+                        activeTrackBarHeight: 3,
+                      ),
+                      disabled: false,
+                      handler: customHandler(Icons.chevron_right),
+                      rightHandler: customHandler(Icons.chevron_left),
+                      tooltip: FlutterSliderTooltip(
+                        alwaysShowTooltip: true,
+                        numberFormat: intl.NumberFormat(),
+                        rightSuffix: Padding(
+                            padding: EdgeInsets.only(left: 5),
+                            child: Text(
+                                LocalizableLoader.of(context)
+                                    .text("champagne_bottle"),
+                                style: TextStyle(
+                                    color: Colors.black54,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold))),
+                        textStyle:
+                            TextStyle(fontSize: 17, color: Colors.black45),
+                      ),
+                      onDragging: (handlerIndex, lowerValue, upperValue) {
+                        setState(() {
+                          champagneCount = lowerValue;
+                        });
+                      },
+                    )),
+                Expanded(
+                    flex: 1,
+                    child: IconButton(
+                      padding: EdgeInsets.only(top: 28),
+                      icon: Icon(FontAwesomeIcons.caretRight),
+                      color: Colors.blue,
+                      onPressed: () {
+                        setState(() {
+                          if (champagneCount < maxCount) {
+                            champagneCount = champagneCount + 1;
+                          }
+                        });
+                      },
+                    )),
+              ],
+            ),
+            Padding(
+              padding: EdgeInsets.all(10),
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Expanded(
+                  flex: 1,
+                  child: IconButton(
+                    padding: EdgeInsets.only(top: 28),
+                    icon: Icon(FontAwesomeIcons.caretLeft),
+                    color: Colors.blueAccent,
+                    onPressed: () {
+                      setState(() {
+                        if (serviceCount > 0) {
+                          serviceCount = serviceCount - 1;
+                        }
+                      });
+                    },
+                  ),
+                ),
+                Expanded(
+                    flex: 10,
+                    child: FlutterSlider(
+                      values: [serviceCount],
+                      rangeSlider: false,
+                      max: maxCount,
+                      min: 0,
+                      step: 1,
+                      jump: true,
+                      trackBar: FlutterSliderTrackBar(
+                        inactiveTrackBarHeight: 2,
+                        activeTrackBarHeight: 3,
+                      ),
+                      disabled: false,
+                      handler: customHandler(Icons.chevron_right),
+                      rightHandler: customHandler(Icons.chevron_left),
+                      tooltip: FlutterSliderTooltip(
+                        alwaysShowTooltip: true,
+                        numberFormat: intl.NumberFormat(),
+                        rightSuffix: Padding(
+                            padding: EdgeInsets.only(left: 5),
+                            child: Text(
+                                LocalizableLoader.of(context)
+                                    .text("service_bottle"),
+                                style: TextStyle(
+                                    color: Colors.black54,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold))),
+                        textStyle:
+                            TextStyle(fontSize: 17, color: Colors.black45),
+                      ),
+                      onDragging: (handlerIndex, lowerValue, upperValue) {
+                        setState(() {
+                          serviceCount = lowerValue;
+                        });
+                      },
+                    )),
+                Expanded(
+                    flex: 1,
+                    child: IconButton(
+                      padding: EdgeInsets.only(top: 28),
+                      icon: Icon(FontAwesomeIcons.caretRight),
+                      color: Colors.blue,
+                      onPressed: () {
+                        setState(() {
+                          if (serviceCount < maxCount) {
+                            serviceCount = serviceCount + 1;
+                          }
+                        });
+                      },
+                    )),
+              ],
+            ),
+          ],
+        ));
+  }
+
+  customHandler(IconData icon) {
+    return FlutterSliderHandler(
+      decoration: BoxDecoration(),
       child: Container(
-        margin: EdgeInsets.all(5),
+        child: Container(
+          margin: EdgeInsets.all(5),
+          decoration: BoxDecoration(
+              color: Colors.blue.withOpacity(0.3), shape: BoxShape.circle),
+          child: Icon(
+            icon,
+            color: Colors.white,
+            size: 23,
+          ),
+        ),
         decoration: BoxDecoration(
-            color: Colors.blue.withOpacity(0.3), shape: BoxShape.circle),
-        child: Icon(
-          icon,
           color: Colors.white,
-          size: 23,
+          shape: BoxShape.circle,
+          boxShadow: [
+            BoxShadow(
+                color: Colors.blue.withOpacity(0.3),
+                spreadRadius: 0.05,
+                blurRadius: 5,
+                offset: Offset(0, 1))
+          ],
         ),
       ),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        shape: BoxShape.circle,
-        boxShadow: [
-          BoxShadow(
-              color: Colors.blue.withOpacity(0.3),
-              spreadRadius: 0.05,
-              blurRadius: 5,
-              offset: Offset(0, 1))
-        ],
-      ),
-    ),
-  );
+    );
+  }
 }

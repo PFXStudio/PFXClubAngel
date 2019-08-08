@@ -73,13 +73,13 @@ class ProtectionSection extends StatelessWidget {
             itemBuilder: (context, index) {
               return DashBoardListItemWidget(
                 board: boards[index],
-                onTapped: () => _openBoardDetails(context, boards[index]),
+                onTapped: () => _openBoardDetail(context, boards[index]),
                 showReleaseDateInformation: listType == BoardListType.clubInfo,
               );
             }));
   }
 
-  void _openBoardDetails(BuildContext context, Board board) {
+  void _openBoardDetail(BuildContext context, Board board) {
     print("tab!!" + board.title);
 
     Navigator.push(

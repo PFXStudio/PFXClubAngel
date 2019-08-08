@@ -1,6 +1,8 @@
 import 'package:clubangel/loaders/localizable_loader.dart';
 import 'package:clubangel/themes/main_theme.dart';
 import 'package:clubangel/widgets/buttons/flat_icon_text_button.dart';
+import 'package:clubangel/widgets/dialogs/dialog_bottom_widget.dart';
+import 'package:clubangel/widgets/dialogs/dialog_header_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -16,100 +18,108 @@ class AngelRegistPriceWidget extends StatefulWidget {
   AngelRegistPriceCallback callback;
 }
 
-class _AngelRegistPriceWidgetState extends State<AngelRegistPriceWidget> {
-  double selectedPrice = 0;
-  Widget _buildHeader(BuildContext context) {
-    return Container(
-        padding: EdgeInsets.all(20),
-        color: MainTheme.bgndColor,
-        child: Material(
-            type: MaterialType.button,
-            color: Colors.transparent,
-            child: InkWell(
-              borderRadius: kMaterialEdges[MaterialType.button],
-              highlightColor: MainTheme.enabledButtonColor,
-              splashColor: Colors.transparent,
-              onTap: () {},
-              child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Text(
-                    LocalizableLoader.of(context).text("price_select"),
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
-                  )),
-            )));
-  }
+class AngelRegistPriceContentsWidget extends StatefulWidget {
+  @override
+  _AngelRegistPriceContentsWidgetState createState() =>
+      _AngelRegistPriceContentsWidgetState();
+}
 
-  Widget _buildContents(BuildContext context) {
+class _AngelRegistPriceContentsWidgetState
+    extends State<AngelRegistPriceContentsWidget> {
+  @override
+  double selectedPrice = 10;
+  final double maxPrice = 1000;
+  Widget build(BuildContext context) {
     return Container(
         color: Colors.white,
-        child: Container(
-            margin: EdgeInsets.only(top: 50),
-            alignment: Alignment.centerLeft,
-            child: FlutterSlider(
-              values: [10],
-              rangeSlider: false,
-              max: 500,
-              min: 10,
-              step: 1,
-              jump: true,
-              trackBar: FlutterSliderTrackBar(
-                inactiveTrackBarHeight: 2,
-                activeTrackBarHeight: 3,
-              ),
-              disabled: false,
-              handler: customHandler(Icons.chevron_right),
-              rightHandler: customHandler(Icons.chevron_left),
-              tooltip: FlutterSliderTooltip(
-                alwaysShowTooltip: true,
-                numberFormat: intl.NumberFormat(),
-                // leftPrefix: Icon(
-                //   FontAwesomeIcons.wonSign,
-                //   size: 14,
-                //   color: Colors.black45,
-                // ),
-                rightSuffix: Padding(
-                    padding: EdgeInsets.only(left: 5),
-                    child: Text("만원",
-                        style: TextStyle(
-                            color: Colors.black54,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.all(10),
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Expanded(
+                    flex: 1,
+                    child: IconButton(
+                      padding: EdgeInsets.only(top: 28),
+                      icon: Icon(FontAwesomeIcons.caretLeft),
+                      color: Colors.blue,
+                      onPressed: () {
+                        setState(() {
+                          if (selectedPrice > 10) {
+                            selectedPrice = selectedPrice - 1;
+                          }
+                        });
+                      },
+                    )),
+                Expanded(
+                    flex: 10,
+                    child: FlutterSlider(
+                      values: [selectedPrice],
+                      rangeSlider: false,
+                      max: maxPrice,
+                      min: 10,
+                      step: 1,
+                      jump: true,
+                      trackBar: FlutterSliderTrackBar(
+                        inactiveTrackBarHeight: 2,
+                        activeTrackBarHeight: 3,
+                      ),
+                      disabled: false,
+                      handler: customHandler(Icons.chevron_right),
+                      rightHandler: customHandler(Icons.chevron_left),
+                      tooltip: FlutterSliderTooltip(
+                        alwaysShowTooltip: true,
+                        numberFormat: intl.NumberFormat(),
+                        // leftPrefix: Icon(
+                        //   FontAwesomeIcons.wonSign,
+                        //   size: 14,
+                        //   color: Colors.black45,
+                        // ),
+                        rightSuffix: Padding(
+                            padding: EdgeInsets.only(left: 5),
+                            child: Text(
+                                LocalizableLoader.of(context).text("manwon"),
+                                style: TextStyle(
+                                    color: Colors.black54,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold))),
+                        textStyle: TextStyle(
                             fontSize: 14,
-                            fontWeight: FontWeight.bold))),
-                textStyle: TextStyle(fontSize: 17, color: Colors.black45),
-              ),
-              onDragging: (handlerIndex, lowerValue, upperValue) {
-                setState(() {
-                  selectedPrice = lowerValue;
-                });
-              },
-            )));
-  }
-
-  Widget _buildActions(BuildContext context) {
-    return Container(
-        color: Colors.white,
-        child: ButtonTheme.bar(
-          child: ButtonBar(
-            children: <Widget>[
-              FlatButton(
-                  child:
-                      Text(LocalizableLoader.of(context).text("cancel_button")),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  }),
-              FlatButton(
-                  child:
-                      Text(LocalizableLoader.of(context).text("done_button")),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  }),
-            ],
-          ),
+                            color: Colors.black54,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      onDragging: (handlerIndex, lowerValue, upperValue) {
+                        setState(() {
+                          selectedPrice = lowerValue;
+                        });
+                      },
+                    )),
+                Expanded(
+                    flex: 1,
+                    child: IconButton(
+                      padding: EdgeInsets.only(top: 28),
+                      icon: Icon(FontAwesomeIcons.caretRight),
+                      color: Colors.blue,
+                      onPressed: () {
+                        setState(() {
+                          if (selectedPrice < maxPrice) {
+                            selectedPrice = selectedPrice + 1;
+                          }
+                        });
+                      },
+                    )),
+              ],
+            )
+          ],
         ));
   }
+}
 
+class _AngelRegistPriceWidgetState extends State<AngelRegistPriceWidget> {
   @override
   Widget build(BuildContext context) {
     return FlatIconTextButton(
@@ -127,9 +137,21 @@ class _AngelRegistPriceWidgetState extends State<AngelRegistPriceWidget> {
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: <Widget>[
-                        _buildHeader(context),
-                        _buildContents(context),
-                        _buildActions(context),
+                        DialogHeaderWidget(
+                            title: LocalizableLoader.of(context)
+                                .text("price_select")),
+                        Material(
+                          type: MaterialType.transparency,
+                          child: AngelRegistPriceContentsWidget(),
+                        ),
+                        DialogBottomWidget(
+                          cancelCallback: () {
+                            Navigator.pop(context);
+                          },
+                          confirmCallback: () {
+                            Navigator.pop(context);
+                          },
+                        )
                       ])));
         });
   }

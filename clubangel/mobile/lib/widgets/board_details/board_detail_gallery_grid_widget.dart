@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:kt_dart/collection.dart';
 import 'package:core/src/models/gallery_image.dart';
 
-class BoardDetailsGalleryGridWidget extends StatelessWidget {
-  BoardDetailsGalleryGridWidget(this.event);
+class BoardDetailGalleryGridWidget extends StatelessWidget {
+  BoardDetailGalleryGridWidget(this.event);
   final Board event;
 
   @override

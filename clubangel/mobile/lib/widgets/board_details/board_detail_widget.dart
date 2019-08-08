@@ -9,14 +9,14 @@ import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:sprintf/sprintf.dart';
 
-import 'board_details_backdrop_photo.dart';
-import 'board_details_contents_widget.dart';
-import 'board_details_gallery_grid_widget.dart';
-import 'board_details_member_scroller_widget.dart';
-import 'board_details_scroll_effects.dart';
+import 'board_detail_backdrop_photo.dart';
+import 'board_detail_contents_widget.dart';
+import 'board_detail_gallery_grid_widget.dart';
+import 'board_detail_member_scroller_widget.dart';
+import 'board_detail_scroll_effects.dart';
 
-class BoardDetailsWidget extends StatefulWidget {
-  BoardDetailsWidget(
+class BoardDetailWidget extends StatefulWidget {
+  BoardDetailWidget(
     this.event, {
     this.show,
   });
@@ -25,19 +25,19 @@ class BoardDetailsWidget extends StatefulWidget {
   final Angel show;
 
   @override
-  _BoardDetailsWidgetState createState() => _BoardDetailsWidgetState();
+  _BoardDetailWidgetState createState() => _BoardDetailWidgetState();
 }
 
-class _BoardDetailsWidgetState extends State<BoardDetailsWidget> {
+class _BoardDetailWidgetState extends State<BoardDetailWidget> {
   ScrollController _scrollController;
-  BoardDetailsScrollEffects _scrollEffects;
+  BoardDetailScrollEffects _scrollEffects;
 
   @override
   void initState() {
     super.initState();
     _scrollController = ScrollController();
     _scrollController.addListener(_scrollListener);
-    _scrollEffects = BoardDetailsScrollEffects();
+    _scrollEffects = BoardDetailScrollEffects();
   }
 
   @override
@@ -61,7 +61,7 @@ class _BoardDetailsWidgetState extends State<BoardDetailsWidget> {
           top: widget.show == null ? 12.0 : 0.0,
           bottom: 16.0,
         ),
-        child: BoardDetailsContentsWidget(widget.event),
+        child: BoardDetailContentsWidget(widget.event),
       );
     }
 
@@ -69,13 +69,13 @@ class _BoardDetailsWidgetState extends State<BoardDetailsWidget> {
   }
 
   Widget _buildGallery() => widget.event.galleryImages.isNotEmpty()
-      ? BoardDetailsGalleryGridWidget(widget.event)
+      ? BoardDetailGalleryGridWidget(widget.event)
       : Container(color: Colors.white, height: 500.0);
 
   Widget _buildEventBackdrop() {
     return Positioned(
       top: _scrollEffects.headerOffset,
-      child: BoardDetailsBackdropPhotoWidget(
+      child: BoardDetailBackdropPhotoWidget(
         event: widget.event,
         scrollEffects: _scrollEffects,
       ),
@@ -213,7 +213,7 @@ class _Header extends StatelessWidget {
 
 class _BackButton extends StatelessWidget {
   _BackButton(this.scrollEffects);
-  final BoardDetailsScrollEffects scrollEffects;
+  final BoardDetailScrollEffects scrollEffects;
 
   @override
   Widget build(BuildContext context) {

@@ -2,6 +2,7 @@ import 'package:clubangel/loaders/localizable_loader.dart';
 import 'package:clubangel/themes/main_theme.dart';
 import 'package:clubangel/utils/thumbnail_widget.dart';
 import 'package:clubangel/widgets/angel_regists/angel_regist_club_widget.dart';
+import 'package:clubangel/widgets/dialogs/dialog_publish_type_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -11,7 +12,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
 import 'angel_regist_cocktail_count_widget.dart';
 import 'angel_regist_date_widget.dart';
-import 'angel_regist_gender_widget.dart';
 import 'angel_regist_member_count_widget.dart';
 import 'angel_regist_price_widget.dart';
 import 'angel_regist_top_bar_widget.dart';
@@ -179,7 +179,7 @@ class _AngelRegistState extends State<AngelRegistWidget>
                 child: Container(
                   width: MediaQuery.of(context).size.width -
                       MainTheme.edgeInsets.left,
-                  height: 120,
+                  height: 130,
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: <Widget>[
@@ -198,7 +198,8 @@ class _AngelRegistState extends State<AngelRegistWidget>
                                       print(index);
                                     },
                                   ),
-                                  AngelRegistGenderWidget(),
+                                  DialogPublishTypeWidgetWidget(
+                                      callback: (index) {}),
                                 ],
                               ),
                             ),
@@ -255,7 +256,7 @@ class _AngelRegistState extends State<AngelRegistWidget>
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             icon: Icon(
-                              FontAwesomeIcons.penNib,
+                              FontAwesomeIcons.pencilAlt,
                               color: Colors.black54,
                               size: 18.0,
                             ),

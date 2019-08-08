@@ -4,6 +4,8 @@ import 'package:clubangel/defines/define_strings.dart';
 import 'package:clubangel/loaders/localizable_loader.dart';
 import 'package:clubangel/themes/main_theme.dart';
 import 'package:clubangel/widgets/buttons/flat_icon_text_button.dart';
+import 'package:clubangel/widgets/dialogs/dialog_bottom_widget.dart';
+import 'package:clubangel/widgets/dialogs/dialog_header_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_picker/flutter_picker.dart';
@@ -21,29 +23,6 @@ class AngelRegistClubWidget extends StatefulWidget {
 
 class _AngelRegistClubWidgetState extends State<AngelRegistClubWidget> {
   double selectedPrice = 0;
-  Widget _buildHeader(BuildContext context) {
-    return Container(
-        padding: EdgeInsets.all(20),
-        color: MainTheme.bgndColor,
-        child: Material(
-            type: MaterialType.button,
-            color: Colors.transparent,
-            child: InkWell(
-              borderRadius: kMaterialEdges[MaterialType.button],
-              highlightColor: MainTheme.enabledButtonColor,
-              splashColor: Colors.transparent,
-              onTap: () {},
-              child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Text(
-                    LocalizableLoader.of(context).text("club_name_select"),
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
-                  )),
-            )));
-  }
 
   Widget _buildContents(BuildContext context) {
     return Container(
@@ -69,29 +48,6 @@ class _AngelRegistClubWidgetState extends State<AngelRegistClubWidget> {
             }));
   }
 
-  Widget _buildActions(BuildContext context) {
-    return Container(
-        color: Colors.white,
-        child: ButtonTheme.bar(
-          child: ButtonBar(
-            children: <Widget>[
-              FlatButton(
-                  child:
-                      Text(LocalizableLoader.of(context).text("cancel_button")),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  }),
-              FlatButton(
-                  child:
-                      Text(LocalizableLoader.of(context).text("done_button")),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  }),
-            ],
-          ),
-        ));
-  }
-
   @override
   Widget build(BuildContext context) {
     return FlatIconTextButton(
@@ -109,12 +65,21 @@ class _AngelRegistClubWidgetState extends State<AngelRegistClubWidget> {
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: <Widget>[
-                        _buildHeader(context),
+                        DialogHeaderWidget(
+                            title: LocalizableLoader.of(context)
+                                .text("club_name_select")),
                         Material(
                           type: MaterialType.transparency,
                           child: _buildContents(context),
                         ),
-                        _buildActions(context),
+                        DialogBottomWidget(
+                          cancelCallback: () {
+                            Navigator.pop(context);
+                          },
+                          confirmCallback: () {
+                            Navigator.pop(context);
+                          },
+                        )
                       ])));
         });
   }

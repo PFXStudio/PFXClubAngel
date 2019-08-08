@@ -1,7 +1,8 @@
-import 'package:clubangel/defines/define_enums.dart';
 import 'package:clubangel/loaders/localizable_loader.dart';
 import 'package:clubangel/themes/main_theme.dart';
 import 'package:clubangel/utils/thumbnail_widget.dart';
+import 'package:clubangel/widgets/board_regists/board_regist_type_widget.dart';
+import 'package:clubangel/widgets/dialogs/dialog_publish_type_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -59,21 +60,21 @@ class _BoardRegistState extends State<BoardRegistWidget>
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
               Expanded(
-                flex: 5,
+                flex: 3,
                 child: ConstrainedBox(
                   constraints: const BoxConstraints.expand(),
-                  child: _buildBoardType(context),
+                  child: BoardRegistHeaderWidget(),
                 ),
               ),
               Expanded(
-                flex: 11,
+                flex: 10,
                 child: ConstrainedBox(
                   constraints: const BoxConstraints.expand(),
                   child: _buildContents(context),
                 ),
               ),
               Expanded(
-                  flex: selectedThumbDatas.length == 0 ? 7 : 14,
+                  flex: selectedThumbDatas.length == 0 ? 8 : 15,
                   child: ConstrainedBox(
                     constraints: const BoxConstraints.expand(),
                     child: Column(children: <Widget>[
@@ -156,110 +157,7 @@ class _BoardRegistState extends State<BoardRegistWidget>
     });
   }
 
-  Widget _buildBoardType(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(top: MainTheme.edgeInsets.top),
-      child: Column(
-        children: <Widget>[
-          Stack(
-            alignment: Alignment.topCenter,
-            overflow: Overflow.visible,
-            children: <Widget>[
-              Card(
-                elevation: 2.0,
-                color: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                child: Container(
-                  width: MediaQuery.of(context).size.width -
-                      MainTheme.edgeInsets.left,
-                  height: 155,
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: <Widget>[
-                        Padding(
-                            padding:
-                                EdgeInsets.only(left: 10, top: 5, bottom: 5),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: <Widget>[
-                                DropdownButton<BoardType>(
-                                  isExpanded: true,
-                                  // value: 0,
-                                  onChanged: (BoardType newValue) {
-                                    setState(() {
-                                      print(newValue);
-                                    });
-                                  },
-                                  items: BoardType.values
-                                      .map((BoardType boardType) {
-                                    return new DropdownMenuItem<BoardType>(
-                                        value: boardType,
-                                        child: Text(
-                                            LocalizableLoader.of(context)
-                                                .text(boardType.toString())));
-                                  }).toList(),
-                                  hint: Text(
-                                    LocalizableLoader.of(context)
-                                        .text("board_type_select"),
-                                    style: TextStyle(
-                                      color: Colors.black54,
-                                    ),
-                                  ),
-                                ),
-                                DropdownButton<PublishType>(
-                                  isExpanded: true,
-                                  // value: 0,
-                                  onChanged: (PublishType newValue) {
-                                    setState(() {
-                                      print(newValue);
-                                    });
-                                  },
-                                  items: PublishType.values
-                                      .map((PublishType publishType) {
-                                    return new DropdownMenuItem<PublishType>(
-                                        value: publishType,
-                                        child: Text(
-                                            LocalizableLoader.of(context)
-                                                .text(publishType.toString())));
-                                  }).toList(),
-                                  hint: Text(
-                                    LocalizableLoader.of(context)
-                                        .text("publish_type_select"),
-                                    style: TextStyle(
-                                      color: Colors.black54,
-                                    ),
-                                  ),
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: <Widget>[
-                                    Text(
-                                      LocalizableLoader.of(context)
-                                          .text("anonymous_checkbox"),
-                                      style: TextStyle(color: Colors.black54),
-                                    ),
-                                    Checkbox(
-                                      value: true,
-                                      onChanged: (bool value) {
-                                        setState(() {});
-                                      },
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ))
-                      ]),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
+  Widget _buildBoardType(BuildContext context) {}
 
   Widget _buildContents(BuildContext context) {
     return Container(
@@ -292,7 +190,7 @@ class _BoardRegistState extends State<BoardRegistWidget>
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             icon: Icon(
-                              FontAwesomeIcons.penNib,
+                              FontAwesomeIcons.pencilAlt,
                               color: Colors.black54,
                               size: 18.0,
                             ),
@@ -563,5 +461,94 @@ class _BoardRegistState extends State<BoardRegistWidget>
     Future.delayed(new Duration(seconds: 2), () {
       Navigator.of(context).pop();
     });
+  }
+}
+
+class BoardRegistHeaderWidget extends StatefulWidget {
+  @override
+  _BoardRegistHeaderWidgetState createState() =>
+      _BoardRegistHeaderWidgetState();
+  bool enabledAnonymous = false;
+}
+
+class _BoardRegistHeaderWidgetState extends State<BoardRegistHeaderWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(top: MainTheme.edgeInsets.top),
+      child: Column(
+        children: <Widget>[
+          Stack(
+            alignment: Alignment.topCenter,
+            overflow: Overflow.visible,
+            children: <Widget>[
+              Card(
+                elevation: 2.0,
+                color: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                child: Container(
+                  width: MediaQuery.of(context).size.width -
+                      MainTheme.edgeInsets.left,
+                  height: 100,
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            Expanded(
+                              flex: 1,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  BoardRegistTypeWidget(callback: (index) {
+                                    print(index);
+                                  }),
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  DialogPublishTypeWidgetWidget(
+                                    callback: (index) {
+                                      print(index);
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Text(
+                              LocalizableLoader.of(context)
+                                  .text("anonymous_checkbox"),
+                              style: TextStyle(color: Colors.black54),
+                            ),
+                            Checkbox(
+                              value: widget.enabledAnonymous,
+                              onChanged: (bool value) {
+                                setState(() {
+                                  widget.enabledAnonymous = value;
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                      ]),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }

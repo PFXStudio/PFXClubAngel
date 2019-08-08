@@ -38,5 +38,11 @@
   "gender_type_select": "Select gender type..",
   "member_count_select": "Select member count..",
   "cocktail_count_select": "Select cocktail count..",
-  "price_select": "Select price.."
+  "price_select": "Select price..",
+  "total_member_count": "Total members",
+  "rest_member_count": "Rest members",
+  "hard_bottle": "Hard",
+  "champagne_bottle": "Champagne",
+  "service_bottle": "Service",
+  "manwon": "Manwon"
 }

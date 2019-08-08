@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:clubangel/themes/main_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:sprintf/sprintf.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class FlatIconTextButton extends StatefulWidget {
   FlatIconTextButton(
@@ -24,7 +25,7 @@ class _FlatIconTextButtonState extends State<FlatIconTextButton> {
   Widget build(BuildContext context) {
     return SizedBox(
       width: widget.width,
-      height: 35,
+      height: 40,
       child: FlatButton(
         padding: EdgeInsets.only(
           left: 15,
@@ -38,16 +39,18 @@ class _FlatIconTextButtonState extends State<FlatIconTextButton> {
             Icon(
               widget.iconData,
               color: widget.color,
-              size: 14,
+              size: 16,
             ),
             Padding(
               padding: EdgeInsets.only(left: 5),
             ),
-            Text(widget.text,
-                style: TextStyle(
-                    color: widget.color,
-                    fontSize: 12.0,
-                    fontWeight: FontWeight.bold)),
+            Text(
+              widget.text,
+              style: TextStyle(
+                  color: widget.color,
+                  fontSize: 13,
+                  fontWeight: FontWeight.bold),
+            ),
           ],
         ),
       ),

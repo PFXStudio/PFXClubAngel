@@ -3,17 +3,16 @@ import 'package:clubangel/themes/main_theme.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 
-class BoardDetailsContentsWidget extends StatefulWidget {
-  BoardDetailsContentsWidget(this.event);
+class BoardDetailContentsWidget extends StatefulWidget {
+  BoardDetailContentsWidget(this.event);
   final Board event;
 
   @override
-  _BoardDetailsContentsWidgetState createState() =>
-      _BoardDetailsContentsWidgetState();
+  _BoardDetailContentsWidgetState createState() =>
+      _BoardDetailContentsWidgetState();
 }
 
-class _BoardDetailsContentsWidgetState
-    extends State<BoardDetailsContentsWidget> {
+class _BoardDetailContentsWidgetState extends State<BoardDetailContentsWidget> {
   bool _isExpandable;
   bool _isExpanded = false;
 

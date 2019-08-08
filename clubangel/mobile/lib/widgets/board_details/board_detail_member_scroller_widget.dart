@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:kt_dart/collection.dart';
 
-class BoardDetailsMemberScrollerWidget extends StatelessWidget {
-  const BoardDetailsMemberScrollerWidget(this.event);
+class BoardDetailMemberScrollerWidget extends StatelessWidget {
+  const BoardDetailMemberScrollerWidget(this.event);
   final Board event;
 
   @override
@@ -13,18 +13,18 @@ class BoardDetailsMemberScrollerWidget extends StatelessWidget {
     return StoreConnector<AppState, KtList<Actor>>(
       onInit: (store) => store.dispatch(FetchActorAvatarsAction(event)),
       converter: (store) => actorsForEventSelector(store.state, event),
-      builder: (_, actors) => BoardDetailsMemberScrollerWidgetContent(actors),
+      builder: (_, actors) => BoardDetailMemberScrollerWidgetContent(actors),
     );
   }
 }
 
-class BoardDetailsMemberScrollerWidgetContent extends StatelessWidget {
-  const BoardDetailsMemberScrollerWidgetContent(this.actors);
+class BoardDetailMemberScrollerWidgetContent extends StatelessWidget {
+  const BoardDetailMemberScrollerWidgetContent(this.actors);
   final KtList<Actor> actors;
 
   @override
   Widget build(BuildContext context) {
-    return _BoardDetailsMemberScrollerWidgetWrapper(
+    return _BoardDetailMemberScrollerWidgetWrapper(
       ListView.builder(
         padding: const EdgeInsets.only(left: 16.0),
         scrollDirection: Axis.horizontal,
@@ -38,8 +38,8 @@ class BoardDetailsMemberScrollerWidgetContent extends StatelessWidget {
   }
 }
 
-class _BoardDetailsMemberScrollerWidgetWrapper extends StatelessWidget {
-  _BoardDetailsMemberScrollerWidgetWrapper(this.child);
+class _BoardDetailMemberScrollerWidgetWrapper extends StatelessWidget {
+  _BoardDetailMemberScrollerWidgetWrapper(this.child);
   final Widget child;
 
   @override

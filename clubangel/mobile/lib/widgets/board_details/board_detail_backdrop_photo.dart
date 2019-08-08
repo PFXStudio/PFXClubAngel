@@ -5,16 +5,16 @@ import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
-import 'board_details_scroll_effects.dart';
+import 'board_detail_scroll_effects.dart';
 
-class BoardDetailsBackdropPhotoWidget extends StatelessWidget {
-  const BoardDetailsBackdropPhotoWidget({
+class BoardDetailBackdropPhotoWidget extends StatelessWidget {
+  const BoardDetailBackdropPhotoWidget({
     @required this.event,
     @required this.scrollEffects,
   });
 
   final Board event;
-  final BoardDetailsScrollEffects scrollEffects;
+  final BoardDetailScrollEffects scrollEffects;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class BoardDetailsBackdropPhotoWidget extends StatelessWidget {
 class _BackdropPhoto extends StatelessWidget {
   _BackdropPhoto(this.event, this.scrollEffects);
   final Board event;
-  final BoardDetailsScrollEffects scrollEffects;
+  final BoardDetailScrollEffects scrollEffects;
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +82,7 @@ class _PlaceholderBackground extends StatelessWidget {
 class _BackdropImage extends StatelessWidget {
   _BackdropImage(this.event, this.scrollEffects);
   final Board event;
-  final BoardDetailsScrollEffects scrollEffects;
+  final BoardDetailScrollEffects scrollEffects;
 
   String get photoUrl =>
       event.images.landscapeBig ?? event.images.landscapeSmall;
@@ -112,7 +112,7 @@ class _BackdropImage extends StatelessWidget {
 
 class _BlurOverlay extends StatelessWidget {
   _BlurOverlay(this.scrollEffects);
-  final BoardDetailsScrollEffects scrollEffects;
+  final BoardDetailScrollEffects scrollEffects;
 
   @override
   Widget build(BuildContext context) {
