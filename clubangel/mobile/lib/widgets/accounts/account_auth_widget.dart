@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:clubangel/defines/define_enums.dart';
 import 'package:clubangel/defines/define_images.dart';
 import 'package:clubangel/renders/bubble_indication_painter.dart';
 import 'package:clubangel/themes/main_theme.dart';
@@ -5,6 +8,8 @@ import 'package:clubangel/widgets/mains/main_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AccountAuthWidget extends StatefulWidget {
   AccountAuthWidget({Key key}) : super(key: key);
@@ -37,10 +42,98 @@ class _AccountAuthWidgetState extends State<AccountAuthWidget>
   TextEditingController signupConfirmPasswordController =
       new TextEditingController();
 
-  PageController _pageController;
+  PageController pageController;
 
   Color left = Colors.white;
   Color right = Colors.black38;
+
+  AuthSequenceType authSequenceType = AuthSequenceType.socialAuth;
+  String phoneNumber;
+  String errorMessage;
+  String verificationId;
+  Timer codeTimer;
+
+  bool isRefreshing = false;
+  bool codeTimedOut = false;
+  bool codeVerified = false;
+  Duration timeout = Duration(minutes: 1);
+
+  final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  final GoogleSignIn googleSignIn = GoogleSignIn();
+
+  GoogleSignInAccount googleUser;
+  FirebaseUser firebaseUser;
+
+  verificationFailed(AuthException exception) {
+    showInSnackBar("We couldn't verify your code for now, please try again!");
+  }
+
+  codeSent(String verificationId, [int forceResendingToken]) async {
+    // TODO : phonenumber
+    showInSnackBar("Verification code sent to number ${phoneNumber}");
+    codeTimer = Timer(timeout, () {
+      setState(() {
+        codeTimedOut = true;
+      });
+    });
+
+    _updateRefreshing(false);
+    setState(() {
+      this.verificationId = verificationId;
+      this.authSequenceType = AuthSequenceType.smsAuth;
+    });
+  }
+
+  Future<Null> _updateRefreshing(bool isRefreshing) async {
+    if (isRefreshing) {
+      setState(() {
+        isRefreshing = false;
+      });
+    }
+    setState(() {
+      isRefreshing = isRefreshing;
+    });
+  }
+
+  showErrorSnackbar(String message) {
+    _updateRefreshing(false);
+    _scaffoldKey.currentState.showSnackBar(
+      SnackBar(content: Text(message)),
+    );
+  }
+
+  Future<Null> _signIn() async {
+    GoogleSignInAccount user = googleSignIn.currentUser;
+    final onError = (exception, stacktrace) {
+      showErrorSnackbar(
+          "Couldn't log in with your Google account, please try again!");
+      user = null;
+    };
+
+    if (user == null) {
+      user = await googleSignIn.signIn().catchError(onError);
+      final GoogleSignInAuthentication googleAuth = await user.authentication;
+
+      final result = await firebaseAuth
+          .signInWithCredential(GoogleAuthProvider.getCredential(
+            accessToken: googleAuth.accessToken,
+            idToken: googleAuth.idToken,
+          ))
+          .catchError(onError);
+
+      firebaseUser = result.user;
+    }
+
+    if (user != null) {
+      _updateRefreshing(false);
+      googleUser = user;
+      setState(() {
+        this.authSequenceType = AuthSequenceType.phoneAuth;
+      });
+      return null;
+    }
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +170,7 @@ class _AccountAuthWidgetState extends State<AccountAuthWidget>
                 Expanded(
                   flex: 2,
                   child: PageView(
-                    controller: _pageController,
+                    controller: pageController,
                     onPageChanged: (i) {
                       if (i == 0) {
                         setState(() {
@@ -116,7 +209,7 @@ class _AccountAuthWidgetState extends State<AccountAuthWidget>
     myFocusNodePassword.dispose();
     myFocusNodeEmail.dispose();
     myFocusNodeName.dispose();
-    _pageController?.dispose();
+    pageController?.dispose();
     super.dispose();
   }
 
@@ -129,7 +222,7 @@ class _AccountAuthWidgetState extends State<AccountAuthWidget>
       DeviceOrientation.portraitDown,
     ]);
 
-    _pageController = PageController();
+    pageController = PageController();
   }
 
   void showInSnackBar(String value) {
@@ -158,7 +251,7 @@ class _AccountAuthWidgetState extends State<AccountAuthWidget>
         borderRadius: BorderRadius.all(Radius.circular(25.0)),
       ),
       child: CustomPaint(
-        painter: BubbleIndicationPainter(pageController: _pageController),
+        painter: BubbleIndicationPainter(pageController: pageController),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
@@ -402,7 +495,7 @@ class _AccountAuthWidgetState extends State<AccountAuthWidget>
               Padding(
                 padding: EdgeInsets.only(top: 10.0),
                 child: GestureDetector(
-                  onTap: () => showInSnackBar("Google button pressed"),
+                  onTap: () {},
                   child: Container(
                     padding: const EdgeInsets.all(15.0),
                     decoration: new BoxDecoration(
@@ -591,7 +684,9 @@ class _AccountAuthWidgetState extends State<AccountAuthWidget>
                         ),
                       ),
                     ),
-                    onPressed: () => showInSnackBar("SignUp button pressed")),
+                    onPressed: () async {
+                      showInSnackBar("SignUp button pressed");
+                    }),
               ),
             ],
           ),
@@ -601,12 +696,12 @@ class _AccountAuthWidgetState extends State<AccountAuthWidget>
   }
 
   void _onSignInButtonPress() {
-    _pageController.animateToPage(0,
+    pageController.animateToPage(0,
         duration: Duration(milliseconds: 500), curve: Curves.decelerate);
   }
 
   void _onSignUpButtonPress() {
-    _pageController?.animateToPage(1,
+    pageController?.animateToPage(1,
         duration: Duration(milliseconds: 500), curve: Curves.decelerate);
   }
 

@@ -60,6 +60,7 @@ dependencies:
   flutter_xlider: ^2.5.2
   auto_size_text: ^2.0.2+1
   cloud_firestore: ^0.12.9
+  firebase_auth: ^0.14.0+1
 
 dev_dependencies:
   flutter_test:

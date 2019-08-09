@@ -1,3 +1,10 @@
+enum AuthSequenceType {
+  socialAuth,
+  phoneAuth,
+  smsAuth,
+  profileAuth,
+}
+
 enum BoardType {
   realTime,
   gallery,
