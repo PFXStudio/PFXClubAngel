@@ -61,6 +61,7 @@ dependencies:
   auto_size_text: ^2.0.2+1
   cloud_firestore: ^0.12.9
   firebase_auth: ^0.14.0+1
+  flutter_account_kit: ^0.7.0
 
 dev_dependencies:
   flutter_test:

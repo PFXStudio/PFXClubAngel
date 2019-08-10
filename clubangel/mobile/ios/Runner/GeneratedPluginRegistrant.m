@@ -8,6 +8,7 @@
 #import <firebase_auth/FirebaseAuthPlugin.h>
 #import <firebase_core/FirebaseCorePlugin.h>
 #import <firebase_database/FirebaseDatabasePlugin.h>
+#import <flutter_account_kit/FlutterAccountKitPlugin.h>
 #import <flutter_picker/FlutterPickerPlugin.h>
 #import <flutter_webview_plugin/FlutterWebviewPlugin.h>
 #import <google_maps_flutter/GoogleMapsPlugin.h>
@@ -28,6 +29,7 @@
   [FLTFirebaseAuthPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTFirebaseAuthPlugin"]];
   [FLTFirebaseCorePlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTFirebaseCorePlugin"]];
   [FLTFirebaseDatabasePlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTFirebaseDatabasePlugin"]];
+  [FlutterAccountKitPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterAccountKitPlugin"]];
   [FlutterPickerPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterPickerPlugin"]];
   [FlutterWebviewPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterWebviewPlugin"]];
   [FLTGoogleMapsPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTGoogleMapsPlugin"]];

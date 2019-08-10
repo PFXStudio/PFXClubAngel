@@ -6,6 +6,7 @@ import io.flutter.plugins.firebaseanalytics.FirebaseAnalyticsPlugin;
 import io.flutter.plugins.firebaseauth.FirebaseAuthPlugin;
 import io.flutter.plugins.firebase.core.FirebaseCorePlugin;
 import io.flutter.plugins.firebase.database.FirebaseDatabasePlugin;
+import com.peerwaya.flutteraccountkit.FlutterAccountKitPlugin;
 import com.yangyxd.flutterpicker.FlutterPickerPlugin;
 import com.flutter_webview_plugin.FlutterWebviewPlugin;
 import io.flutter.plugins.googlemaps.GoogleMapsPlugin;
@@ -31,6 +32,7 @@ public final class GeneratedPluginRegistrant {
     FirebaseAuthPlugin.registerWith(registry.registrarFor("io.flutter.plugins.firebaseauth.FirebaseAuthPlugin"));
     FirebaseCorePlugin.registerWith(registry.registrarFor("io.flutter.plugins.firebase.core.FirebaseCorePlugin"));
     FirebaseDatabasePlugin.registerWith(registry.registrarFor("io.flutter.plugins.firebase.database.FirebaseDatabasePlugin"));
+    FlutterAccountKitPlugin.registerWith(registry.registrarFor("com.peerwaya.flutteraccountkit.FlutterAccountKitPlugin"));
     FlutterPickerPlugin.registerWith(registry.registrarFor("com.yangyxd.flutterpicker.FlutterPickerPlugin"));
     FlutterWebviewPlugin.registerWith(registry.registrarFor("com.flutter_webview_plugin.FlutterWebviewPlugin"));
     GoogleMapsPlugin.registerWith(registry.registrarFor("io.flutter.plugins.googlemaps.GoogleMapsPlugin"));

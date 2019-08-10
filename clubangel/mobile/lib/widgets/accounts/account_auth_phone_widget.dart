@@ -28,8 +28,12 @@ class _AccountAuthPhoneWidgetState extends State<AccountAuthPhoneWidget> {
         timeout: timeout,
         codeSent: codeSent,
         codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
-        verificationCompleted: _linkWithPhoneNumber,
-        verificationFailed: verificationFailed);
+        verificationCompleted: (AuthCredential phoneAuthCredential) {
+          print(phoneAuthCredential);
+        },
+        verificationFailed: (AuthException error) {
+          print(error);
+        });
     return null;
   }
 
@@ -49,7 +53,7 @@ class _AccountAuthPhoneWidgetState extends State<AccountAuthPhoneWidget> {
       });
     });
 
-    _updateRefreshing(false);
+    // updateRefreshing(false);
     setState(() {
       verificationId = verificationId;
       AccountSingleton().authSequenceType = AuthSequenceType.smsAuth;
