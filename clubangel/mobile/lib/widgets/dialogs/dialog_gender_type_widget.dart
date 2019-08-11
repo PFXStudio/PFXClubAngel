@@ -9,24 +9,23 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_xlider/flutter_xlider.dart';
 
-typedef DialogPublishTypeWidgetCallback = void Function(int index);
+typedef DialogGenderTypeWidgetCallback = void Function(GenderType genderType);
 
-class DialogPublishTypeWidget extends StatefulWidget {
-  DialogPublishTypeWidget({this.callback = null});
+class DialogGenderTypeWidget extends StatefulWidget {
+  DialogGenderTypeWidget({this.callback = null});
   @override
-  _DialogPublishTypeWidgetState createState() =>
-      _DialogPublishTypeWidgetState();
-  DialogPublishTypeWidgetCallback callback;
+  _DialogGenderTypeWidgetState createState() => _DialogGenderTypeWidgetState();
+  DialogGenderTypeWidgetCallback callback;
 }
 
-class _DialogPublishTypeWidgetState extends State<DialogPublishTypeWidget> {
+class _DialogGenderTypeWidgetState extends State<DialogGenderTypeWidget> {
   @override
   Widget build(BuildContext context) {
     return FlatIconTextButton(
         iconData: FontAwesomeIcons.venusMars,
         color: MainTheme.enabledButtonColor,
         width: 170,
-        text: LocalizableLoader.of(context).text("publish_type_select"),
+        text: LocalizableLoader.of(context).text("gender_type_select"),
         onPressed: () {
           showDialog(
               context: context,
@@ -39,10 +38,10 @@ class _DialogPublishTypeWidgetState extends State<DialogPublishTypeWidget> {
                       children: <Widget>[
                         DialogHeaderWidget(
                             title: LocalizableLoader.of(context)
-                                .text("publish_type_select")),
+                                .text("gender_type_select")),
                         Material(
                           type: MaterialType.transparency,
-                          child: DialogPublishTypeWidgetContentsWidget(),
+                          child: DialogGenderTypeWidgetContentsWidget(),
                         ),
                         DialogBottomWidget(
                           cancelCallback: () {
@@ -86,16 +85,16 @@ customHandler(IconData icon) {
   );
 }
 
-class DialogPublishTypeWidgetContentsWidget extends StatefulWidget {
+class DialogGenderTypeWidgetContentsWidget extends StatefulWidget {
   @override
-  _DialogPublishTypeWidgetContentsWidgetState createState() =>
-      _DialogPublishTypeWidgetContentsWidgetState();
+  _DialogGenderTypeWidgetContentsWidgetState createState() =>
+      _DialogGenderTypeWidgetContentsWidgetState();
 }
 
-class _DialogPublishTypeWidgetContentsWidgetState
-    extends State<DialogPublishTypeWidgetContentsWidget> {
+class _DialogGenderTypeWidgetContentsWidgetState
+    extends State<DialogGenderTypeWidgetContentsWidget> {
   @override
-  PublishType publishType = PublishType.all;
+  GenderType genderType = GenderType.MAX;
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
@@ -103,39 +102,26 @@ class _DialogPublishTypeWidgetContentsWidgetState
         children: <Widget>[
           ListTile(
             title:
-                Text(LocalizableLoader.of(context).text("${PublishType.all}")),
+                Text(LocalizableLoader.of(context).text("${GenderType.male}")),
             leading: Radio(
-              value: PublishType.all,
-              groupValue: publishType,
-              onChanged: (PublishType value) {
+              value: GenderType.male,
+              groupValue: genderType,
+              onChanged: (GenderType value) {
                 setState(() {
-                  publishType = value;
-                });
-              },
-            ),
-          ),
-          ListTile(
-            title:
-                Text(LocalizableLoader.of(context).text("${PublishType.male}")),
-            leading: Radio(
-              value: PublishType.male,
-              groupValue: publishType,
-              onChanged: (PublishType value) {
-                setState(() {
-                  publishType = value;
+                  genderType = value;
                 });
               },
             ),
           ),
           ListTile(
             title: Text(
-                LocalizableLoader.of(context).text("${PublishType.female}")),
+                LocalizableLoader.of(context).text("${GenderType.female}")),
             leading: Radio(
-              value: PublishType.female,
-              groupValue: publishType,
-              onChanged: (PublishType value) {
+              value: GenderType.female,
+              groupValue: genderType,
+              onChanged: (GenderType value) {
                 setState(() {
-                  publishType = value;
+                  genderType = value;
                 });
               },
             ),
@@ -147,7 +133,7 @@ class _DialogPublishTypeWidgetContentsWidgetState
 
   onChangedValue(value) {
     setState(() {
-      publishType = value;
+      genderType = value;
     });
   }
 }

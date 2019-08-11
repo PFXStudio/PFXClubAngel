@@ -1,4 +1,15 @@
 {
+  "//////////////////// Types...": "",
+  "BoardType.realTime": "Real Time",
+  "BoardType.gallery": "Gallery",
+  "BoardType.free": "Free",
+  "publish_type_select": "Select publish type..",
+  "PublishType.all": "All",
+  "PublishType.male": "Only publish male",
+  "PublishType.female": "Only publish female",
+  "GenderType.male": "Male",
+  "GenderType.female": "Female",
+
   "//////////////////// Buttons...": "",
   "cancel_button": "Cancel",
   "done_button": "Done",
@@ -21,15 +32,7 @@
   "board_youtube_hint_text": "Youtube",
   "board_regist_title": "Write",
   "notice_remove_pictures": "First remove already added pictures.",
-
   "board_type_select": "Select board type..",
-  "BoardType.realTime": "Real Time",
-  "BoardType.gallery": "Gallery",
-  "BoardType.free": "Free",
-  "publish_type_select": "Select publish type..",
-  "PublishType.all": "All",
-  "PublishType.male": "Male",
-  "PublishType.female": "Female",
   "anonymous_checkbox": "Enable anonymous",
 
   "//////////////////// Angels...": "",

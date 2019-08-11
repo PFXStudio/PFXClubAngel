@@ -198,8 +198,7 @@ class _AngelRegistState extends State<AngelRegistWidget>
                                       print(index);
                                     },
                                   ),
-                                  DialogPublishTypeWidgetWidget(
-                                      callback: (index) {}),
+                                  DialogPublishTypeWidget(callback: (index) {}),
                                 ],
                               ),
                             ),

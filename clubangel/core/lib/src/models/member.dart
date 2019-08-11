@@ -1,27 +1,40 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meta/meta.dart';
 
 class Member {
   Member({
-    @required this.identifier,
-    @required this.nickname,
-    this.avatarThumbnailUrl,
-    this.avatarUrl,
+    this.documentID,
+    this.nickname,
+    this.phoneNumber,
   });
 
-  final String identifier;
-  final String nickname;
-  final String avatarThumbnailUrl;
-  final String avatarUrl;
+  String documentID;
+  String nickname;
+  String phoneNumber;
+
+  void initialize(DocumentSnapshot snapshot) {
+    this.documentID = snapshot.documentID;
+    this.nickname = snapshot["nickname"];
+    this.phoneNumber = snapshot["phoneNumber"];
+  }
+
+  Object data() {
+    return {
+      "nickname": nickname,
+      "phoneNumber": phoneNumber,
+      "timestamp": DateTime.now().millisecondsSinceEpoch,
+    };
+  }
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-          other is Member &&
-              runtimeType == other.runtimeType &&
-              identifier == other.identifier;
+      other is Member &&
+          runtimeType == other.runtimeType &&
+          documentID == other.documentID;
 
   @override
-  int get hashCode =>
-      identifier.hashCode ^
-      nickname.hashCode;
+  int get hashCode => documentID.hashCode ^ nickname.hashCode;
+
+  static Member memberInstance = new Member();
 }

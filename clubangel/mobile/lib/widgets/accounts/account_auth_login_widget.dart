@@ -1,13 +1,19 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:clubangel/defines/define_enums.dart';
 import 'package:clubangel/themes/main_theme.dart';
+import 'package:clubangel/widgets/accounts/account_init_profile_widget.dart';
+import 'package:clubangel/widgets/accounts/account_widget.dart';
 import 'package:clubangel/widgets/mains/main_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_account_kit/flutter_account_kit.dart';
+import 'package:core/src/networking/firestore_account_api.dart';
+import 'package:core/src/models/member.dart';
 
 class AccountAuthLoginWidget extends StatefulWidget {
   @override
@@ -46,6 +52,8 @@ class _AccountAuthLoginWidgetState extends State<AccountAuthLoginWidget> {
   FirebaseUser firebaseUser;
   FlutterAccountKit akt = new FlutterAccountKit();
   bool _isInitialized = false;
+  final database =
+      FirebaseDatabase.instance.reference().child("dev/account/members");
 
   @override
   void initState() {
@@ -205,12 +213,10 @@ class _AccountAuthLoginWidgetState extends State<AccountAuthLoginWidget> {
                         if (account.phoneNumber != null) {
                           print(account.phoneNumber);
                           print("already logined!");
-                          Navigator.of(context, rootNavigator: true)
-                              .pushReplacement(MaterialPageRoute(
-                                  builder: (context) => MainWidget()));
-
+                          this.getAccountInfo(account.phoneNumber);
                           return;
                         }
+                        return;
                       }
 
                       await akt.logOut();
@@ -221,6 +227,7 @@ class _AccountAuthLoginWidgetState extends State<AccountAuthLoginWidget> {
                           print(result.accessToken.accountId);
                           // TODO : result.accessToken.accountId 저장 해야 함.
                           print(account.phoneNumber);
+                          this.getAccountInfo(account.phoneNumber);
                           break;
                         case LoginStatus.cancelledByUser:
                           break;
@@ -334,6 +341,35 @@ class _AccountAuthLoginWidgetState extends State<AccountAuthLoginWidget> {
         ],
       ),
     );
+  }
+
+  Future getAccountInfo(PhoneNumber phoneNumber) async {
+    String key = phoneNumber.countryCode +
+        (phoneNumber.countryCode == "82" && phoneNumber.number.length == 10
+            ? "0" + phoneNumber.number
+            : phoneNumber.number);
+
+    Member member = await FirestoreAccountApi().selectMemeber(key);
+    if (member == null) {
+      DocumentReference refrence =
+          await FirestoreAccountApi().insertMember(key);
+
+      if (refrence == null) {
+        // TODO : show error.
+        return;
+      }
+    }
+
+    Member.memberInstance = member;
+    String nickname = member.nickname;
+    if (nickname == null || nickname.length <= 0) {
+      Navigator.of(context, rootNavigator: true).pushReplacement(
+          MaterialPageRoute(builder: (context) => AccountInitProfileWidget()));
+      return;
+    }
+
+    Navigator.of(context, rootNavigator: true)
+        .pushReplacement(MaterialPageRoute(builder: (context) => MainWidget()));
   }
 
   Future _toggleLogin() async {

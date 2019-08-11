@@ -17,6 +17,13 @@ enum PublishType {
   female,
 }
 
+enum GenderType {
+  male,
+  female,
+
+  MAX,
+}
+
 enum ProfileType {
   none,
   anonymous,

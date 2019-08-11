@@ -513,7 +513,7 @@ class _BoardRegistHeaderWidgetState extends State<BoardRegistHeaderWidget> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  DialogPublishTypeWidgetWidget(
+                                  DialogPublishTypeWidget(
                                     callback: (index) {
                                       print(index);
                                     },
