@@ -10,6 +10,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_xlider/flutter_xlider.dart';
 
 typedef DialogGenderTypeWidgetCallback = void Function(GenderType genderType);
+GenderType genderType = GenderType.MAX;
 
 class DialogGenderTypeWidget extends StatefulWidget {
   DialogGenderTypeWidget({this.callback = null});
@@ -48,6 +49,10 @@ class _DialogGenderTypeWidgetState extends State<DialogGenderTypeWidget> {
                             Navigator.pop(context);
                           },
                           confirmCallback: () {
+                            if (genderType != GenderType.MAX) {
+                              widget.callback(genderType);
+                            }
+
                             Navigator.pop(context);
                           },
                         )
@@ -94,7 +99,6 @@ class DialogGenderTypeWidgetContentsWidget extends StatefulWidget {
 class _DialogGenderTypeWidgetContentsWidgetState
     extends State<DialogGenderTypeWidgetContentsWidget> {
   @override
-  GenderType genderType = GenderType.MAX;
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,

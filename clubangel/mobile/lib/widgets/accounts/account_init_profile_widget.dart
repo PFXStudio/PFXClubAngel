@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:clubangel/defines/define_enums.dart';
 import 'package:clubangel/themes/main_theme.dart';
 import 'package:clubangel/widgets/dialogs/dialog_gender_type_widget.dart';
+import 'package:clubangel/widgets/mains/main_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:core/src/networking/firestore_account_api.dart';
@@ -223,16 +224,23 @@ class _AccountInitProfileWidgetState extends State<AccountInitProfileWidget> {
       return;
     }
 
-    Member member =
-        await FirestoreAccountApi().selectNickname(nicknameController.text);
+    FirestoreAccountApi().selectNickname(nicknameController.text, (member) {
+      if (member != null) {
+        return;
+      }
 
-    if (member != null) {
-      return;
-    }
-
-    member.nickname = nicknameController.text;
-    FirestoreAccountApi().updateMember(member);
-
-    // update
+      Member updateMember = Member();
+      updateMember = Member.memberInstance;
+      updateMember.nickname = nicknameController.text;
+      updateMember.description = descriptionController.text;
+      FirestoreAccountApi().updateMember(updateMember, () {
+        Navigator.of(context, rootNavigator: true).pushReplacement(
+            MaterialPageRoute(builder: (context) => MainWidget()));
+      }, (error) {
+        print(error);
+      });
+    }, (error) {
+      print(error);
+    });
   }
 }

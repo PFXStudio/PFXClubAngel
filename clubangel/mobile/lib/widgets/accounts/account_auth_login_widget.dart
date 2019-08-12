@@ -349,27 +349,33 @@ class _AccountAuthLoginWidgetState extends State<AccountAuthLoginWidget> {
             ? "0" + phoneNumber.number
             : phoneNumber.number);
 
-    Member member = await FirestoreAccountApi().selectMemeber(key);
-    if (member == null) {
-      DocumentReference refrence =
-          await FirestoreAccountApi().insertMember(key);
+    FirestoreAccountApi().selectMemeber(key, (member) {
+      if (member == null) {
+        FirestoreAccountApi().insertMember(key, (documentReference) {
+          // show profile
+          getAccountInfo(phoneNumber);
+          return;
+        }, (error) {
+          print(error);
+        });
 
-      if (refrence == null) {
-        // TODO : show error.
         return;
       }
-    }
 
-    Member.memberInstance = member;
-    String nickname = member.nickname;
-    if (nickname == null || nickname.length <= 0) {
+      Member.memberInstance = member;
+      String nickname = member.nickname;
+      if (nickname == null || nickname.length <= 0) {
+        Navigator.of(context, rootNavigator: true).pushReplacement(
+            MaterialPageRoute(
+                builder: (context) => AccountInitProfileWidget()));
+        return;
+      }
+
       Navigator.of(context, rootNavigator: true).pushReplacement(
-          MaterialPageRoute(builder: (context) => AccountInitProfileWidget()));
-      return;
-    }
-
-    Navigator.of(context, rootNavigator: true)
-        .pushReplacement(MaterialPageRoute(builder: (context) => MainWidget()));
+          MaterialPageRoute(builder: (context) => MainWidget()));
+    }, (error) {
+      print(error);
+    });
   }
 
   Future _toggleLogin() async {

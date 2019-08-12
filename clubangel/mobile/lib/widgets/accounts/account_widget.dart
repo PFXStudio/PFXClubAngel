@@ -1,69 +1,53 @@
+import 'package:clubangel/themes/main_theme.dart';
 import 'package:clubangel/widgets/commons/divider_widget.dart';
 import 'package:clubangel/widgets/commons/scaffold_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:multi_image_picker/multi_image_picker.dart';
+import 'package:core/src/networking/image_upload_api.dart';
+import 'package:core/src/models/member.dart';
+import 'package:core/src/networking/firestore_account_api.dart';
 
 import 'account_tile_widget.dart';
 
-class AccountWidget extends StatelessWidget {
+class AccountWidget extends StatefulWidget {
+  @override
+  _AccountWidgetState createState() => _AccountWidgetState();
+}
+
+class _AccountWidgetState extends State<AccountWidget> {
+  List<Asset> _images = List<Asset>();
   var deviceSize;
+  var defaultImagePath = (Member.memberInstance.thumbnailPath != null &&
+          Member.memberInstance.thumbnailPath.length > 0)
+      ? Member.memberInstance.thumbnailPath
+      : "https://avatars1.githubusercontent.com/u/13096942?s=460&v=4";
 
-  //Column1
-  Widget profileColumn() => Container(
-        height: deviceSize.height * 0.24,
-        child: FittedBox(
-          alignment: Alignment.center,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                AccountTileWidget(
-                  title: "Pawan Kumar",
-                  subtitle: "Developer",
-                  textColor: Colors.white,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      IconButton(
-                        icon: Icon(Icons.chat),
-                        color: Colors.white,
-                        onPressed: () {},
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius:
-                              new BorderRadius.all(new Radius.circular(40.0)),
-                          border: new Border.all(
-                            color: Colors.black26,
-                            width: 2.0,
-                          ),
-                        ),
-                        child: CircleAvatar(
-                          backgroundColor: Colors.transparent,
-                          backgroundImage: NetworkImage(
-                              "https://avatars1.githubusercontent.com/u/13096942?s=460&v=4"),
-                          foregroundColor: Colors.white,
-                          radius: 30.0,
-                        ),
-                      ),
-                      IconButton(
-                        icon: Icon(Icons.call),
-                        color: Colors.white,
-                        onPressed: () {},
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
+  @override
+  Widget build(BuildContext context) {
+    deviceSize = MediaQuery.of(context).size;
+    return bodyData();
+  }
+
+  Widget bodyData() {
+    return SingleChildScrollView(
+      child: Column(
+        children: <Widget>[
+          profileColumn(),
+          DividerWidget(),
+          followColumn(deviceSize),
+          DividerWidget(),
+          descColumn(),
+          DividerWidget(),
+          accountColumn(),
+          Padding(
+            padding: const EdgeInsets.only(top: 50),
           ),
-        ),
-      );
-
-  //column2
+        ],
+      ),
+    );
+  }
 
   //column3
   Widget descColumn() => Container(
@@ -146,53 +130,128 @@ class AccountWidget extends StatelessWidget {
         ),
       );
 
-  Widget bodyData() {
-    return SingleChildScrollView(
-      child: Column(
-        children: <Widget>[
-          profileColumn(),
-          DividerWidget(),
-          followColumn(deviceSize),
-          DividerWidget(),
-          descColumn(),
-          DividerWidget(),
-          accountColumn(),
-          Padding(
-            padding: const EdgeInsets.only(top: 50),
-          ),
-        ],
-      ),
-    );
-  }
+  Widget followColumn(Size deviceSize) => Container(
+        height: deviceSize.height * 0.13,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            AccountTileWidget(
+              title: "1.5K",
+              subtitle: "Posts",
+            ),
+            AccountTileWidget(
+              title: "2.5K",
+              subtitle: "Followers",
+            ),
+            AccountTileWidget(
+              title: "10K",
+              subtitle: "Comments",
+            ),
+            AccountTileWidget(
+              title: "1.2K",
+              subtitle: "Following",
+            )
+          ],
+        ),
+      );
 
-  @override
-  Widget build(BuildContext context) {
-    deviceSize = MediaQuery.of(context).size;
-    return bodyData();
+  Widget profileColumn() => Container(
+        height: deviceSize.height * 0.24,
+        child: FittedBox(
+          alignment: Alignment.center,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                AccountTileWidget(
+                  title: "Pawan Kumar",
+                  subtitle: "Developer",
+                  textColor: Colors.white,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      IconButton(
+                        icon: Icon(Icons.chat),
+                        color: Colors.white,
+                        onPressed: () {},
+                      ),
+                      Stack(children: <Widget>[
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius:
+                                new BorderRadius.all(new Radius.circular(40.0)),
+                            border: new Border.all(
+                              color: Colors.black26,
+                              width: 2.0,
+                            ),
+                          ),
+                          child: CircleAvatar(
+                            backgroundColor: Colors.transparent,
+                            backgroundImage: NetworkImage(defaultImagePath),
+                            foregroundColor: Colors.white,
+                            radius: 30.0,
+                          ),
+                        ),
+                        IconButton(
+                          padding: EdgeInsets.only(top: 45, left: 45),
+                          icon: Icon(FontAwesomeIcons.image),
+                          color: Colors.white,
+                          iconSize: 20,
+                          onPressed: () {
+                            _loadAssets();
+                          },
+                        ),
+                      ]),
+                      IconButton(
+                        icon: Icon(Icons.call),
+                        color: Colors.white,
+                        onPressed: () {},
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
+      );
+
+  Future<void> _loadAssets() async {
+    List<Asset> resultList;
+    String error;
+
+    try {
+      resultList = await MultiImagePicker.pickImages(
+        maxImages: 1,
+        enableCamera: true,
+      );
+
+      if (resultList.length <= 0) {
+        return;
+      }
+
+      Asset asset = resultList.first;
+      String thumbnailPath = await ImageUploadApi().saveProfileImage(
+          documentID: Member.memberInstance.documentID, asset: asset);
+      print(thumbnailPath);
+      Member updateMember = Member.memberInstance;
+      updateMember.thumbnailPath = thumbnailPath;
+      FirestoreAccountApi().updateMember(updateMember, () {
+        setState(() {
+          defaultImagePath = thumbnailPath;
+        });
+      }, (error) {
+        print(error);
+      });
+    } on PlatformException catch (e) {
+      error = e.message;
+      print(e.message);
+    }
   }
 }
 
-Widget followColumn(Size deviceSize) => Container(
-      height: deviceSize.height * 0.13,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          AccountTileWidget(
-            title: "1.5K",
-            subtitle: "Posts",
-          ),
-          AccountTileWidget(
-            title: "2.5K",
-            subtitle: "Followers",
-          ),
-          AccountTileWidget(
-            title: "10K",
-            subtitle: "Comments",
-          ),
-          AccountTileWidget(
-            title: "1.2K",
-            subtitle: "Following",
-          )
-        ],
-      ),
-    );
+//Column1
