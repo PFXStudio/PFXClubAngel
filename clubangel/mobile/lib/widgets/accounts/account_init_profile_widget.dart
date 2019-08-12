@@ -230,7 +230,7 @@ class _AccountInitProfileWidgetState extends State<AccountInitProfileWidget> {
       }
 
       Member updateMember = Member();
-      updateMember = Member.memberInstance;
+      updateMember = Member.signedInstance;
       updateMember.nickname = nicknameController.text;
       updateMember.description = descriptionController.text;
       FirestoreAccountApi().updateMember(updateMember, () {

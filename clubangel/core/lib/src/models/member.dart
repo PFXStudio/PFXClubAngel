@@ -44,5 +44,6 @@ class Member {
   @override
   int get hashCode => documentID.hashCode;
 
-  static Member memberInstance = new Member();
+// Signed member.
+  static Member signedInstance = new Member();
 }

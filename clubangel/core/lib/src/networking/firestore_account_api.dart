@@ -2,13 +2,14 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:core/src/models/member.dart';
+import 'package:core/src/networking/target_server.dart';
 import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
 import 'package:kt_dart/kt.dart';
 
 class FirestoreAccountApi {
   static final ddMMyyyy = DateFormat('dd.MM.yyyy');
-  static final String target = "dev";
+  static final String target = TargetServer().root();
   FirestoreAccountApi();
 
   Firestore firestore = Firestore.instance;
@@ -56,7 +57,7 @@ class FirestoreAccountApi {
       Function(FlutterError) errorCallback) async {
     firestore
         .collection(target + "/account/members")
-        .document(Member.memberInstance.documentID)
+        .document(Member.signedInstance.documentID)
         .updateData(member.data())
         .then((result) {
       successCallback();

@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:core/src/networking/target_server.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:meta/meta.dart';
@@ -8,7 +9,7 @@ import 'package:uuid/uuid.dart';
 
 class ImageUploadApi {
   final FirebaseStorage _firebaseStorage;
-  final String target = "dev";
+  final String target = TargetServer().root();
 
   ImageUploadApi() : _firebaseStorage = FirebaseStorage.instance;
 

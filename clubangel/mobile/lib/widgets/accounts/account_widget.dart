@@ -19,9 +19,9 @@ class AccountWidget extends StatefulWidget {
 class _AccountWidgetState extends State<AccountWidget> {
   List<Asset> _images = List<Asset>();
   var deviceSize;
-  var defaultImagePath = (Member.memberInstance.thumbnailPath != null &&
-          Member.memberInstance.thumbnailPath.length > 0)
-      ? Member.memberInstance.thumbnailPath
+  var defaultImagePath = (Member.signedInstance.thumbnailPath != null &&
+          Member.signedInstance.thumbnailPath.length > 0)
+      ? Member.signedInstance.thumbnailPath
       : "https://avatars1.githubusercontent.com/u/13096942?s=460&v=4";
 
   @override
@@ -236,9 +236,9 @@ class _AccountWidgetState extends State<AccountWidget> {
 
       Asset asset = resultList.first;
       String thumbnailPath = await ImageUploadApi().saveProfileImage(
-          documentID: Member.memberInstance.documentID, asset: asset);
+          documentID: Member.signedInstance.documentID, asset: asset);
       print(thumbnailPath);
-      Member updateMember = Member.memberInstance;
+      Member updateMember = Member.signedInstance;
       updateMember.thumbnailPath = thumbnailPath;
       FirestoreAccountApi().updateMember(updateMember, () {
         setState(() {

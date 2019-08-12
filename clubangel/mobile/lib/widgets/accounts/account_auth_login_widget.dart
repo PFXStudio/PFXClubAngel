@@ -362,7 +362,7 @@ class _AccountAuthLoginWidgetState extends State<AccountAuthLoginWidget> {
         return;
       }
 
-      Member.memberInstance = member;
+      Member.signedInstance = member;
       String nickname = member.nickname;
       if (nickname == null || nickname.length <= 0) {
         Navigator.of(context, rootNavigator: true).pushReplacement(
