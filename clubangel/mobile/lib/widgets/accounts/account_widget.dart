@@ -1,4 +1,5 @@
 import 'package:clubangel/themes/main_theme.dart';
+import 'package:clubangel/widgets/accounts/account_nickname_edit_widget.dart';
 import 'package:clubangel/widgets/commons/divider_widget.dart';
 import 'package:clubangel/widgets/commons/scaffold_widget.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,7 @@ class _AccountWidgetState extends State<AccountWidget> {
   var defaultImagePath = (Member.signedInstance.thumbnailPath != null &&
           Member.signedInstance.thumbnailPath.length > 0)
       ? Member.signedInstance.thumbnailPath
-      : "https://avatars1.githubusercontent.com/u/13096942?s=460&v=4";
+      : "http://freelanceme.net/Images/default%20profile%20picture.png";
 
   @override
   Widget build(BuildContext context) {
@@ -164,21 +165,20 @@ class _AccountWidgetState extends State<AccountWidget> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                AccountTileWidget(
-                  title: "Pawan Kumar",
-                  subtitle: "Developer",
-                  textColor: Colors.white,
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.all(8.0),
+                // ),
+                AccountNicknameEditWidget(),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      IconButton(
-                        icon: Icon(Icons.chat),
-                        color: Colors.white,
-                        onPressed: () {},
-                      ),
+                      // IconButton(
+                      //   icon: Icon(Icons.chat),
+                      //   color: Colors.white,
+                      //   onPressed: () {},
+                      // ),
                       Stack(children: <Widget>[
                         Container(
                           decoration: BoxDecoration(
@@ -199,18 +199,18 @@ class _AccountWidgetState extends State<AccountWidget> {
                         IconButton(
                           padding: EdgeInsets.only(top: 45, left: 45),
                           icon: Icon(FontAwesomeIcons.image),
-                          color: Colors.white,
+                          color: Colors.white54,
                           iconSize: 20,
                           onPressed: () {
                             _loadAssets();
                           },
                         ),
                       ]),
-                      IconButton(
-                        icon: Icon(Icons.call),
-                        color: Colors.white,
-                        onPressed: () {},
-                      ),
+                      // IconButton(
+                      //   icon: Icon(Icons.call),
+                      //   color: Colors.white,
+                      //   onPressed: () {},
+                      // ),
                     ],
                   ),
                 )

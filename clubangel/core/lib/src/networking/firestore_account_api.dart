@@ -25,6 +25,12 @@ class FirestoreAccountApi {
         return;
       }
 
+      if (data.documents.length != 1) {
+        // duplicate member
+        errorCallback(FlutterError("E00000"));
+        return;
+      }
+
       Member member = Member();
       member.initialize(data.documents.first);
       successCallback(member);

@@ -47,6 +47,7 @@ class _AccountAuthLoginWidgetState extends State<AccountAuthLoginWidget> {
 
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn();
+  FirestoreAccountApi firestoreAccountApi = FirestoreAccountApi();
 
   GoogleSignInAccount googleUser;
   FirebaseUser firebaseUser;
@@ -59,6 +60,12 @@ class _AccountAuthLoginWidgetState extends State<AccountAuthLoginWidget> {
   void initState() {
     super.initState();
     initAccountkit();
+  }
+
+  @override
+  void dispose() {
+    firestoreAccountApi = null;
+    super.dispose();
   }
 
   Future<void> initAccountkit() async {
@@ -349,9 +356,9 @@ class _AccountAuthLoginWidgetState extends State<AccountAuthLoginWidget> {
             ? "0" + phoneNumber.number
             : phoneNumber.number);
 
-    FirestoreAccountApi().selectMemeber(key, (member) {
+    firestoreAccountApi.selectMemeber(key, (member) {
       if (member == null) {
-        FirestoreAccountApi().insertMember(key, (documentReference) {
+        firestoreAccountApi.insertMember(key, (documentReference) {
           // show profile
           getAccountInfo(phoneNumber);
           return;
