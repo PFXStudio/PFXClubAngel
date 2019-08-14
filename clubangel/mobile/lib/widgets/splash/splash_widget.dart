@@ -25,8 +25,8 @@ class _SplashWidgetState extends State<SplashWidget> {
   onDoneLoading() async {
     // localizableManager
     //     .onLocaleChanged(Locale(localizableManager.supportedLanguagesCodes[1]));
-    Navigator.of(context, rootNavigator: true).pushReplacement(
-        MaterialPageRoute(builder: (context) => AccountAuthWidget()));
+    // Navigator.of(context, rootNavigator: true).pushReplacement(
+    //     MaterialPageRoute(builder: (context) => AccountAuthWidget()));
   }
 
   @override

@@ -355,7 +355,6 @@ class _AccountAuthLoginWidgetState extends State<AccountAuthLoginWidget> {
         (phoneNumber.countryCode == "82" && phoneNumber.number.length == 10
             ? "0" + phoneNumber.number
             : phoneNumber.number);
-
     firestoreAccountApi.selectMemeber(key, (member) {
       if (member == null) {
         firestoreAccountApi.insertMember(key, (documentReference) {

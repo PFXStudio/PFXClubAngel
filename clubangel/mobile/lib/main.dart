@@ -1,32 +1,28 @@
 import 'package:clubangel/singletons/keyboard_singleton.dart';
 import 'package:clubangel/themes/main_theme.dart';
-import 'package:core/core.dart';
+import 'package:clubangel/widgets/accounts/account_auth.dart';
+import 'package:clubangel/widgets/accounts/account_auth_widget.dart';
+import 'package:clubangel/widgets/accounts/account_init_profile_widget.dart';
+import 'package:clubangel/widgets/accounts/auth_page.dart';
+import 'package:clubangel/widgets/mains/main_widget.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:clubangel/delegates/localizable_delegate.dart';
 import 'package:clubangel/widgets/splash/splash_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:key_value_store_flutter/key_value_store_flutter.dart';
-import 'package:flutter_redux/flutter_redux.dart';
-import 'package:http/http.dart';
-import 'package:redux/redux.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
+import 'package:core/src/blocs/import.dart';
 
 import 'managers/localizable_manager.dart';
 
-void main() async {
-  final prefs = await SharedPreferences.getInstance();
-  final keyValueStore = FlutterKeyValueStore(prefs);
-  final store = createStore(Client(), keyValueStore);
-  // debugPaintSizeEnabled = true;
-
-  runApp(MainApp(store));
+void main() {
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((_) => runApp(MainApp()));
 }
 
 class MainApp extends StatefulWidget {
-  MainApp(this.store);
-  final Store<AppState> store;
+  MainApp();
 
   @override
   _MainAppState createState() => _MainAppState();
@@ -38,7 +34,6 @@ class _MainAppState extends State<MainApp> {
   @override
   void initState() {
     super.initState();
-    widget.store.dispatch(InitAction());
     _localizableDelegate = LocalizableDelegate(newLocale: null);
     localizableManager.onLocaleChanged = onLocaleChange;
     KeyboardSingleton().initialize();
@@ -46,13 +41,12 @@ class _MainAppState extends State<MainApp> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
-
-    return StoreProvider<AppState>(
-        store: widget.store,
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider<AuthBloc>.value(value: AuthBloc.instance()),
+          ChangeNotifierProvider<ProfileBloc>.value(
+              value: ProfileBloc.instance()),
+        ],
         child: MaterialApp(
           theme: ThemeData(
             primaryColor: MainTheme.bgndColor,
@@ -88,13 +82,16 @@ class _MainAppState extends State<MainApp> {
             ),
           ),
           debugShowCheckedModeBanner: false,
-          home: SplashWidget(),
+          home: DynamicInitialPage(),
           localizationsDelegates: [
             _localizableDelegate,
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
           ],
           supportedLocales: localizableManager.supportedLocales(),
+          routes: <String, WidgetBuilder>{
+            '/home': (BuildContext context) => MainWidget()
+          },
         ));
   }
 
@@ -102,5 +99,55 @@ class _MainAppState extends State<MainApp> {
     setState(() {
       _localizableDelegate = LocalizableDelegate(newLocale: locale);
     });
+  }
+}
+
+class DynamicInitialPage extends StatefulWidget {
+  @override
+  _DynamicInitialPageState createState() => _DynamicInitialPageState();
+}
+
+class _DynamicInitialPageState extends State<DynamicInitialPage> {
+  bool _hasProfile;
+
+  Future<void> _getHasProfile({@required ProfileBloc profileBloc}) async {
+    final bool hasProfile = await profileBloc.hasProfile;
+    setState(() {
+      _hasProfile = hasProfile;
+    });
+  }
+
+  Widget _displayedAuthenticatedPage({@required ProfileBloc profileBloc}) {
+    return _hasProfile
+        ? MainWidget()
+        // : ProfileFormPage();
+        : AccountInitProfileWidget();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // final AuthBloc _authBloc = Provider.of<AuthBloc>(context);
+    final ProfileBloc _profileBloc = Provider.of<ProfileBloc>(context);
+
+    return Consumer<AuthBloc>(
+      builder: (BuildContext context, AuthBloc authBloc, Widget child) {
+        switch (authBloc.authState) {
+          case AuthState.Uninitialized:
+            return SplashWidget();
+          case AuthState.Authenticating:
+          case AuthState.Authenticated:
+            _getHasProfile(profileBloc: _profileBloc);
+
+            return _hasProfile != null
+                ? _displayedAuthenticatedPage(profileBloc: _profileBloc)
+                : Scaffold(
+                    backgroundColor: Colors.transparent,
+                    body: Center(child: CircularProgressIndicator()));
+
+          case AuthState.Unauthenticated:
+            return AuthPage();
+        }
+      },
+    );
   }
 }
