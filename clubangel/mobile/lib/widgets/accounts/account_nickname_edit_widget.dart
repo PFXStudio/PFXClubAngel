@@ -4,12 +4,14 @@ import 'package:clubangel/themes/main_theme.dart';
 import 'package:clubangel/widgets/buttons/flat_icon_text_button.dart';
 import 'package:clubangel/widgets/dialogs/dialog_bottom_widget.dart';
 import 'package:clubangel/widgets/dialogs/dialog_header_widget.dart';
+import 'package:clubangel/widgets/snackbars/error_snackbar_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_xlider/flutter_xlider.dart';
-import 'package:core/src/models/member.dart';
-import 'package:core/src/networking/firestore_account_api.dart';
+import 'package:core/src/models/import.dart';
+import 'package:core/src/blocs/import.dart';
+import 'package:provider/provider.dart';
 
 typedef AccountNicknameEditWidgetCallback = void Function(int index);
 
@@ -24,13 +26,13 @@ class AccountNicknameEditWidget extends StatefulWidget {
 class _AccountNicknameEditWidgetState extends State<AccountNicknameEditWidget> {
   @override
   var contentsWidget = AccountNicknameEditWidgetContentsWidget();
-  var firestoreAccountApi = FirestoreAccountApi();
   Widget build(BuildContext context) {
+    final ProfileBloc _profileBloc = Provider.of<ProfileBloc>(context);
     return FlatIconTextButton(
         iconData: FontAwesomeIcons.solidEdit,
         color: Colors.white,
         width: 170,
-        text: Member.signedInstance.nickname,
+        text: ProfileBloc.instance().userProfile.nickname,
         onPressed: () {
           showDialog(
               context: context,
@@ -52,7 +54,7 @@ class _AccountNicknameEditWidgetState extends State<AccountNicknameEditWidget> {
                           cancelCallback: () {
                             Navigator.pop(context);
                           },
-                          confirmCallback: () {
+                          confirmCallback: () async {
                             var nickname =
                                 contentsWidget.nicknameController.text;
                             if (nickname == null || nickname.length < 4) {
@@ -60,25 +62,26 @@ class _AccountNicknameEditWidgetState extends State<AccountNicknameEditWidget> {
                               return;
                             }
 
-                            firestoreAccountApi.selectNickname(nickname,
-                                (result) {
-                              if (result != null) {
-                                // show duplicate nickname
-                                return;
-                              }
+                            if (await _profileBloc.selectProfile(
+                                    nickname: nickname) !=
+                                null) {
+                              // TODO :
+                              // ErrorSnackbarWidget().show(key, message, callback);
+                              return;
+                            }
 
-                              Member updateMember = Member.signedInstance;
-                              updateMember.nickname = nickname;
-                              firestoreAccountApi.updateMember(updateMember,
-                                  () {
-                                Navigator.pop(context);
-                              }, (error) {
-                                print(error);
-                              });
-                            }, (error) {
-                              // show error
-                              print(error);
-                            });
+                            Profile profile = _profileBloc.userProfile
+                                .copyWith(nickname: nickname);
+
+                            if (_profileBloc.updateProfile(profile: profile) ==
+                                false) {
+                              // TODO :
+                              // ErrorSnackbarWidget().show(key, message, callback);
+
+                              return;
+                            }
+
+                            Navigator.pop(context);
                           },
                         )
                       ])));

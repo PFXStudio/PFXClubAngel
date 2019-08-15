@@ -1,4 +1,7 @@
 {
+  "//////////////////// Default...": "",
+  "app_title": "클럽엔젤",
+
   "//////////////////// Types...": "",
   "BoardType.realTime": "실시간 게시판",
   "BoardType.gallery": "갤러리 게시판",
@@ -14,7 +17,6 @@
   "cancel_button": "취소",
   "done_button": "확인",
   "board_regist_button": "등록",
-  "app_title": "클럽엔젤",
   "splash_screen_loading": "불러오는 중...",
   "dash_board_section_header_01": "실시간 게시판",
   "dash_board_section_header_02": "갤러리 게시판",

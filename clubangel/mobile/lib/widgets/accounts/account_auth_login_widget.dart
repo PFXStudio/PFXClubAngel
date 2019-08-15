@@ -12,8 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_account_kit/flutter_account_kit.dart';
-import 'package:core/src/networking/firestore_account_api.dart';
-import 'package:core/src/models/member.dart';
+import 'package:core/src/models/import.dart';
+import 'package:core/src/blocs/import.dart';
 
 class AccountAuthLoginWidget extends StatefulWidget {
   @override
@@ -47,14 +47,11 @@ class _AccountAuthLoginWidgetState extends State<AccountAuthLoginWidget> {
 
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn();
-  FirestoreAccountApi firestoreAccountApi = FirestoreAccountApi();
 
   GoogleSignInAccount googleUser;
   FirebaseUser firebaseUser;
   FlutterAccountKit akt = new FlutterAccountKit();
   bool _isInitialized = false;
-  final database =
-      FirebaseDatabase.instance.reference().child("dev/account/members");
 
   @override
   void initState() {
@@ -63,11 +60,6 @@ class _AccountAuthLoginWidgetState extends State<AccountAuthLoginWidget> {
   }
 
   @override
-  void dispose() {
-    firestoreAccountApi = null;
-    super.dispose();
-  }
-
   Future<void> initAccountkit() async {
     print('Init account kit called');
     bool initialized = false;
@@ -351,37 +343,37 @@ class _AccountAuthLoginWidgetState extends State<AccountAuthLoginWidget> {
   }
 
   Future getAccountInfo(PhoneNumber phoneNumber) async {
-    String key = phoneNumber.countryCode +
-        (phoneNumber.countryCode == "82" && phoneNumber.number.length == 10
-            ? "0" + phoneNumber.number
-            : phoneNumber.number);
-    firestoreAccountApi.selectMemeber(key, (member) {
-      if (member == null) {
-        firestoreAccountApi.insertMember(key, (documentReference) {
-          // show profile
-          getAccountInfo(phoneNumber);
-          return;
-        }, (error) {
-          print(error);
-        });
+    // String key = phoneNumber.countryCode +
+    //     (phoneNumber.countryCode == "82" && phoneNumber.number.length == 10
+    //         ? "0" + phoneNumber.number
+    //         : phoneNumber.number);
+    // ProfileBloc.instance().selectProfile(nickname: ) firestoreAccountApi.selectMemeber(key, (member) {
+    //   if (member == null) {
+    //     firestoreAccountApi.insertMember(key, (documentReference) {
+    //       // show profile
+    //       getAccountInfo(phoneNumber);
+    //       return;
+    //     }, (error) {
+    //       print(error);
+    //     });
 
-        return;
-      }
+    //     return;
+    //   }
 
-      Member.signedInstance = member;
-      String nickname = member.nickname;
-      if (nickname == null || nickname.length <= 0) {
-        Navigator.of(context, rootNavigator: true).pushReplacement(
-            MaterialPageRoute(
-                builder: (context) => AccountInitProfileWidget()));
-        return;
-      }
+    //   Profile.signedInstance = member;
+    //   String nickname = member.nickname;
+    //   if (nickname == null || nickname.length <= 0) {
+    //     Navigator.of(context, rootNavigator: true).pushReplacement(
+    //         MaterialPageRoute(
+    //             builder: (context) => AccountInitProfileWidget()));
+    //     return;
+    //   }
 
-      Navigator.of(context, rootNavigator: true).pushReplacement(
-          MaterialPageRoute(builder: (context) => MainWidget()));
-    }, (error) {
-      print(error);
-    });
+    //   Navigator.of(context, rootNavigator: true).pushReplacement(
+    //       MaterialPageRoute(builder: (context) => MainWidget()));
+    // }, (error) {
+    //   print(error);
+    // });
   }
 
   Future _toggleLogin() async {

@@ -1,3 +1,4 @@
+import 'package:clubangel/loaders/localizable_loader.dart';
 import 'package:core/src/blocs/import.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -99,7 +100,7 @@ class _LoginFormState extends State<LoginForm> {
         Row(
           children: <Widget>[
             Text(
-              'FASHIONet',
+              LocalizableLoader.of(context).text("app_title"),
               style: TextStyle(
                   color: Colors.white,
                   fontSize: 35.0,

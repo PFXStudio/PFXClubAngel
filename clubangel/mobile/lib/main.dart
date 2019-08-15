@@ -5,6 +5,7 @@ import 'package:clubangel/widgets/accounts/account_auth_widget.dart';
 import 'package:clubangel/widgets/accounts/account_init_profile_widget.dart';
 import 'package:clubangel/widgets/accounts/auth_page.dart';
 import 'package:clubangel/widgets/mains/main_widget.dart';
+import 'package:clubangel/widgets/snackbars/success_snackbar_widget.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -13,6 +14,7 @@ import 'package:clubangel/widgets/splash/splash_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:core/src/blocs/import.dart';
+import 'package:core/src/models/import.dart';
 
 import 'managers/localizable_manager.dart';
 
@@ -110,11 +112,34 @@ class DynamicInitialPage extends StatefulWidget {
 class _DynamicInitialPageState extends State<DynamicInitialPage> {
   bool _hasProfile;
 
-  Future<void> _getHasProfile({@required ProfileBloc profileBloc}) async {
+  Future<void> _getHasProfile(
+      {@required AuthBloc authBloc, @required ProfileBloc profileBloc}) async {
     final bool hasProfile = await profileBloc.hasProfile;
-    setState(() {
-      _hasProfile = hasProfile;
-    });
+    if (hasProfile != _hasProfile) {
+      setState(() {
+        _hasProfile = hasProfile;
+        initialize(authBloc, profileBloc, hasProfile);
+      });
+    }
+  }
+
+  void initialize(@required AuthBloc authBloc,
+      @required ProfileBloc profileBloc, bool hasProfile) async {
+    if (hasProfile == true) {
+      return;
+    }
+
+    Profile profile = Profile();
+    profile.userID = await authBloc.getUser;
+    profile.phoneNumber = await authBloc.getUserPhoneNumber;
+    profile.created = DateTime.now().millisecondsSinceEpoch;
+
+    bool result =
+        await profileBloc.updateProfile(profile: profile, thumbnailImage: null);
+    if (result == false) {
+      // TODO : error
+      return;
+    }
   }
 
   Widget _displayedAuthenticatedPage({@required ProfileBloc profileBloc}) {
@@ -136,7 +161,7 @@ class _DynamicInitialPageState extends State<DynamicInitialPage> {
             return SplashWidget();
           case AuthState.Authenticating:
           case AuthState.Authenticated:
-            _getHasProfile(profileBloc: _profileBloc);
+            _getHasProfile(authBloc: authBloc, profileBloc: _profileBloc);
 
             return _hasProfile != null
                 ? _displayedAuthenticatedPage(profileBloc: _profileBloc)

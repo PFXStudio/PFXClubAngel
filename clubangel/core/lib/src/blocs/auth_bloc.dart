@@ -1,3 +1,4 @@
+import 'package:core/src/models/profile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 import 'package:libphonenumber/libphonenumber.dart';

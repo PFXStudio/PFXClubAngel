@@ -3,10 +3,15 @@ import 'package:clubangel/defines/define_enums.dart';
 import 'package:clubangel/themes/main_theme.dart';
 import 'package:clubangel/widgets/dialogs/dialog_gender_type_widget.dart';
 import 'package:clubangel/widgets/mains/main_widget.dart';
+import 'package:clubangel/widgets/snackbars/error_snackbar_widget.dart';
+import 'package:clubangel/widgets/snackbars/success_snackbar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:core/src/networking/firestore_account_api.dart';
-import 'package:core/src/models/member.dart';
+import 'package:core/src/blocs/import.dart';
+import 'package:core/src/models/profile.dart';
+import 'package:multi_image_picker/multi_image_picker.dart';
+import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
 class AccountInitProfileWidget extends StatefulWidget {
   @override
@@ -20,11 +25,16 @@ class _AccountInitProfileWidgetState extends State<AccountInitProfileWidget> {
 
   final FocusNode nicknameFocusNode = FocusNode();
   final FocusNode descriptionFocusNode = FocusNode();
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  Asset _asset;
 
   GenderType genderType = GenderType.MAX;
   @override
   Widget build(BuildContext context) {
+    final AuthBloc _authBloc = Provider.of<AuthBloc>(context);
     return Scaffold(
+        key: scaffoldKey,
         appBar: AppBar(
           title: const Text('Profile'),
         ),
@@ -55,23 +65,39 @@ class _AccountInitProfileWidgetState extends State<AccountInitProfileWidget> {
                       height: 500.0,
                       child: Column(
                         children: <Widget>[
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: new BorderRadius.all(
-                                  new Radius.circular(60.0)),
-                              border: new Border.all(
-                                color: Colors.black26,
-                                width: 2.0,
+                          Stack(children: <Widget>[
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: new BorderRadius.all(
+                                    new Radius.circular(60.0)),
+                                border: new Border.all(
+                                  color: Colors.black26,
+                                  width: 2.0,
+                                ),
+                              ),
+                              child: CircleAvatar(
+                                backgroundColor: Colors.transparent,
+                                backgroundImage: NetworkImage(ProfileBloc
+                                                .instance()
+                                            .userProfile !=
+                                        null
+                                    ? ProfileBloc.instance()
+                                        .userProfile
+                                        .thumbnailUrl
+                                    : "https://avatars1.githubusercontent.com/u/13096942?s=460&v=4"),
+                                foregroundColor: Colors.white,
+                                radius: 50.0,
                               ),
                             ),
-                            child: CircleAvatar(
-                              backgroundColor: Colors.transparent,
-                              backgroundImage: NetworkImage(
-                                  "https://avatars1.githubusercontent.com/u/13096942?s=460&v=4"),
-                              foregroundColor: Colors.white,
-                              radius: 50.0,
-                            ),
-                          ),
+                            IconButton(
+                              padding: EdgeInsets.only(top: 80, left: 80),
+                              icon: Icon(FontAwesomeIcons.edit),
+                              onPressed: () {
+                                _loadAssets();
+                              },
+                              color: Colors.black54,
+                            )
+                          ]),
                           IconButton(
                             icon: Icon(Icons.call),
                             color: Colors.white,
@@ -224,23 +250,63 @@ class _AccountInitProfileWidgetState extends State<AccountInitProfileWidget> {
       return;
     }
 
-    FirestoreAccountApi().selectNickname(nicknameController.text, (member) {
-      if (member != null) {
+    await ProfileBloc.instance()
+        .selectProfile(nickname: nicknameController.text)
+        .then((profile) async {
+      if (profile != null) {
+        ErrorSnackbarWidget().show(scaffoldKey, "E11111", () {
+          FocusScope.of(context).requestFocus(nicknameFocusNode);
+        });
+
         return;
       }
 
-      Member updateMember = Member();
-      updateMember = Member.signedInstance;
-      updateMember.nickname = nicknameController.text;
-      updateMember.description = descriptionController.text;
-      FirestoreAccountApi().updateMember(updateMember, () {
-        Navigator.of(context, rootNavigator: true).pushReplacement(
-            MaterialPageRoute(builder: (context) => MainWidget()));
-      }, (error) {
-        print(error);
-      });
-    }, (error) {
-      print(error);
+      Profile updateProfile = Profile();
+      updateProfile.userID = await AuthBloc.instance().getUser;
+      updateProfile.phoneNumber = await AuthBloc.instance().getUserPhoneNumber;
+      updateProfile.nickname = nicknameController.text;
+      updateProfile.description = descriptionController.text;
+      updateProfile.created = DateTime.now().millisecondsSinceEpoch;
+      bool result = await ProfileBloc.instance()
+          .updateProfile(profile: updateProfile, thumbnailImage: _asset);
+      if (result == false) {
+        ErrorSnackbarWidget().show(scaffoldKey, "E11111", () {
+          FocusScope.of(context).requestFocus(nicknameFocusNode);
+        });
+
+        return;
+      }
+
+      SuccessSnackbarWidget().show(scaffoldKey, "success", () {});
     });
+  }
+
+  Future<void> _loadAssets() async {
+    List<Asset> resultList;
+    String error;
+
+    try {
+      resultList = await MultiImagePicker.pickImages(
+        maxImages: 1,
+        enableCamera: true,
+      );
+
+      if (resultList.length <= 0) {
+        return;
+      }
+
+      _asset = resultList.first;
+      #죽음.
+      Profile profile = ProfileBloc.instance().userProfile
+      bool result = await ProfileBloc.instance()
+          .updateProfile(profile: profile, thumbnailImage: _asset);
+
+      if (result == true) {
+        setState(() {});
+      }
+    } on PlatformException catch (e) {
+      error = e.message;
+      print(e.message);
+    }
   }
 }

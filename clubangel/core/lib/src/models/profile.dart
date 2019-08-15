@@ -3,39 +3,67 @@ import 'package:meta/meta.dart';
 
 class Profile {
   Profile({
-    this.documentID,
+    this.userID,
     this.nickname,
     this.phoneNumber,
     this.description,
-    this.thumbnailPath,
+    this.thumbnailUrl,
+    this.created,
+    this.isFollowing,
+    this.followersCount,
   });
 
-  String documentID;
+  String userID;
   String nickname;
   String phoneNumber;
   String description;
-  String thumbnailPath;
-  Timestamp created;
+  String thumbnailUrl;
+  int created;
+  // other database.
+  bool isFollowing = false;
+  int followersCount = 0;
 
   void initialize(DocumentSnapshot snapshot) {
-    this.documentID = snapshot.documentID;
+    this.userID = snapshot.documentID;
     this.nickname = snapshot["nickname"];
     this.phoneNumber = snapshot["phoneNumber"];
     this.description = snapshot["description"];
-    this.thumbnailPath = snapshot["thumbnailPath"];
+    this.thumbnailUrl = snapshot["thumbnailUrl"];
     this.created = snapshot["created"];
   }
 
   Object data() {
     return {
-      "documentID": documentID,
+      "userID": userID,
       "nickname": nickname,
       "phoneNumber": phoneNumber,
       "description": description,
-      "thumbnailPath": thumbnailPath,
+      "thumbnailUrl": thumbnailUrl,
       'created': created,
       'lastUpdate': DateTime.now().millisecondsSinceEpoch,
     };
+  }
+
+  Profile copyWith(
+      {String userID,
+      String nickname,
+      String phoneNumber,
+      String description,
+      String thumbnailUrl,
+      int created,
+      // other database.
+      bool isFollowing,
+      int followersCount}) {
+    return Profile(
+      userID: userID ?? this.userID,
+      nickname: nickname ?? this.nickname,
+      phoneNumber: phoneNumber ?? this.phoneNumber,
+      description: description ?? this.description,
+      thumbnailUrl: thumbnailUrl ?? this.thumbnailUrl,
+      created: created ?? this.created,
+      isFollowing: isFollowing ?? this.isFollowing,
+      followersCount: followersCount ?? this.followersCount,
+    );
   }
 
   @override
@@ -43,11 +71,8 @@ class Profile {
       identical(this, other) ||
       other is Profile &&
           runtimeType == other.runtimeType &&
-          documentID == other.documentID;
+          userID == other.userID;
 
   @override
-  int get hashCode => documentID.hashCode;
-
-// Signed member.
-  static Profile signedInstance = new Profile();
+  int get hashCode => userID.hashCode;
 }

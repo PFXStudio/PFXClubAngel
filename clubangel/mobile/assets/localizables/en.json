@@ -1,4 +1,7 @@
 {
+  "//////////////////// Default...": "",
+  "app_title": "Club Angel",
+
   "//////////////////// Types...": "",
   "BoardType.realTime": "Real Time",
   "BoardType.gallery": "Gallery",
@@ -14,7 +17,6 @@
   "cancel_button": "Cancel",
   "done_button": "Done",
   "board_regist_button": "Regist",
-  "app_title": "ClubAngel",
   "splash_screen_loading": "Loading...",
   "dash_board_section_header_01": "Real Time",
   "dash_board_section_header_02": "Gallery",

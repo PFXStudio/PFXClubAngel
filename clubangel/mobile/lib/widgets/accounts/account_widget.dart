@@ -2,13 +2,14 @@ import 'package:clubangel/themes/main_theme.dart';
 import 'package:clubangel/widgets/accounts/account_nickname_edit_widget.dart';
 import 'package:clubangel/widgets/commons/divider_widget.dart';
 import 'package:clubangel/widgets/commons/scaffold_widget.dart';
+import 'package:clubangel/widgets/snackbars/error_snackbar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:core/src/networking/image_upload_api.dart';
-import 'package:core/src/models/member.dart';
-import 'package:core/src/networking/firestore_account_api.dart';
+import 'package:core/src/models/import.dart';
+import 'package:core/src/blocs/import.dart';
 
 import 'account_tile_widget.dart';
 
@@ -18,15 +19,17 @@ class AccountWidget extends StatefulWidget {
 }
 
 class _AccountWidgetState extends State<AccountWidget> {
+  final ProfileBloc _profileBloc = ProfileBloc.instance();
   List<Asset> _images = List<Asset>();
   var deviceSize;
-  var defaultImagePath = (Member.signedInstance.thumbnailPath != null &&
-          Member.signedInstance.thumbnailPath.length > 0)
-      ? Member.signedInstance.thumbnailPath
-      : "http://freelanceme.net/Images/default%20profile%20picture.png";
-
+  var defaultThumbnailUrl;
   @override
   Widget build(BuildContext context) {
+    defaultThumbnailUrl = (_profileBloc.userProfile != null &&
+            _profileBloc.userProfile.thumbnailUrl.length > 0)
+        ? _profileBloc.userProfile.thumbnailUrl
+        : "http://freelanceme.net/Images/default%20profile%20picture.png";
+
     deviceSize = MediaQuery.of(context).size;
     return bodyData();
   }
@@ -191,7 +194,7 @@ class _AccountWidgetState extends State<AccountWidget> {
                           ),
                           child: CircleAvatar(
                             backgroundColor: Colors.transparent,
-                            backgroundImage: NetworkImage(defaultImagePath),
+                            backgroundImage: NetworkImage(defaultThumbnailUrl),
                             foregroundColor: Colors.white,
                             radius: 30.0,
                           ),
@@ -235,18 +238,14 @@ class _AccountWidgetState extends State<AccountWidget> {
       }
 
       Asset asset = resultList.first;
-      String thumbnailPath = await ImageUploadApi().saveProfileImage(
-          documentID: Member.signedInstance.documentID, asset: asset);
-      print(thumbnailPath);
-      Member updateMember = Member.signedInstance;
-      updateMember.thumbnailPath = thumbnailPath;
-      FirestoreAccountApi().updateMember(updateMember, () {
-        setState(() {
-          defaultImagePath = thumbnailPath;
-        });
-      }, (error) {
-        print(error);
-      });
+      Profile profile = _profileBloc.userProfile.copyWith();
+
+      if (_profileBloc.updateProfile(profile: profile, thumbnailImage: asset) ==
+          false) {
+        // TODO :
+        // ErrorSnackbarWidget().show(key, message, callback)
+        return;
+      }
     } on PlatformException catch (e) {
       error = e.message;
       print(e.message);

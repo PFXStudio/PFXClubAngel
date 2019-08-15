@@ -1,3 +1,4 @@
+import 'package:clubangel/loaders/localizable_loader.dart';
 import 'package:clubangel/widgets/snackbars/error_snackbar_widget.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:core/src/blocs/import.dart';
@@ -15,6 +16,7 @@ class _VerificationFormFormState extends State<VerificationForm> {
 
   String _selectedCountryCode;
   String _countryIsoCode;
+  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -64,7 +66,8 @@ class _VerificationFormFormState extends State<VerificationForm> {
   }
 
   _showErrorSnackBar() {
-    ErrorSnackbarWidget().show(context, "Please select a country code", () {});
+    ErrorSnackbarWidget()
+        .show(scaffoldKey, "Please select a country code", () {});
   }
 
   _showMessageSnackBar(
@@ -94,7 +97,7 @@ class _VerificationFormFormState extends State<VerificationForm> {
         Row(
           children: <Widget>[
             Text(
-              'FASHIONet',
+              LocalizableLoader.of(context).text("app_title"),
               style: TextStyle(
                   color: Colors.white,
                   fontSize: 35.0,
@@ -192,25 +195,27 @@ class _VerificationFormFormState extends State<VerificationForm> {
   Widget build(BuildContext context) {
     final AuthBloc _authBloc = Provider.of<AuthBloc>(context);
 
-    return Form(
-      key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          _buildLoginFormTitle(),
-          SizedBox(height: 30.0),
-          Text(
-            'Please select your country code and enter your phone number (+xxx xxxx xxxx xxx)',
-            style: TextStyle(
-              color: Colors.white,
-            ),
+    return Scaffold(
+        key: scaffoldKey,
+        body: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              _buildLoginFormTitle(),
+              SizedBox(height: 30.0),
+              Text(
+                'Please select your country code and enter your phone number (+xxx xxxx xxxx xxx)',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+              SizedBox(height: 10.0),
+              _buildVerificationFormFields(),
+              SizedBox(height: 30.0),
+              _buildVerificationControlButton(authBloc: _authBloc),
+            ],
           ),
-          SizedBox(height: 10.0),
-          _buildVerificationFormFields(),
-          SizedBox(height: 30.0),
-          _buildVerificationControlButton(authBloc: _authBloc),
-        ],
-      ),
-    );
+        ));
   }
 }
