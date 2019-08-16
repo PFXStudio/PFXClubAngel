@@ -12,8 +12,8 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'board_top_bar_widget.dart';
 
 class BoardCollectionWidget extends StatelessWidget {
-  BoardCollectionWidget(this.listType);
-  final BoardListType listType;
+  BoardCollectionWidget(this.postType);
+  final PostType postType;
 
   @override
   Widget build(BuildContext context) {
@@ -22,17 +22,17 @@ class BoardCollectionWidget extends StatelessWidget {
       onInit: (store) =>
           store.dispatch(FetchComingSoonEventsIfNotLoadedAction()),
       converter: (store) =>
-          BoardCollectionWidgetModel.fromStore(store, listType),
+          BoardCollectionWidgetModel.fromStore(store, postType),
       builder: (_, viewModel) =>
-          BoardCollectionWidgetContent(viewModel, listType),
+          BoardCollectionWidgetContent(viewModel, postType),
     );
   }
 }
 
 class BoardCollectionWidgetContent extends StatelessWidget {
-  BoardCollectionWidgetContent(this.viewModel, this.listType);
+  BoardCollectionWidgetContent(this.viewModel, this.postType);
   final BoardCollectionWidgetModel viewModel;
-  final BoardListType listType;
+  final PostType postType;
 
   @override
   Widget build(BuildContext context) {

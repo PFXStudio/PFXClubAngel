@@ -5,6 +5,7 @@ export 'src/models/loading_status.dart';
 export 'src/models/angel.dart';
 export 'src/models/show_cache.dart';
 export 'src/models/theater.dart';
+export 'src/models/post.dart';
 
 export 'src/networking/finnkino_api.dart';
 

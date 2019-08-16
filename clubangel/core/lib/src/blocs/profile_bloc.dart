@@ -20,7 +20,6 @@ class ProfileBloc with ChangeNotifier {
 
   ProfileState _profileState = ProfileState.Default;
   ProfileState _profileFollowingState = ProfileState.Default;
-  ProfileState _userProfileState = ProfileState.Default;
   ProfileState _postProfileState = ProfileState.Default;
 
   ProfileBloc.instance()
@@ -55,7 +54,6 @@ class ProfileBloc with ChangeNotifier {
 
   ProfileState get profileState => _profileState;
   ProfileState get profileFollowingState => _profileFollowingState;
-  ProfileState get userProfileState => _userProfileState;
   ProfileState get postProfileState => _postProfileState;
 
   // setters

@@ -1,10 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:clubangel/defines/define_enums.dart';
+import 'package:clubangel/loaders/localizable_loader.dart';
 import 'package:clubangel/themes/main_theme.dart';
+import 'package:clubangel/widgets/boards/board_collection_widget.dart';
 import 'package:clubangel/widgets/dialogs/dialog_gender_type_widget.dart';
 import 'package:clubangel/widgets/mains/main_widget.dart';
+import 'package:clubangel/defines/import.dart';
 import 'package:clubangel/widgets/snackbars/error_snackbar_widget.dart';
 import 'package:clubangel/widgets/snackbars/success_snackbar_widget.dart';
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:core/src/blocs/import.dart';
@@ -32,7 +36,10 @@ class _AccountInitProfileWidgetState extends State<AccountInitProfileWidget> {
   GenderType genderType = GenderType.MAX;
   @override
   Widget build(BuildContext context) {
-    final AuthBloc _authBloc = Provider.of<AuthBloc>(context);
+    return showInit();
+  }
+
+  Widget showInit() {
     return Scaffold(
         key: scaffoldKey,
         appBar: AppBar(
@@ -277,7 +284,12 @@ class _AccountInitProfileWidgetState extends State<AccountInitProfileWidget> {
         return;
       }
 
-      SuccessSnackbarWidget().show(scaffoldKey, "success", () {});
+      SuccessSnackbarWidget()
+          .show(scaffoldKey, LocalizableLoader.of(context).text("success"), () {
+        Navigator.of(context, rootNavigator: true).pushReplacement(
+            MaterialPageRoute(
+                builder: (context) => BoardCollectionWidget(PostType.free)));
+      });
     });
   }
 
@@ -296,10 +308,13 @@ class _AccountInitProfileWidgetState extends State<AccountInitProfileWidget> {
       }
 
       _asset = resultList.first;
-      #죽음.
-      Profile profile = ProfileBloc.instance().userProfile
+      Profile updateProfile = Profile();
+      updateProfile.userID = await AuthBloc.instance().getUser;
+      updateProfile.phoneNumber = await AuthBloc.instance().getUserPhoneNumber;
+      updateProfile.created = DateTime.now().millisecondsSinceEpoch;
+
       bool result = await ProfileBloc.instance()
-          .updateProfile(profile: profile, thumbnailImage: _asset);
+          .updateProfile(profile: updateProfile, thumbnailImage: _asset);
 
       if (result == true) {
         setState(() {});

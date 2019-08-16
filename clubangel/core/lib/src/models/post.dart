@@ -5,6 +5,14 @@ import 'package:meta/meta.dart';
 
 import 'import.dart';
 
+enum PostType {
+  realTime,
+  gallery,
+  free,
+  clubInfo,
+  angel,
+}
+
 class Post {
   Post({
     this.userID,
@@ -24,6 +32,7 @@ class Post {
 
   String userID;
   String postID;
+  String postType;
   String title;
   String contents;
   List<String> imageUrls;
