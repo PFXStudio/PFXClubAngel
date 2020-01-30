@@ -1,5 +1,4 @@
 # PFXClubAngel
-PFXClubAngel
 
-Flutter Study.. Deprecated! Haha
+Flutter project.. but deprecated! Haha 🙊
 
